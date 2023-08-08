@@ -1,0 +1,172 @@
+.direct-chat-msg {
+    margin-bottom: 10px;
+  }
+  .direct-chat-msg, .direct-chat-text {
+    display: block;
+}
+.direct-chat-info {
+    display: block;
+    margin-bottom: 2px;
+    font-size: 12px;
+}
+.direct-chat-name {
+    font-weight: 600;
+}
+.direct-chat-info {
+    display: block;
+    margin-bottom: 2px;
+    font-size: 12px;
+}
+.direct-chat-timestamp {
+    color: #999;
+}
+.direct-chat-info {
+    display: block;
+    margin-bottom: 2px;
+    font-size: 12px;
+}
+.direct-chat-img {
+    border-radius: 50%;
+    float: left;
+    width: 40px;
+    height: 40px;
+  }
+  .direct-chat-text {
+    border-radius: 14px;
+    width: max-content;
+    position: relative;
+    padding: 11px 10px;
+    background: #d2d6de;
+    border: 1px solid #d2d6de;
+    margin: 5px 0 0 50px;
+    color: #444;
+}
+/* For Image upload in chat */
+.direct-chat-text-img {
+
+   border-radius: 14px;
+   width: max-content;
+   position: relative;
+   padding: 11px 10px;
+   margin: 5px 0 0 500px;
+   color: #444;
+}
+.direct-chat-text-img-right {
+
+   border-radius: 14px;
+   width: max-content;
+   position: relative;
+   padding: 11px 10px;
+   margin: 5px 0 0 100px;
+   color: #444;
+}
+/* END For Image upload in chat */
+.direct-chat-text:before {
+    border-width: 6px;
+    margin-top: -6px;
+}
+.direct-chat-text:after, .direct-chat-text:before {
+    position: absolute;
+    right: 100%;
+    top: 15px;
+    border: solid transparent;
+    border-right-color: #d2d6de;
+    content: ' ';
+    height: 0;
+    width: 0;
+    pointer-events: none;
+}
+.direct-chat-text:after {
+    border-width: 5px;
+    margin-top: -5px;
+}
+
+.direct-chat-msg:before, .direct-chat-msg:after {
+    content: " ";
+    display: table;
+}
+.direct-chat-msg:after {
+    clear: both;
+}
+  .direct-chat-messages, .direct-chat-contacts {
+    -webkit-transition: -webkit-transform .5s ease-in-out;
+    -moz-transition: -moz-transform .5s ease-in-out;
+    -o-transition: -o-transform .5s ease-in-out;
+    transition: transform .5s ease-in-out;
+}
+.direct-chat-messages {
+    -webkit-transform: translate(0, 0);
+    -ms-transform: translate(0, 0);
+    -o-transform: translate(0, 0);
+    transform: translate(0, 0);
+    padding: 10px;
+    height: auto;
+    overflow: auto;
+}
+.right .direct-chat-img {
+    float: right;
+}
+.direct-chat-img {
+    border-radius: 50%;
+    float: left;
+    width: 40px;
+    height: 40px;
+}
+.right .direct-chat-text {
+    margin-right: 50px;
+    margin-left: auto;
+}
+
+.direct-chat-msg, .direct-chat-text {
+    display: block;
+}
+.right .direct-chat-text:after, .right .direct-chat-text:before {
+    right: auto;
+    left: 100%;
+    border-right-color: transparent;
+    border-left-color: #d2d6de;
+}
+.direct-chat-text:before {
+    border-width: 6px;
+    margin-top: -6px;
+}
+
+.right .direct-chat-text:after, .right .direct-chat-text:before {
+    right: auto;
+    left: 100%;
+    border-right-color: transparent;
+    border-left-color: #d2d6de;
+}
+.direct-chat-text:after {
+    border-width: 5px;
+    margin-top: -5px;
+}
+
+.right .direct-chat-text:after, .right .direct-chat-text:before {
+    right: auto;
+    left: 100%;
+    border-right-color: transparent;
+    border-left-color: #d2d6de;
+}
+.direct-chat-text:before {
+    border-width: 6px;
+    margin-top: -6px;
+}
+  /* width */
+  ::-webkit-scrollbar {
+    width: 1px;
+  }
+    /* Track */
+    ::-webkit-scrollbar-track {
+    background: #f1f1f1;
+  }
+
+  /* Handle */
+    ::-webkit-scrollbar-thumb {
+    background: #ffffffe6;
+  }
+
+  /* Handle on hover */
+    ::-webkit-scrollbar-thumb:hover {
+    background: #555;
+  }

@@ -1,0 +1,182 @@
+#content {
+	padding: 40px 30px 50px 31px;
+	background: white;
+	color: black !important;
+	width: 70%;
+	margin: 50px auto;
+	border-radius: 10px;
+}
+
+#contentpayment {
+	padding: 10%;
+	background: white;
+	color: black !important;
+	width: 70%;
+	margin: 50px auto;
+	border-radius: 10px;
+}
+
+.panel-title {
+	font: 700 20px/24px 'Lato';
+	letter-spacing: 0;
+	padding: 0;
+	color: #666;
+	padding-bottom: 25px !important;
+	margin-top: 0;
+	margin-bottom: 0;
+}
+
+body {
+	background-color: #ededed;
+	color: #5a738e;
+}
+
+#regForm {
+	background-color: #ffffff;
+	margin: 5px auto;
+	font-family: Raleway;
+	padding: 40px;
+	width: 70%;
+	min-width: 300px;
+}
+
+h1 {
+	text-align: center;
+}
+
+h3,
+h5 {
+	text-align: center;
+}
+
+input[type="text"],
+input[type="password"],
+input[type="number"],
+input[type="email"]{
+	padding: 10px;
+	width: 100%;
+	font-size: 17px;
+	font-family: Raleway;
+	border: 1px solid #aaaaaa;
+}
+
+.wzero{
+	padding: 10px;
+	width: 5% !important;
+	font-size: 17px;
+	font-family: Raleway;
+	border: 1px solid #aaaaaa;
+}
+
+.select {
+	padding: 10px;
+	width: 30%;
+	font-size: 17px;
+	font-family: Raleway;
+	border: 1px solid #aaaaaa;
+}
+
+#expmonth,
+#expyear {
+	padding: 10px;
+	width: 45%;
+	font-size: 17px;
+	font-family: Raleway;
+
+}
+
+.dselect {
+	padding: 10px;
+	width: 100%;
+	font-size: 17px;
+	font-family: Raleway;
+	border: 1px solid #aaaaaa;
+}
+
+/* Mark input boxes that gets an error on validation: */
+input.invalid {
+	border: 1px solid red !important
+}
+
+/* Hide all steps by default: */
+.tab {
+	display: none;
+}
+
+button {
+	background-color: #fc8403;
+	color: #ffffff;
+	border: none;
+	padding: 10px 20px;
+	font-size: 17px;
+	font-family: Raleway;
+	cursor: pointer;
+}
+
+button:hover {
+	opacity: 0.8;
+}
+
+#prevBtn {
+	background-color: #bbbbbb;
+}
+
+/* Make circles that indicate the steps of the form: */
+.step {
+	height: 15px;
+	width: 15px;
+	margin: 0 2px;
+	background-color: #bbbbbb;
+	border: none;
+	border-radius: 50%;
+	display: inline-block;
+	opacity: 0.5;
+}
+
+.step.active {
+	opacity: 1;
+}
+
+/* Mark the steps that are finished and valid: */
+.step.finish {
+	background-color: #fc8403;
+}
+
+.tcolr {
+	font-family: Raleway;
+	color: #2a3f54;
+}
+
+.ftitle {
+	font-family: Raleway;
+	color: #2a3f54;
+}
+
+table,
+th,
+td {
+	border: 1px solid #00000052;
+	border-collapse: collapse;
+}
+
+th,
+td {
+	padding: 15px;
+}
+.button {
+	background-color: #fc8403;
+	color: #ffffff;
+	border: none;
+	padding: 10px 20px;
+	font-size: 17px;
+	font-family: Raleway;
+	cursor: pointer;
+}
+.button:hover {
+	opacity: 0.8;
+}
+
+/* <blade media|(max-width%3A%20767px)%7B%0D>#content {
+width: 100%;
+}
+} */

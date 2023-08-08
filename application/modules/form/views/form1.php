@@ -1,0 +1,1143 @@
+<html>
+
+<head>
+
+   <link rel="stylesheet" href="<?php echo base_url('assets/form/preloader.css'); ?>">
+   <link rel="stylesheet" href="<?php echo base_url('assets/form/applicationForm.css'); ?>">
+   <link rel="stylesheet" href="<?php echo base_url('assets/form/css/bootstrap3.4.1.min.css'); ?>">
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+   <script src="<?php echo base_url('assets/form/js/jquery-3.5.1.min.js'); ?>"></script>
+   <script src="<?php echo base_url('assets/form/js/bootstrap-3.4.1.min.js'); ?>"></script>
+</head>
+<?php
+$monthList = ['Jan' => 'January', 'Feb' => 'February', 'Mar' => 'March', 'Apr' => 'April', 'May' => 'May', 'Jun' => 'June', 'Jul' => 'July', 'Aug' => 'August', 'Sep' => 'September', 'Oct' => 'October', 'Nov' => 'November', 'Dec' => 'December'];
+?>
+
+<body>
+
+   <div id="gif" class="gif"></div>
+
+   <section for="Header">
+      <div style="background-color:black; width: 100%;">
+         <div class="container">
+            <div class="row">
+               <div class="imgcontainer">
+                  <a href="<?php echo base_url(); ?>"> <img src="<?php echo base_url('assets/form/new/logo78.jpeg') ?>" alt="Avatar" class="avatar"></a>
+               </div>
+               <div style="text-align: center;margin: 1% 0 12px 0;">
+                  <span class="erfont">Record Restricton Form</span>
+               </div>
+
+               <div style="text-align: center;margin: 1% 0 12px 0;">
+                  <span class="yourOrder">Your Order</span>
+               </div>
+            </div>
+         </div><!--Container-->
+      </div>
+   </section>
+   <section>
+      <div class="container">
+         <div class="row" style="margin: 1% 0 12px 2%;">
+            <div class="col-md-offset-3 col-md-6 col-sm-offset-2 col-sm-8 col-lg-offset-3 col-lg-6 col-xs-offset-3 col-xs-3">
+               <div class="stepwizard" style="margin-left: 25px;">
+                  <div class="stepwizard-row setup-panel">
+                     <div class="stepwizard-step col-xs-3">
+                        <div class="step1icon divForStep1Active">
+                           <i class="fa fa-file-text-o" style="padding: 34.4%"></i>
+                        </div>
+                        <span style="margin-right: 49%;font-size: smaller;">Form</span>
+                     </div>
+                     <div class="stepwizard-step col-xs-3">
+                        <div class="step2icon divForStep">
+                           <i class="step2iconfa fa fa-shopping-cart reviewClass"></i>
+                        </div>
+                        <span style="margin-right: 49%;font-size: smaller;">Review</span>
+                     </div>
+                     <div class="stepwizard-step col-xs-3">
+                        <div class="step3icon divForStep">
+                           <i class="step3iconfa fa fa-usd paymentClass"></i>
+                        </div>
+                        <span style="margin-right: 49%;font-size: smaller;">Payment</span>
+                     </div>
+                     <div class="stepwizard-step col-xs-3">
+                        <div class="step4icon divForStep">
+                           <i class="step4iconfa fa fa-check paymentClass"></i>
+                        </div>
+                        <span style="margin-right: 49%;font-size: smaller;">Confirmed</span>
+                     </div>
+                  </div>
+               </div><!--stepwizard-->
+               <hr style="margin-right: 7%;margin-top: 7%;">
+               <form action="<?php echo base_url("form/form/process") ?>" method="post" class="form-horizontal" id="regForm" enctype="multipart/form-data">
+
+                  <section for="step 1" class="step1 <?php echo (isset($_SESSION['applicationID']) && !empty($_SESSION['applicationID'])) ? 'd-none' : '' ?> ">
+
+                     <div class="qxtheme">
+                        <p style="font-weight:600;">Expungement Form</p>
+                        <p class="lableTxt">Enter arrest information below to apply for restricton of charges from one court case. The system processes one court case per application.</p>
+                     </div>
+
+
+                     <div class="row">
+                        <div class="col-lg-11" style="margin-left: 2%;">
+                           <div class="form-group">
+                              <select name="suffix" id="suffix" class="form-control">
+                                 <option value="">Suffix</option>
+                                 <option value="Mr">Mr</option>
+                                 <option value="Mrs">Mrs</option>
+                                 <option value="Miss">Miss</option>
+                              </select>
+                           </div>
+                        </div>
+                     </div>
+
+                     <div class="row">
+                        <div class="col-lg-4 col-md-4 col-sm-4" style="margin-left: 2%;width: 30%;">
+                           <div class="form-group">
+                              <input type="text" class="form-control" id="firstname" name="firstname" placeholder="First Name" autocomplete="off">
+                           </div>
+
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-4" style="margin-left: 2%;width: 30%;">
+                           <div class="form-group">
+                              <input type="text" class="form-control" id="middlename" name="middlename" placeholder="Middle name">
+                           </div>
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-4" style="margin-left: 2%;width: 30%;">
+                           <div class="form-group">
+                              <input type="text" class="form-control" id="lastname" name="lastname" placeholder="Last Name">
+                           </div>
+                        </div>
+
+                     </div>
+
+                     <span class="qxtheme">
+                        <p class="lableTxt">
+                           Any other name that might be used on your record ?
+                        </p>
+                     </span>
+
+                     <div class="row">
+                        <div class="col-lg-11" style="margin-left: 2%;">
+                           <div class="form-group">
+                              <input type="text" class="form-control" id="other" name="other" placeholder="Other name that might be used">
+                           </div>
+                        </div>
+                     </div>
+
+                     <div class="row">
+                        <div class="col-lg-11" style="margin-left: 2%;">
+                           <div class="form-group">
+                              <input type="tel" class="form-control" id="phone" name="phone" placeholder="Phone">
+                           </div>
+                        </div>
+                     </div>
+                     <div class="row">
+                        <div class="col-lg-11" style="margin-left: 2%;">
+                           <div class="form-group">
+                              <input type="email" class="form-control" id="email" name="email" placeholder="Email" autocomplete="off">
+                           </div>
+                        </div>
+                     </div>
+
+                     <div class="row send-otp-n-verify d-none">
+                        <div class="col-lg-5 col-md-6 col-sm-5 col-xs-6" style="margin-left: 2%;">
+                           <div class="form-group divforotp">
+                              <a href="javascript:void(0)" class="btn btns btn-md btn-block" id="sendbtnotp">Send OTP to verify your email</a>
+
+                           </div>
+                        </div>
+                        <div class="col-lg-6 col-md-5 col-sm-6 col-xs-6 responsiveWidth" style="margin-left: 2%;">
+                           <div class="form-group otpDiv">
+                              <input type="text" class="form-control" id="otp" name="otp" placeholder="Enter OTP" autocomplete="off" maxlength="5">
+
+                           </div>
+                        </div>
+                     </div>
+                     <section for="for-password" class="password-section d-none">
+                        <span class="qxtheme forPassword">
+                           <p class="lableTxt">
+                              Minimum 12 characters, at least one uppercase ,one lowercase letter, one number and one special character
+                           </p>
+                        </span>
+                        <div class="row forPassword" style="padding-bottom: 3%;">
+                           <div class="col-lg-11 CreatePasswordApp" style="margin-left: 2%;padding:0%">
+                              <div class="input-group">
+                                 <input type="password" class="form-control" id="new-password" name="new-password" placeholder="Create Password" autocomplete="off">
+                                 <span class="input-group-addon" id="cp-ic-show"><i class="glyphicon glyphicon-eye-close" id="crp-ic-close"></i></span>
+                              </div>
+
+                           </div>
+                        </div>
+
+                        <div class="row forPassword" style="padding-bottom: 3%;">
+                           <div class="col-lg-11 ConfirmPasswordApp" style="margin-left: 2%;padding:0%">
+                              <div class="input-group">
+                                 <input type="password" class="form-control" id="cpassword" name="cpassword" placeholder="Confirm Password" autocomplete="off">
+                                 <span class="input-group-addon" id="con-ic-show"><i class="glyphicon glyphicon-eye-close" id="cp-ic-close"></i></span>
+                              </div>
+
+                           </div>
+                        </div>
+                     </section>
+
+                     <div class="row">
+                        <div class="col-lg-11" style="margin-left: 2%;">
+                           <div class="form-group">
+                              <input type="text" class="form-control" id="addressone" name="addressone" placeholder="Address 1">
+                           </div>
+                        </div>
+                     </div>
+                     <div class="row">
+                        <div class="col-lg-11" style="margin-left: 2%;">
+                           <div class="form-group">
+                              <input type="text" class="form-control" id="addresstwo" name="addresstwo" placeholder="Address 2">
+                           </div>
+                        </div>
+                     </div>
+
+                     <div class="row">
+                        <div class="col-lg-5 col-md-6 col-sm-5 col-xs-6" style="margin-left: 2%;">
+                           <div class="form-group">
+                              <select name="country" id="country" class="form-control">
+                                 <option value="">Country</option>
+                                 <option value="USA">USA</option>
+
+                              </select>
+                           </div>
+                        </div>
+                        <div class="col-lg-6 col-md-5 col-sm-6 col-xs-6 responsiveWidth" style="margin-left: 2%;">
+                           <div class="form-group">
+                              <select name="state" id="state" class="form-control">
+                                 <option value="">State</option>
+                                 <?php if (!empty($state)) {
+                                    foreach ($state as $val) { ?>
+                                       <option value="<?php echo $val->name ?>"><?php echo $val->name ?></option>
+                                 <?php }
+                                 } ?>
+                              </select>
+                           </div>
+                        </div>
+                     </div>
+
+                     <div class="row">
+                        <div class="col-lg-5 col-md-6 col-sm-5 col-xs-6" style="margin-left: 2%;">
+                           <div class="form-group">
+                              <select name="city" id="city" class="form-control">
+                                 <option value="">City</option>
+                                 <?php if (!empty($city)) {
+                                    foreach ($city as $val) { ?>
+                                       <option value="<?php echo $val->name ?>"><?php echo $val->name ?></option>
+                                 <?php }
+                                 } ?>
+                              </select>
+                           </div>
+                        </div>
+                        <div class="col-lg-6 col-md-5 col-sm-6 col-xs-6 responsiveWidth" style="margin-left: 2%;">
+                           <div class="form-group">
+                              <input type="tel" class="form-control" id="postcode" name="postcode" placeholder="Post Code" autocomplete="off">
+                           </div>
+                        </div>
+                     </div>
+                     <span class="qxtheme">
+                        <p class="lableTxt">
+                           Date Of Birth
+                        </p>
+                     </span>
+
+                     <div class="row">
+                        <div class="col-lg-4 col-md-4 col-sm-4" style="margin-left: 2%;width: 30%;">
+                           <div class="form-group">
+                              <select name="Bdate" id="Bdate" class="form-control">
+                                 <option value="">Date</option>
+                                 <?php for ($d = 1; $d < 32; $d++) {
+                                    echo '<option value="' . $d . '">' . $d . '</option>';
+                                 } ?>
+                              </select>
+                           </div>
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-4" style="margin-left: 2%;width: 29%;">
+                           <div class="form-group">
+                              <select name="Bmonth" id="Bmonth" class="form-control">
+                                 <option value="">Month</option>
+                                 <?php if (!empty($monthList)) {
+                                    foreach ($monthList as $key => $val) {
+                                       echo '<option value="' . $key . '">' . $val . '</option>';
+                                    }
+                                 } ?>
+                              </select>
+                           </div>
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-4" style="margin-left: 2%;width: 29%; ">
+                           <div class="form-group">
+                              <select name="Byear" id="Byear" class="form-control">
+                                 <option value="">Year</option>
+                                 <?php for ($d = (date('Y') - 90); $d < date('Y'); $d++) {
+                                    echo '<option value="' . $d . '">' . $d . '</option>';
+                                 } ?>
+                              </select>
+                           </div>
+                        </div>
+                     </div>
+                     <span class="qxtheme">
+                        <p class="lableTxt">
+                           Race
+                        </p>
+                     </span>
+                     <div class="row">
+                        <div class="col-lg-11" style="margin-left: 2%;">
+                           <div class="form-group">
+                              <select name="race" id="race" class="form-control">
+                                 <option value="">Select Race</option>
+                                 <?php if (!empty($race)) {
+                                    foreach ($race as $val) { ?>
+                                       <option value="<?php echo $val->name ?>"><?php echo $val->name ?></option>
+                                 <?php }
+                                 } ?>
+                              </select>
+                           </div>
+                        </div>
+                     </div>
+                     <span class="qxtheme">
+                        <p class="lableTxt">
+                           Agency
+                        </p>
+                     </span>
+                     <div class="row">
+                        <div class="col-lg-11" style="margin-left: 2%;">
+                           <div class="form-group">
+                              <select name="agency" id="agency" class="form-control">
+                                 <option value="">Select Agency</option>
+                                 <?php if (!empty($agency)) {
+                                    foreach ($agency as $val) { ?>
+                                       <option value="<?php echo $val->name ?>"><?php echo $val->name ?></option>
+                                 <?php }
+                                 } ?>
+                              </select>
+                           </div>
+                        </div>
+                     </div>
+                     <span class="qxtheme">
+                        <p class="lableTxt">Arresting Date</p>
+                     </span>
+                     <div class="row">
+                        <div class="col-lg-4 col-md-4 col-sm-4" style="margin-left: 2%;width: 30%;">
+                           <div class="form-group">
+                              <select name="arrest_date" id="arrest_date" class="form-control">
+                                 <option value="">Date</option>
+                                 <?php for ($d = 1; $d < 32; $d++) {
+                                    echo '<option value="' . $d . '">' . $d . '</option>';
+                                 } ?>
+                              </select>
+                           </div>
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-4" style="margin-left: 2%;width: 29%;">
+                           <div class="form-group">
+                              <select name="arrest_month" id="arrest_month" class="form-control">
+                                 <option value="">Month</option>
+                                 <?php if (!empty($monthList)) {
+                                    foreach ($monthList as $key => $val) {
+                                       echo '<option value="' . $key . '">' . $val . '</option>';
+                                    }
+                                 } ?>
+                              </select>
+                           </div>
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-4" style="margin-left: 2%;width: 29%; ">
+                           <div class="form-group">
+                              <select name="arrest_year" id="arrest_year" class="form-control">
+                                 <option value="">Year</option>
+                                 <?php for ($d = (date('Y') - 15); $d <= date('Y'); $d++) {
+                                    echo '<option value="' . $d . '">' . $d . '</option>';
+                                 } ?>
+                              </select>
+                           </div>
+                        </div>
+                     </div>
+
+                     <span class="qxtheme">
+                        <p class="lableTxt">
+                           Case Number
+                        </p>
+                     </span>
+
+                     <div class="row">
+                        <div class="col-lg-11" style="margin-left: 2%;">
+                           <div class="form-group">
+                              <input type="text" class="form-control" id="case_no" name="case_no" placeholder="Case number">
+                           </div>
+                        </div>
+                     </div>
+
+                     <span class="qxtheme">
+                        <p class="lableTxt">
+                           Offense(s) Arrested For
+                        </p>
+                     </span>
+                     <div class="row">
+                        <div class="col-lg-11" style="margin-left: 2%;">
+                           <div class="form-group">
+                              <select name="offrncefor" id="offrncefor" class="form-control">
+                                 <option value="">Offense Arrested For</option>
+                                 <?php if (!empty($offence)) {
+                                    foreach ($offence as $val) { ?>
+                                       <option value="<?php echo $val->short_description ?>"><?php echo $val->short_description ?></option>
+                                 <?php }
+                                 } ?>
+                              </select>
+                           </div>
+                        </div>
+                     </div>
+                     <div class="row">
+                        <div class="col-lg-11" style="margin-left: 2%;">
+                           <div class="form-group">
+
+                              <input type="file" id="upload" name="upload" hidden style="display: none" />
+                              <label for="upload" class="btn btn-lg btn-block btns">
+                                 <span style="font-size:smaller">Upload Your ID</span>
+                                 <span><i class="fa fa-upload" aria-hidden="true"></i></span>
+                              </label>
+                           </div>
+                        </div>
+                     </div>
+                     <div class="row">
+                        <div class="col-lg-11" style="margin-left: 2%;text-align:center">
+                           <img src="<?php echo base_url('assets/form/new/placeholder1.png') ?>" id="userIdImg" style="width: 54%;" alt="">
+                        </div>
+                     </div>
+
+                     <span class="qxtheme">
+                        <p style="font-weight:600;">How would you like Quick Expunge to update you<br>
+                           about your application?
+                        </p>
+                        <p class="lableTxt">
+                           Additional information may be needed to process your application. Please indicate below how you would to be connected.
+                        </p>
+                     </span>
+
+                     <div class="row" style="margin-top:3%;margin-bottom: 4%;">
+                        <div class="col-lg-11">
+                           <label class="radio-inline qxtheme">
+                              <input type="radio" name="optradio" value="sendmail" checked style="margin-right:24%">&nbsp;Email
+                           </label>
+                           <label class="radio-inline qxtheme">
+                              <input type="radio" value="sendtext" name="optradio">&nbsp;Text Message
+                           </label>
+                        </div>
+                     </div>
+                     <!-- <div class="row">
+                        <div class="col-lg-11" style="margin-left: 2%;">
+                           <div class="form-group">
+                              <input type="email" class="form-control" id="contactemail" name="contactemail" placeholder="Email Address">
+                           </div>
+                        </div>
+                     </div> -->
+
+                     <div class="qxtheme" style="margin-top: 4%;margin-bottom: 8%;">
+                        <p style="font-weight:600;">Please ensure all information above is correct<br>before submitting form.
+                        </p>
+                     </div>
+
+                     <div class="row">
+                        <div class="col-lg-12 secOne" style="text-align:center">
+                           <a href="javascript:void(0)" class="btn btn-block btn-lg btns">Continue</a>
+                        </div>
+                     </div>
+                  </section>
+
+                  <section for="step 2" class="step2 d-none">
+
+                     <div class="qxtheme">
+                        <p style="font-weight:600;">Confirm Your Expungement Form</p><br>
+                        <p class="lableTxt">Arresting Date:<span class="ArrestingDatePre" style="margin-left: 23%;"></span></p>
+                        <p class="lableTxt">Charge:<span class="ChargePre" style="margin-left: 30%;"><strong>$199</strong></span></p>
+                        <p class="lableTxt">Arresting Agency:<span class="ArrestingAgencyPre" style="margin-left: 20%;"></span></p>
+                     </div>
+                     <div class="qxtheme">
+                        <p style="font-weight:600;">Confirm Your Address</p><br>
+                        <p class="lableTxt">First Name:<span class="FirstNamePre" style="margin-left: 20%;"></span></p>
+                        <p class="lableTxt">Last Name:<span class="LastNamePre" style="margin-left: 20%;"></span></p>
+                        <p class="lableTxt">Address:<span class="AddressPre" style="margin-left: 22%;"></span></p>
+                        <p class="lableTxt">City/State/Zip:<span class="CityStateZipPre" style="margin-left: 17%;"></span></p>
+                        <p class="lableTxt">Phone Number:<span class="PhoneNoPre" style="margin-left: 15%;"></span></p>
+                     </div>
+
+                     <div class="row" style="margin-top:50%">
+                        <span class="qxtheme" style="font-weight:600;margin-left: 4%;">Amount Due</span>
+                        <span class="qxtheme" style="font-weight:600;margin-left: 69%;">$ 199</span>
+                        <hr style="border: 1px solid #a3a1a1;width: 93%;">
+                     </div>
+
+                     <div class="row">
+                        <div class="col-lg-6 col-sm-6 col-md-6 secTwoBack" style="text-align:center">
+                           <a href="javascript:void(0)" class="btn btn-block btn-md" style="background-color:black;color:white">Previous</a>
+                        </div>
+                        <div class="col-lg-6 col-sm-6 col-md-6 secTwo" style="text-align:center">
+                           <a href="javascript:void(0)" class="btn btn-block btn-md btns">Continue</a>
+                        </div>
+                     </div>
+                  </section>
+
+                  <section for="step 3" class="step3 d-none">
+                     <div class="qxtheme ml-2">
+                        <p style="font-weight:600;">Payment</p>
+                     </div>
+
+                     <div class="row ml-2" style="margin-bottom: 7%;">
+                        <img src="<?php echo base_url('assets/form/new/payment.png') ?>" alt="" style="width:43%">
+                     </div>
+
+                     <div class="qxtheme ml-2">
+                        <p style="font-weight:600;">Card Information</p>
+                     </div>
+                     <div class="row ml-2">
+                        <div class="col-lg-11">
+                           <div class="form-group">
+                              <input type="text" class="form-control" id="nameoncard" name="nameoncard" placeholder="Name On Card">
+                           </div>
+                        </div>
+                     </div>
+                     <div class="row ml-2">
+                        <div class="col-lg-11">
+                           <div class="form-group">
+                              <input type="tel" class="form-control" maxlength="18" id="cardnumber" name="cardnumber" placeholder="Card Number">
+                           </div>
+                        </div>
+                     </div>
+
+                     <div class="row ml-2">
+                        <div class="col-lg-4">
+                           <div class="form-group">
+                              <input type="month" class="form-control" id="expDate" name="expDate" placeholder="Exp Date">
+                           </div>
+                        </div>
+                        <div class="col-lg-offset-3 col-lg-4">
+                           <div class="form-group">
+                              <input type="tel" class="form-control" id="cvv" maxlength="3" name="cvv" placeholder="CVV">
+                           </div>
+                        </div>
+                     </div>
+
+                     <div class="row ml-2">
+                        <div class="col-lg-11">
+                           <div class="form-group">
+                              <input type="tel" class="form-control" id="zipcode" name="zipcode" placeholder="Zip Code">
+                           </div>
+                        </div>
+                     </div>
+
+                     <div class="row" style="margin-left: 0%; width:97%;margin-top:5%">
+                        <div class="col-lg-6 col-sm-6 col-md-6 secThreeBack" style="text-align:center">
+                           <a href="javascript:void(0)" class="btn btn-block btn-md" style="background-color:black;color:white">Previous</a>
+                        </div>
+                        <div class="col-lg-6 col-sm-6 col-md-6 secThree" style="text-align:center">
+                           <input type="submit" class="btn btn-block btn-md btns submitForm" Value="Continue" />
+                        </div>
+                     </div>
+
+                  </section>
+
+                  <section for="step 4" class="step4 <?php echo (isset($_SESSION['applicationID']) && !empty($_SESSION['applicationID'])) ? '' : 'd-none' ?>">
+                     <div style="margin-left:36%;margin-top:8%">
+                        <img src="<?php echo base_url('assets/form/new/Oval-9.png') ?>" alt="">
+                     </div>
+                     <div style="margin-left:27%">
+                        <div class="qxtheme">
+                           <h1>Thank You</h1>
+                        </div>
+                     </div>
+                     <div style="margin-left:14%">
+                        <div class="qxtheme">
+                           <p>Your application has been successfully submitted</p>
+                        </div>
+                     </div>
+                     <div style="margin-left:7%">
+                        <div class="qxtheme">
+                           <p>We wil now consider your ENTIRE record for possible restricton</p>
+                        </div>
+                     </div>
+
+                     <div style="margin-left:1%">
+                        <div class="qxtheme">
+                           <p>You do not need to resubmit the application if you have additional charges.</p>
+                        </div>
+                     </div>
+                     <div style="margin-left:18%">
+                        <div class="qxtheme">
+                           <p>Thank you in advance for your patience</p>
+                        </div>
+                     </div>
+
+                     <div style="margin-left:-8%" id="thanklast">
+                        <div class="qxtheme">
+                           <p>Please expact further communication in the method that you selected in the application form</p>
+                        </div>
+                     </div>
+                     <?php if (isset($_SESSION['applicationID'])) { ?>
+                        <div style="margin-left:26%">
+                           <div class="qxtheme">
+                              <p>Your application id is <strong><?php echo $_SESSION['applicationID']; ?></strong></p>
+                           </div>
+                        </div>
+                     <?php } ?>
+
+                     <div class="row">
+                        <div class="col-lg-offset-1 col-lg-8" style="text-align:center;margin-top: 3%;">
+                           <a href="<?php echo base_url('form/form/page') ?>" class="btn btn-block btn-lg btns">Finish</a>
+                        </div>
+                     </div>
+
+                  </section>
+               </form>
+            </div>
+         </div>
+      </div>
+   </section>
+
+
+   <section for="Footer">
+      <div style="background-color:black; width: 100%;padding:1%;margin-top: 11%;">
+         <div class="" style="margin-top: 2%;">
+            <div class="col-md-offset-10 col-md-2 col-lg-offset-10 col-lg-2 col-sm-offset-10 col-sm-2 col-xs-offset-10 col-xs-2">
+               <a href="https://play.google.com/store/apps/details?id=app.quick.expunge" style="color:white"> <img src="<?php echo base_url('assets/form/new/Icon material-android.png') ?>" style="width:11%;margin-right: 7%;"></a>
+               <a href="https://play.google.com/store/apps/details?id=app.quick.expunge" style="color:white;"><img src="<?php echo base_url('assets/form/new/Icon ionic-logo-apple.png') ?>" style="width:11%;margin-right: 7%;"></a>
+               <a href="https://www.instagram.com/quickexpunge/?utm_medium=copy_link"><img src="<?php echo base_url('assets/form/new/Icon awesome-instagram.png') ?>" style="width:11%;"></a>
+            </div>
+         </div>
+         <div class="row" style="background-color:black; width: 100%;margin-top: 6%;">
+            <div class="col-md-offset-7 col-md-5 col-lg-offset-8 col-lg-4 col-sm-offset-6 col-sm-6 col-xs-offset-8 col-xs-4">
+               <label style="color:#ff7d3f;"> <a href="<?php echo base_url("admin/terms") ?>" style="color:#ff7d3f;">Terms & Conditions</a> &nbsp;&nbsp; <a href="<?php echo base_url("admin/policy") ?>" style="color:#ff7d3f;">Privacy Policy</a> &nbsp;&nbsp; Disclaimer</label>
+            </div>
+         </div>
+      </div>
+   </section>
+
+   <script type="text/javascript">
+      $(document).ready(function() {
+
+
+         $(".secOne").click(function() {
+
+
+            $("#newpassworderror , #suffixerror ,#fnameerror,#lnameerror, #emailerror,#staterror ,#sendOtpVerifyEmailerror,#otpDiv,#cityerror,#raceerror,#agencyerror,#offrnceforerror").remove();
+
+            if ($("#suffix").val() == "") {
+               $("#suffix").parent().append('<span id="suffixerror" class="errorcode">Select Suffix</span>');
+               $("html,body").animate({
+                  scrollTop: 100
+               }, 1000);
+               return false;
+            } else {
+               $("#suffixerror").remove();
+            }
+
+            if ($("#firstname").val() == "") {
+               $("#firstname").parent().append('<span id="fnameerror" class="errorcode">Enter first name</span>');
+               $("html,body").animate({
+                  scrollTop: 200
+               }, 1000);
+               return false;
+            } else {
+               $("#fnameerror").remove();
+            }
+            if ($("#lastname").val() == "") {
+               $("#lastname").parent().append('<span id="lnameerror" class="errorcode">Enter last name</span>');
+               $("html,body").animate({
+                  scrollTop: 200
+               }, 1000);
+               return false;
+            } else {
+               $("#lnameerror").remove();
+            }
+            if ($("#email").val() == "") {
+               $("#email").parent().append('<span id="emailerror" class="errorcode">Enter email address</span>');
+               $("html,body").animate({
+                  scrollTop: 400
+               }, 1000);
+               return false;
+            } else {
+               $("#emailerror").remove();
+            }
+
+
+            var isemailexistornot = $(".addIsEmailValid").attr("isemailexistornot");
+            if (isemailexistornot == 0) {
+
+               $(".divforotp").append('<span id="sendOtpVerifyEmailerror" class="errorcode">Please verify your email</span>');
+               $("html,body").animate({
+                  scrollTop: 400
+               }, 1000);
+               return false;
+            }
+
+
+            // -------------------------------------------------------------------------------------
+            if (!$(".password-section").hasClass("d-none")) {
+
+
+               if ($("#new-password").val() == "") {
+                  $("#newpassworderror").remove();
+                  if (!$("#new-password").attr("disabled")) {
+
+                     $(".CreatePasswordApp").append('<span id="newpassworderror" class="errorcode">Enter Password</span>');
+                     $("html,body").animate({
+                        scrollTop: 450
+                     }, 1000);
+                     return false;
+                  }
+
+               } else {
+                  $("#newpassworderror").remove();
+                  var Number_Regex = /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{12,30}$/;
+                  if (Number_Regex.test($("#new-password").val()) === false) {
+
+                     $(".CreatePasswordApp").append('<span id="newpassworderror" class="errorcode">Minimum 12 characters, at least one uppercase letter, one lowercase letter, one number and one special character </span>');
+                     $("html,body").animate({
+                        scrollTop: 450
+                     }, 1000);
+                     return false;
+                  }
+               }
+
+               if ($("#cpassword").val() == "") {
+
+                  if (!$("#cpassword").attr("disabled")) {
+
+                     $(".ConfirmPasswordApp").append('<span id="cpassworderror" class="errorcode">Enter Confirm Password</span>');
+                     $("html,body").animate({
+                        scrollTop: 450
+                     }, 1000);
+                     return false;
+                  }
+               } else {
+                  $("#cpassworderror").remove();
+               }
+
+               if ($("#cpassword").val() != "") {
+
+                  if (!$("#cpassword").attr("disabled")) {
+
+                     if ($("#cpassword").val() != $("#new-password").val()) {
+                        $(".ConfirmPasswordApp").append('<span id="cpassworderror" class="errorcode">New password and confirm password must be same</span>');
+                        $("html,body").animate({
+                           scrollTop: 450
+                        }, 1000);
+                        return false;
+                     } else {
+                        $("#cpassworderror").remove();
+                     }
+                  }
+               } else {
+                  $("#cpassworderror").remove();
+               }
+            }
+
+
+
+            if ($("#state").val() == "") {
+               $("#state").parent().append('<span id="staterror" class="errorcode">Select State</span>');
+               $("html,body").animate({
+                  scrollTop: 500
+               }, 1000);
+               return false;
+            } else {
+               $("#staterror").remove();
+            }
+            if ($("#city").val() == "") {
+               $("#city").parent().append('<span id="cityerror" class="errorcode">Select City</span>');
+               $("html,body").animate({
+                  scrollTop: 550
+               }, 1000);
+               return false;
+            } else {
+               $("#cityerror").remove();
+            }
+            if ($("#race").val() == "") {
+               $("#race").parent().append('<span id="raceerror" class="errorcode">Select Race</span>');
+               $("html,body").animate({
+                  scrollTop: 600
+               }, 1000);
+               return false;
+            } else {
+               $("#raceerror").remove();
+            }
+            if ($("#agency").val() == "") {
+               $("#agency").parent().append('<span id="agencyerror" class="errorcode">Select Agency</span>');
+               $("html,body").animate({
+                  scrollTop: 630
+               }, 1000);
+               return false;
+            } else {
+               $("#agencyerror").remove();
+            }
+            if ($("#offrncefor").val() == "") {
+               $("#offrncefor").parent().append('<span id="offrnceforerror" class="errorcode">Select Agency</span>');
+               $("html,body").animate({
+                  scrollTop: 700
+               }, 1000);
+               return false;
+            } else {
+               $("#offrnceforerror").remove();
+            }
+
+
+            $(".step1").addClass("d-none");
+            $(".step2").removeClass("d-none");
+            $(".step2icon").removeClass("divForStep");
+            $(".step2iconfa").removeClass("reviewClass");
+            $(".step2iconfa").addClass("reviewClassActive");
+            $(".step2icon").addClass("divForStepActive");
+            $(".step1icon").removeClass("divForStep1Active");
+            $(".step1icon").addClass("divForStep1");
+
+            var address = $("#addressone").val() + " , " + $("#addresstwo").val();
+            var cityStateZipe = $("#city").val() + " / " + $("#state").val() + " / " + $("#postcode").val();
+            var agency = $("#agency").val();
+            var phone = $("#phone").val();
+            var arrestDate = $("#arrest_date").val();
+            var arrestMonth = $("#arrest_month").val();
+            var arrestYear = $("#arrest_year").val();
+
+            let FullDate = arrestDate + ' / ' + arrestMonth + ' / ' + arrestYear;
+            $(".FirstNamePre").html($("#firstname").val());
+            $(".LastNamePre").html($("#lastname").val());
+            $(".AddressPre").html(address);
+            $(".CityStateZipPre").html(cityStateZipe);
+            $(".ArrestingAgencyPre").html(agency);
+            $(".PhoneNoPre").html(phone);
+            $(".ArrestingDatePre").html(FullDate);
+
+
+            $("html, body").animate({
+               scrollTop: 0
+            }, 1000);
+         });
+         $(".secTwo").click(function() {
+
+            $(".step2").addClass("d-none");
+            $(".step3").removeClass("d-none");
+
+            $(".step3icon").addClass("divForStepActive");
+            $(".step3icon").removeClass("divForStep");
+            $(".step3iconfa").addClass("paymentClassActive");
+            $(".step3iconfa").removeClass("paymentClass");
+
+            $(".step2icon").removeClass("divForStepActive");
+            $(".step2icon").addClass("divForStep");
+            $(".step2iconfa").removeClass("reviewClassActive");
+            $(".step2iconfa").addClass("reviewClass");
+            $("html, body").animate({
+               scrollTop: 100
+            }, 1000);
+
+         });
+
+         $(".secThreeBack").click(function() {
+
+            $(".step3").addClass("d-none");
+            $(".step2").removeClass("d-none");
+
+            $(".step3iconfa").removeClass("paymentClassActive");
+            $(".step3iconfa").addClass("paymentClass");
+
+            $(".step3icon").addClass("divForStep");
+            $(".step3icon").removeClass("divForStepActive");
+
+            $(".step2iconfa").addClass("reviewClassActive");
+            $(".step2iconfa").removeClass("reviewClass");
+
+            $(".step2icon").removeClass("divForStep");
+            $(".step2icon").addClass("divForStepActive");
+            $("html, body").animate({
+               scrollTop: 0
+            }, 1000);
+
+         });
+         $(".secTwoBack").click(function() {
+
+            $(".step2").addClass("d-none");
+            $(".step1").removeClass("d-none");
+
+            $(".step2iconfa").removeClass("reviewClassActive");
+            $(".step2iconfa").addClass("reviewClass");
+
+            $(".step2icon").addClass("divForStep");
+            $(".step2icon").removeClass("divForStepActive");
+
+            $(".step1icon").removeClass("divForStep1");
+            $(".step1icon").addClass("divForStep1Active");
+            $("html, body").animate({
+               scrollTop: 0
+            }, 1000);
+
+         });
+
+         $("#upload").change(function() {
+            readURL(this);
+         });
+
+         function readURL(input) {
+            if (input.files && input.files[0]) {
+               var reader = new FileReader();
+
+               reader.onload = function(e) {
+                  $('#userIdImg').attr('src', e.target.result);
+               }
+
+               reader.readAsDataURL(input.files[0]);
+            }
+         }
+         $("#new-password").focusout(function() {
+
+            var password = $(this).val();
+
+            $("#newpassworderror").remove();
+            var Number_Regex = /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{12,30}$/;
+            if (Number_Regex.test($("#new-password").val()) === false) {
+               $(".CreatePasswordApp").append('<span id="newpassworderror" class="errorcode">Minimum 12 characters, at least one uppercase letter, one lowercase letter, one number and one special character </span>');
+               return false;
+            }
+
+         });
+
+         $("#cpassword").focusout(function() {
+
+            var cpassword = $(this).val();
+            var password = $("#new-password").val();
+            $("#cpassworderror").remove();
+
+            if (cpassword != password) {
+               $(".ConfirmPasswordApp").append('<span id="cpassworderror" class="errorcode">New password and confirm password must be same</span>');
+               return false;
+            } else {
+
+               $("#cpassworderror").remove();
+            }
+         });
+
+         $("#email").focusout(function() {
+
+            $("#emailerror").remove();
+            var email = $(this).val();
+
+            if (email == "") {
+               $("#email").parent().append('<span id="emailerror" class="errorcode">Enter email address</span>');
+               $("html,body").animate({
+                  scrollTop: 400
+               }, 1000);
+               return false;
+            } else {
+               $("#emailerror").remove();
+               var validRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+
+               if (validRegex.test($("#email").val()) === false) {
+                  $("#email").parent().append('<span id="emailerror" class="errorcode">Enter valid email address</span>');
+                  return false;
+               }
+            }
+
+
+            $.ajax({
+               beforeSend: function(data) {
+                  $("#gif").show();
+               },
+               complete: function() {
+                  $("#gif").hide();
+               },
+               type: 'POST',
+               url: '<?php echo base_url("form/form/isemailexist"); ?>',
+               data: {
+                  'email': email
+               },
+               dataType: 'json',
+               success: function(result) {
+                  if (result.code == 200) {
+
+                     $(".send-otp-n-verify").addClass("d-none");
+
+                  } else if (result.code == 201) {
+
+                     $(".send-otp-n-verify").removeClass("d-none");
+                     $(".addIsEmailValid").remove();
+                     let addIsEmailValid = '<input type="hidden" name="addIsEmailValid" class="addIsEmailValid" isEmailExistOrNot="0" isOtpVerify="0">';
+                     $("#regForm").append(addIsEmailValid);
+
+
+                  } else {
+                     $("#email").parent().append('<span id="emailerror" class="errorcode">' + result.message + '</span>');
+
+                     return false;
+                  }
+               },
+               error: function(xhr, textStatus, error) {
+                  console.log(xhr.statusText);
+                  console.log(textStatus);
+                  console.log(error);
+               }
+            });
+
+
+
+         });
+
+         $("#cp-ic-show").click(function() {
+
+            if ($("#crp-ic-close").hasClass("glyphicon-eye-close")) {
+
+               $("#crp-ic-close").removeClass("glyphicon-eye-close");
+               $("#crp-ic-close").addClass("glyphicon-eye-open");
+               $("#new-password").attr('type', 'text');
+
+            } else {
+
+               $("#crp-ic-close").addClass("glyphicon-eye-close");
+               $("#crp-ic-close").removeClass("glyphicon-eye-open");
+               $("#new-password").attr('type', 'password');
+            }
+
+         });
+         $("#con-ic-show").click(function() {
+
+            if ($("#cp-ic-close").hasClass("glyphicon-eye-close")) {
+
+               $("#cp-ic-close").removeClass("glyphicon-eye-close");
+               $("#cp-ic-close").addClass("glyphicon-eye-open");
+               $("#cpassword").attr('type', 'text');
+
+            } else {
+
+               $("#cp-ic-close").addClass("glyphicon-eye-close");
+               $("#cp-ic-close").removeClass("glyphicon-eye-open");
+               $("#cpassword").attr('type', 'password');
+            }
+
+         });
+
+         $("#sendbtnotp").click(function() {
+
+            var email = $("#email").val();
+
+            $.ajax({
+               beforeSend: function(data) {
+                  //disabled="disabled"
+                  $("#sendbtnotp").attr("disabled", "disabled");
+               },
+               complete: function() {
+                  $("#sendbtnotp").removeAttr("disabled", "disabled");
+                  $(".divforotp").html("");
+                  $(".divforotp").html('<a href="javascript:void(0)" class="btn btns btn-md btn-block" id="verifyotp">Verify</a>');
+               },
+               type: 'POST',
+               url: '<?php echo base_url("form/form/sendotp"); ?>',
+               data: ({
+                  email: email
+               }),
+               dataType: "json",
+               success: function(data) {
+                  //do here on success
+               },
+               error: function() {
+                  //do here on error
+               }
+            });
+
+         });
+
+      });
+      $("#otp").focusout(function() {
+         verifyOTP();
+      })
+      $(document).on('click', "#verifyotp", function() {
+         verifyOTP();
+      });
+
+
+      function verifyOTP() {
+
+         $("#otpDiv ,#sendOtpVerifyEmailerror").remove();
+         var otp = $("#otp").val();
+         var email = $("#email").val();
+         if (otp == "" || otp == 'undefine') {
+            $(".otpDiv").append('<span id="otpDiv" class="errorcode">Enter OTP</span>');
+            return false;
+         } else {
+
+            $.ajax({
+               beforeSend: function(data) {},
+               complete: function() {},
+               type: 'POST',
+               url: '<?php echo base_url("form/form/verifyotp"); ?>',
+               data: ({
+                  email: email,
+                  otp: otp
+               }),
+               dataType: 'json',
+               success: function(data) {
+                  if (data.code == 200) {
+                     $("#otpDiv ,#sendOtpVerifyEmailerror").remove();
+                     $(".password-section").removeClass("d-none");
+                     $(".send-otp-n-verify").html("");
+                     let html = '<div class="col-lg-11 col-md-11 col-sm-11 col-xs-11" style="margin-left: 2%;"><div class="form-group"><a href="javascript:void(0)" class="btn btn-success btn-md btn-block" style="pointer-events: none;">Your email verified successfully</a></div></div>';
+                     $(".send-otp-n-verify").html(html);
+                     $(".addIsEmailValid").attr("isOtpVerify", "1");
+                     $("#email").attr("disabled", "disabled");
+                     let addIsEmailValid = '<input type="hidden" name="emailNew" value="' + email + '">';
+                     $("#regForm").append(addIsEmailValid);
+                     $(".addIsEmailValid").attr("isemailexistornot", "1");
+                     $(".addIsEmailValid").attr("isOtpVerify", "1");
+                  } else {
+                     $("#otpDiv ,#sendOtpVerifyEmailerror").remove();
+                     $(".otpDiv").append('<span id="otpDiv" class="errorcode">Invalid OTP</span>');
+                     return false;
+                  }
+               },
+               error: function() {}
+            });
+
+         }
+      }
+
+      $("#regForm").on('submit', function() {
+         $("#gif").show();
+      });
+
+
+      $(document).ready(function() {
+
+         $(window).keydown(function(event) {
+            if (event.keyCode == 13) {
+               event.preventDefault();
+               return false;
+            }
+         });
+
+         var sess = "<?php echo isset($_SESSION['applicationID']) ? $_SESSION['applicationID'] : 0; ?>";
+         "<?php unset($_SESSION['applicationID']) ?>";
+         if (sess != 0) {
+
+            $(".step3").addClass("d-none");
+            $(".step4").removeClass("d-none");
+            $(".step1icon").removeClass("divForStep1Active");
+            $(".step1icon").addClass("divForStep1");
+
+            $(".step4icon").addClass("divForStepActive");
+            $(".step4icon").removeClass("divForStep");
+            $(".step4iconfa").addClass("paymentClassActive");
+            $(".step4iconfa").removeClass("paymentClass");
+
+            $(".step3icon").removeClass("divForStepActive");
+            $(".step3icon").addClass("divForStep");
+            $(".step3iconfa").removeClass("reviewClassActive");
+            $(".step3iconfa").addClass("reviewClass");
+
+            $("html, body").animate({
+               scrollTop: 100
+            }, 1000);
+         }
+      });
+   </script>
+
+</body>
+
+</html>

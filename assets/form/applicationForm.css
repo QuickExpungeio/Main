@@ -1,0 +1,285 @@
+
+        .loginbtn {
+            background-color: white;
+            color: #ff9d6f;
+            padding: 14px 20px;
+            margin: 8px 0;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+            border-radius: 2px;
+        }
+
+        .signupbtn{
+            background-color: #ff9d6f;
+            color: white;
+            padding: 14px 20px;
+            margin: 8px 0;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+            border-radius: 2px;
+        }
+        .qxtheme{
+            color:#ff7d3f
+        }
+
+        .imgcontainer {
+            text-align: center;
+            margin: 3% 0 12px 0;
+        }
+
+        img.avatar {
+            width: 50%;
+        }
+        .erfont {
+            text-align: center;
+            color:white;
+            font-size: 23px;
+        }
+        .yourOrder {
+            text-align: center;
+            color:#ff7d3f;
+            font-size: 15px;
+        }
+        .reviewClass{
+            padding: 32.2%;
+            color: transparent;
+            -webkit-text-stroke-width: 1px;
+            -webkit-text-stroke-color: #ff7d3f;
+        }
+        .reviewClassActive{
+            padding: 32.2%;
+            color: transparent;
+            -webkit-text-stroke-width: 1px;
+            -webkit-text-stroke-color: white;
+        }
+        .divForStep{
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            border: 6px solid black;
+            background-color: white;
+        }
+        .divForStepActive{
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            border: 6px solid black;
+            background-color:#ff7d3f;
+        }
+        .paymentClass{
+            padding: 33.4%;
+            color:#ff7d3f;
+        }
+        .paymentClassActive{
+            padding: 35.4%;
+            color:white;
+        }
+        .divForStep1{
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            border: 6px solid black;
+            background-color: white;
+            color: #ff7d3f;
+        }
+        .divForStep1Active{
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            border: 6px solid black;
+            background-color: black;
+            color: white;
+        }
+        /* sm */
+        @media (min-width: 768px){
+            .loginbtn {
+            background-color: white;
+            color: #ff9d6f;
+            padding: 9px 20px;
+            margin: 8px 0;
+            border: none;
+            cursor: pointer;
+            width: 75%;
+            border-radius: 2px;
+            }
+
+            .signupbtn{
+                background-color: #ff9d6f;
+                color: white;
+                padding: 9px 20px;
+                margin: 8px 0;
+                border: none;
+                cursor: pointer;
+                width: 75%;
+                border-radius: 2px;
+            }
+        }
+        .lableTxt{
+            font-size: smaller;
+            margin-bottom:1%;
+        }
+        .btns{
+            background-color: #ff7d3f !important;
+            color: white !important;;
+        }
+        .btns:hover{
+            color: white;
+        }
+        .errorcode{
+            color: #ff3f3f;
+            font-weight: 900;
+        }
+        .ml-2{
+            margin-left:3%;
+        }
+        /* width */
+        ::-webkit-scrollbar {
+            width: 5px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+
+
+        ::-webkit-scrollbar-thumb {
+            background: #bec4c4;
+        }
+
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #555;
+        }
+
+        .stepwizard-step p {
+            margin-top: 0px;
+            color:#666;
+        }
+        .stepwizard-row {
+            display: table-row;
+        }
+        .stepwizard {
+            display: table;
+            width: 100%;
+            /* position: relative; */
+            position: sticky;
+            margin-top:5%;
+            margin-left:15%;
+        }
+
+        .stepwizard .btn.disabled, .stepwizard .btn[disabled], .stepwizard fieldset[disabled] .btn {
+            opacity:1 !important;
+            color:#bbb;
+        }
+        .stepwizard-row:before {
+            top: 25px;
+            bottom: 0;
+            position: absolute;
+            content:" ";
+            width: 66%;
+            height: 1px;
+            background-color: #ccc;
+            z-index: 0;
+            margin-left: 3%;
+        }
+        .stepwizard-step {
+            display: table-cell;
+            text-align: center;
+            position: relative;
+        }
+        .btn-circle {
+            width: 30px;
+            height: 30px;
+            text-align: center;
+            padding: 6px 0;
+            font-size: 12px;
+            line-height: 1.428571429;
+            border-radius: 15px;
+        }
+        .d-none{
+            display: none;
+        }
+        input[type='radio']:after {
+            width: 15px;
+            height: 16px;
+            border-radius: 15px;
+            top: -2px;
+            left: -1px;
+            position: relative;
+            background-color: #e5e0de;
+            content: '';
+            display: inline-block;
+            visibility: visible;
+            border: 2px solid white;
+        } input[type='radio']:checked:after {
+            width: 15px;
+            height: 15px;
+            border-radius: 100%;
+            top: -1px;
+            left: -2px;
+            position: relative;
+            background-color: #f3570d;
+            content: "";
+            display: inline-block;
+            visibility: visible;
+            border: 4px solid #e5e0de;
+        }
+        @media (min-width: 1200px){
+
+            .responsiveWidth{
+                width: 48%;
+            }
+        }
+
+        @media only screen and (min-width:992px) and (max-width: 1200px){
+
+            .responsiveWidth{
+                width: 46%;
+            }
+        }
+        @media only screen and (min-width:768px) and (max-width: 992px){
+
+            .responsiveWidth{
+                width: 54%;
+            }
+        }
+        @supports (-moz-appearance:none){
+            .stepwizard-row::before {
+                top: 25px;
+                bottom: 0;
+                position: absolute;
+                content: " ";
+                width: 84%;
+                height: 1px;
+                background-color: #ccc;
+                z-index: 0;
+                left: 0%;
+            }
+            input[type='radio']::after {
+                width: 15px;
+                height: 16px;
+                border-radius: 15px;
+                top: -2px;
+                left: -1px;
+                position: relative;
+                background-color: #e5e0de;
+                content: '';
+                display: inline-block;
+                visibility: visible;
+                border: 2px solid white;
+            } input[type='radio']:checked::after {
+                width: 15px;
+                height: 15px;
+                border-radius: 100%;
+                top: -1px;
+                left: -2px;
+                position: relative;
+                background-color: #f3570d;
+                content: "";
+                display: inline-block;
+                visibility: visible;
+                border: 4px solid #e5e0de;
+            }
+        }

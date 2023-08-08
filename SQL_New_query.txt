@@ -1,0 +1,9 @@
+ //Add New Filed in expungument Table (24-07-2023)
+
+ ALTER TABLE `expungument` ADD `middlename` TEXT CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL AFTER `firstname`;
+
+ ALTER TABLE `expungument` ADD `issuing_state` VARCHAR(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL AFTER `state`;
+
+ALTER TABLE `expungument` ADD `state_id_no` VARCHAR(9) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL AFTER `license`;
+
+
