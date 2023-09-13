@@ -57,7 +57,7 @@
 		<div class="clearfix"></div>
 		<!-- <form method="post" action="<?php echo base_url(); ?>admin/user/user/exportCSV"> -->
 		<div class="row">
-			<div class="col-md-12 col-sm-12 col-xs-12">
+			<div class="col-md-12 col-sm-12 col-xs-12" style="margin-top: 20px;">
 				<div class="x_panel">
 					<div class="x_title">
 						<h2><b>Your Applications</b></h2>
@@ -92,7 +92,7 @@
 										<td><?php echo $val->firstname ?></td>
 										<td><?php echo $val->lastname ?></td>
 										<td><?php echo $val->email ?></td>
-										<td><?php echo $val->application_id ?></td>
+										<td><?php echo $val->case_no ?></td>
 										<td><a href="javascript:frm_submit(<?php echo $val->exfid ?>,`Chat`,<?php echo $val->uid ?>);"><i class="fa fa-comments" style="font-size:30px"></i><?php echo $notiBatch?></a></td>
 										<td><a href="javascript:frm_submit(<?php echo $val->exfid ?>,`View`,<?php echo $val->uid ?>);" class="btn btn-warning themeOrangeColor btn-lg">VIEW DETAILS</a></td>
 

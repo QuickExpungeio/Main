@@ -146,14 +146,14 @@ html , body{
 .left_col {
     background: #000000;
 /*    width: 150px;*/
-    width: 100%;
+    width: 150%;
 }
 .nav-sm .container.body .col-md-3.left_col {
     min-height: 100%;
     width: 70px;
     padding: 0;
     z-index: 9999;
-    position: absolute
+    position: fixed;
 }
 .nav-sm .container.body .col-md-3.left_col.menu_fixed {
     position: fixed;
@@ -168,7 +168,7 @@ html , body{
 }
 .nav-sm .container.body .right_col {
     padding: 10px 20px;
-    margin-left: 70px;
+    margin-left: 105px;
     z-index: 2
 }
 .nav-sm .navbar.nav_title {
@@ -218,7 +218,7 @@ html , body{
     display: none !important
 }
 .nav-sm .nav.side-menu li a i {
-    font-size: 25px !important;
+    font-size: 30px !important;
     text-align: center;
     width: 100% !important;
     margin-bottom: 5px
@@ -321,10 +321,10 @@ html , body{
 .nav-sm .menu_section {
     margin: 0
 }
-.nav-sm span.fa,
+/* .nav-sm span.fa,
 .nav-sm .menu_section h3 {
     display: none
-}
+} */
 .nav-sm li li span.fa {
     display: inline-block
 }
@@ -910,7 +910,8 @@ a:focus {
     line-height: 30px
 }
 .main_menu_side {
-    padding: 0
+    padding: 0;
+    margin-top: 122px;
 }
 .bs-docs-sidebar .nav>li>a {
     display: block;

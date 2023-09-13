@@ -26,10 +26,10 @@
    <div class="row">
       <div class="col-md-12 col-sm-12 col-xs-12">
          <div class="x_panel">
-            <div class="x_title">
+            <!-- <div class="x_title">
                <h2> <?php echo $userName ?></h2>
                <div class="clearfix"></div>
-            </div>
+            </div> -->
 
             <div class="x_content">
                <div class="col-md-12">
@@ -44,7 +44,7 @@
 
    </div>
    <div class="row "><!-- sticky-->
-      <div class="col-md-12 col-sm-12 col-xs-12">
+      <div class="col-md-12 col-sm-12 col-xs-12"  style="z-index: 0 !important;">
          <div class="x_panel">
             <div class="input-group">
                <input type="text" id="sendMessage" class="form-control" placeholder="Message" style="height:90px">
@@ -108,7 +108,7 @@
                                  $imageName = end($name);
                            ?>
                                  <tr>
-                                    <td><?php echo $imageName; ?></td>
+                                 <td><a href="<?php echo $val->attachment; ?>" target="_blank"><?php echo $imageName; ?></a></td>
                                     <td><?php echo $val->time; ?></td>
                                     <td><a href="<?php echo $val->attachment; ?>" class="btn btn-lg btn-warning" download>Download</a></td>
                                  </tr>
@@ -252,7 +252,7 @@
 
       setInterval(function() {
          getChatData(applicationId, userId, 0);
-      }, 10000);
+      }, 600000);
 
 
       function getChatData(applicationId, userId, newPage) {

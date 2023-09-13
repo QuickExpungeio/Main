@@ -10,7 +10,7 @@
     <!-- FastClick -->
     <script src="<?php echo base_url();?>assets/vendors/fastclick/lib/fastclick.js"></script>
     <!-- NProgress -->
-    <script src="<?php echo base_url();?>assets/vendors/nprogress/nprogress.js"></script>
+    <!-- <script src="<?php echo base_url();?>assets/vendors/nprogress/nprogress.js"></script> -->
     <!-- iCheck -->
     <script src="<?php echo base_url();?>assets/vendors/iCheck/icheck.min.js"></script>
     <!-- Datatables -->

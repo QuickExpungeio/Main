@@ -31,7 +31,7 @@
       <div class="row">
          <div class="col-sm-8 col-sm-offset-2 text center" style="padding: 10px 0px;">
             <a href="<?php echo base_url(); ?>"> <img src="<?php echo base_url(); ?>assets/images/logowhite.png" alt="..." style="width:350px;"></a>
-            <h3 style="color:#ffffff;">Erasing Criminal Records + Providing Second Chances</h3>
+            <h3 style="color:#ffffff;padding-top: 10px;">Erasing Criminal Records + Providing Second Chances</h3>
          </div>
       </div>
       <div class="row">

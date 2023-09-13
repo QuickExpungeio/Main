@@ -101,9 +101,9 @@ class Form_model extends CI_Model
 		}
 		$mailContaint = $this->db->get_where('wiki', array('id' => 5))->row();
 		$logo = base_url('assets/images/logo.png');
-		$msg = "Your want to register with us, and you must have to verify your email address. so for verify email your OTP for verification is <b>" . $code . "</b> . <br><br>For further communication, please Log in to the https://quickexpunge.io/.";
-		$replaceTo = array("__LOGO__", "__TITLE__", "__EMAILTEXT__");
-		$replaceFrom = array($logo, "Email Verification", $msg);
+		//$msg = "Your want to register with us, and you must have to verify your email address. so for verify email your OTP for verification is <b>" . $code . "</b> . <br><br>For further communication, please Log in to the https://form.henrycountyda.org/.";
+		$replaceTo = array("__LOGO__", "__TITLE__", "__THANKSTAX__", "__APPLICATIONTEXT__", "__CODE__");
+		$replaceFrom = array($logo, "Email Verification", "Thanks for Registration", "Account Verification Code is", $code);
 
 		$newContaint = str_replace($replaceTo, $replaceFrom, $mailContaint->description);
 		$to = $email;
@@ -162,21 +162,22 @@ class Form_model extends CI_Model
 
 	   if($forAdmin==1){
 
-	      $mailContaint = $this->db->get_where('wiki',array('id' =>4))->row();
-			$logo= base_url('assets/images/logo.png');
-			$msg =" New application received from = ".ucfirst($fname)." ".ucfirst($lname).",.<br>Thank you in advance for your patience<br>Your application id is <b>".$applicationID."</b>";
-			$replaceTo= array("__LOGO__","__TITLE__","__USERNAME__","__EMAILTEXT__");
-			$replaceFrom= array($logo,"New Application Received",$fname." ".$lname,$msg);
-	      $newContaint = str_replace($replaceTo,$replaceFrom,$mailContaint->description);
+			$mailContaint = $this->db->get_where('wiki', array('id' => 4))->row();
+			$logo = base_url('assets/images/logo.png');
+			$msg = " New application received from = " . ucfirst($fname) . " " . ucfirst($lname) . ",.<br>Thank you in advance for your patience<br>Your application id is <b>" . $applicationID . "</b>";
+			$replaceTo = array("__LOGO__", "__TITLE__", "__USERNAME__", "__EMAILTEXT__");
+			$replaceFrom = array($logo, "New Application Received", $fname . " " . $lname, $msg);
+			$newContaint = str_replace($replaceTo, $replaceFrom, $mailContaint->description);
 			$to = "no_reply@quickexpunge.io";
 			$subject = $mailContaint->subject;
 			$message = $newContaint;
-	   }else{
-			$mailContaint = $this->db->get_where('wiki',array('id' =>1))->row();
-			$logo= base_url('assets/images/logo.png');
-			$msg ="Your application has been successfully submitted, We wil now consider your ENTIRE record for possible restricton , You do not need to resubmit the application if you have additional charges.<br>Thank you in advance for your patience<br>For further communication, please Log in to the https://quickexpunge.io/, User id :- ".$email." and password which you have generated in the application form. <br>Your application id is <b>".$applicationID."</b>";
-			$replaceTo= array("__LOGO__","__TITLE__","__USERNAME__","__EMAILTEXT__");
-			$replaceFrom= array($logo,"Application Submited",$fname." ".$lname,$msg);
+		} else {
+			$mailContaint = $this->db->get_where('wiki', array('id' => 1))->row();
+			$logo = base_url('assets/images/logo.png');
+			$url = "<a href=" . base_url('admin/login') . ">Click here</a>";
+			$msg ="Your application has been successfully submitted, We wil now consider your ENTIRE record for possible restricton , You do not need to resubmit the application if you have additional charges.<br>For further communication, please Log in to the ".$url.",<br>Your application id is <b>".$applicationID."</b>";
+			$replaceTo = array("__LOGO__", "__TITLE__", "__USERNAME__", "__EMAILTEXT__", "__Clickhere__");
+			$replaceFrom = array($logo, "Application Submited", $fname . " " . $lname, $msg, $url);
 
 			$newContaint = str_replace($replaceTo,$replaceFrom,$mailContaint->description);
 			$to = $email;

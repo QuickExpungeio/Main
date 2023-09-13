@@ -166,7 +166,7 @@
             /* position: relative; */
             position: sticky;
             margin-top:5%;
-            margin-left:15%;
+            margin-left:10%;
         }
 
         .stepwizard .btn.disabled, .stepwizard .btn[disabled], .stepwizard fieldset[disabled] .btn {

@@ -4,7 +4,6 @@ class Applications extends MY_Controller
 {
    function __construct()
    {
-
       parent::__construct();
 
       if (isset($_SESSION['role'])) {
@@ -22,14 +21,36 @@ class Applications extends MY_Controller
 
    public function index()
    {
-
       $params["results"] = $this->Expunge_model->get_expungelist();
+      $params["openCount"] =  $this->Expunge_model->getExpungumentBasedOnStatus('open');
+      $params["inprogressCount"] =  $this->Expunge_model->getExpungumentBasedOnStatus('inprogress');
+      $params["closedCount"] =  $this->Expunge_model->getExpungumentBasedOnStatus('closed');
+      $params["averageCount"] =  $this->Expunge_model->getExpungumentBasedOnStatus('avg');
+
       $this->load->view('header');
       $this->load->view('navbar', $params);
       $this->load->view('applications', $params);
       $this->load->view('footer');
    }
-
+   function count_details($screen)
+   {
+      // print_r($view);die;
+      $params["results"] = $this->Expunge_model->getExpungumentBasedOnStatusDetails($screen);
+      $params['screen'] = $screen;
+      // print_r();
+      // echo $this->db->last_query();die;
+      // $params["dashboard_count"] =  $this->Expunge_model->get_dashboard_count();
+      // echo '<pre>';
+      // print_r($params["results"]);
+      // echo $this->db->last_query();
+      // die;
+      // Print the result or use it as needed
+      // echo "Number of rows with status 0: " . $count;
+      $this->load->view('header');
+      $this->load->view('navbar', $params);
+      $this->load->view('applications_open', $params);
+      $this->load->view('footer');
+   }
 
    function details($id = 0)
    {
@@ -106,7 +127,7 @@ class Applications extends MY_Controller
       return true;
    }
    function updatestatus()
-   {  
+   {
       $applicationID = $this->input->post('id');
       $status = $this->input->post('status');
       $this->User_model->updatestatus($status, $applicationID);

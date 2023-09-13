@@ -40,7 +40,7 @@ class Forgot_model extends CI_Model
       $randomString =  $base64code . "___" . $emailOfUser;
       $randomString  = base64_encode($randomString);
 
-      $url = base_url("admin/forgotpassword/validateemail/") . $randomString;
+      $url = '<a href="'.base_url("admin/forgotpassword/validateemail/") . $randomString.'">Click Here</a>';
 
       $mailContaint = $this->db->get_where('wiki', array('id' => 2))->row();
       $logo = base_url('assets/images/logo.png');
@@ -69,7 +69,6 @@ class Forgot_model extends CI_Model
       $this->email->subject($subject);
       $this->email->message($message);
       $isSend = $this->email->send();
-
       if ($isSend) {
          $this->db->update("user_master", array("base64code" => $base64code), array("email" => $emailOfUser));
          return true;

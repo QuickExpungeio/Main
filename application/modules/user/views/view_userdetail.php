@@ -11,7 +11,9 @@
                      foreach ($results as $user) {
                   ?>
 
-                        <h2><b>Record Detail</b></h2>
+                        <h2><b>Record Detail</b>
+                           <a href="javascript:frm_submit(<?php echo '`' . $user->exfid . '`,`Chat`,`' . $user->uid . '`'  ?>);" class="btn btn-warning themeOrangeColor" style="float:right">Chat</a>
+                        </h2>
 
 
                         <h5><b>Date Received: <?php print date('m-d-Y', strtotime($user->create_date)); ?></b></h5>
@@ -47,7 +49,7 @@
                                  <td style="width: 30%"><b>Alias</b></td>
                                  <td><?php print $user->alias; ?></td>
                               </tr>
-                              <tr>
+                              <!-- <tr>
                                  <td style="width: 30%"><b>Preferred Communication Method</b></td>
                                  <td>
                                     <?php
@@ -59,10 +61,10 @@
                                        print "SMS and Email";
                                     } ?>
                                  </td>
-                              </tr>
+                              </tr> -->
                               <tr>
                                  <td><b>Date of Birth</b></td>
-                                 <td><?php print date('d-m-Y', strtotime($user->birthdate)); ?></td>
+                                 <td><?php print date('m-d-Y', strtotime($user->birthdate)); ?></td>
                               </tr>
                               <tr>
                                  <td><b>Race</b></td>
@@ -101,12 +103,24 @@
                                  <td><?php print $user->license; ?></td>
                               </tr>
                               <tr>
+                                 <td><b>State Identification Number</b></td>
+                                 <td><?php print $user->state_id_no; ?></td>
+                              </tr>
+                              <tr>
                                  <td><b>Offense Arrested For</b></td>
                                  <td style="word-break:break-all;"><?php print $user->offense_attested; ?></td>
                               </tr>
                               <tr>
-                                 <td><b>Internal Comments</b></td>
-                                 <td><img src="<?php print $user->verification_id; ?>" width="350" title="Internal Comments"> </td>
+                                 <td><b>Photo ID</b></td>
+                                 <!-- <td><img src="<?php print $user->verification_id; ?>" width="350" title=""> </td> -->
+                                 <?php if (
+                                    strpos($user->verification_id, 'docx') == true ||
+                                    strpos($user->verification_id, 'pdf') == true
+                                 ) { ?>
+                                    <td><a href="<?php echo $user->verification_id; ?>" target="_blank"><?php echo substr($user->verification_id, strrpos($user->verification_id, '/') + 1); ?></a></td>
+                                 <?php } else { ?>
+                                    <td><a href="<?php echo $user->verification_id; ?>" target="_blank"><img src="<?php echo $user->verification_id; ?>" width="350" title=""> </a></td>
+                                 <?php } ?>
                               </tr>
                               <tr>
                                  <td></td>

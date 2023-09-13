@@ -353,4 +353,53 @@ class Expunge_model extends CI_Model
 
       return $json_data;
    }
+   public function getExpungumentBasedOnStatus($status)
+   {
+      $this->db->select('count(exfid) as exfid');
+      $this->db->from('expungument');
+      if($status == "open"){
+         $this->db->where('status','Received');
+         $this->db->or_where('status','Need more Information');
+      }else if($status == "inprogress"){
+         $this->db->where('status','Eligible For Restriction');
+         $this->db->or_where('status','Eligible for DA');
+         $this->db->or_where('status','In Progress');
+         $this->db->or_where('status','Eligible for Further Steps');
+      }else if($status == "closed"){
+         $this->db->where('status','Denial');
+         $this->db->or_where('status','Ineligible for Restriction');
+         $this->db->or_where('status','Restriction Complete');
+      } 
+      return $this->db->get()->row('exfid');
+      
+      // echo '<pre>';print_r($sql);
+      // // echo $this->db->last_query();
+      // die;
+   }
+   public function getExpungumentBasedOnStatusDetails($status)
+   {
+      // $this->db->select('um.uid,expungument.status,expungument.exfid,expungument.arresting_agency,expungument.date_arrest,expungument.offense_attested,um.username,expungument.case_no,um.email,um.address,expungument.suffix,expungument.firstname,expungument.lastname,expungument.license,expungument.arrest_date,expungument.arrest_month,expungument.arrest_year');
+      $this->db->from('expungument');
+      if($status == "open"){
+         $this->db->where('status','Received');
+         $this->db->or_where('status','Need more Information');
+      }else if($status == "inprogress"){
+         $this->db->where('status','Eligible For Restriction');
+         $this->db->or_where('status','Eligible for DA');
+         $this->db->or_where('status','In Progress');
+         $this->db->or_where('status','Eligible for Further Steps');
+      }else if($status == "closed"){
+         $this->db->where('status','Denial');
+         $this->db->or_where('status','Ineligible for Restriction');
+         $this->db->or_where('status','Restriction Complete');
+      }
+      // $this->db->join('user_master as um', 'um.uid = expungument.uid', 'left');
+      // $this->db->where('um.`email !=', '');
+      // $where = '(status="Received" or status = "In Progress" or  status = "Need more Information")';
+      // $this->db->where($where);
+
+      $this->db->order_by('expungument.exfid', 'DESC');
+      return $this->db->get()->result();
+
+   }
 }

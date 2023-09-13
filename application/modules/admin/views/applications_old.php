@@ -19,86 +19,9 @@
 	<div class="">
 		<div class="clearfix"></div>
 		<div class="row">
-			<div class="col-lg-6 col-6">
-				<h2><b> Performance Dashboard </b></h2><br>
-			</div>
-		</div>
-		<div class="row">
-
-			<div class="col-lg-3 col-6" style="width: 25%;">
-				<div class="small-box" style="height: 200px;background-color:#f0f0f0;">
-					<div class="inner">
-						<br>
-						<a href="<?php echo site_url('admin/applications/count_details/open'); ?>">
-							<h4 class="text-center"><b> Open Expungements</b></h4>
-							<br>
-							<!-- <a href="JavaScript:void(0);"> -->
-
-							<h2 class="text-center"><b><?php echo $openCount; ?></b></h2>
-						</a>
-					</div>
-
-				</div>
-			</div>
-
-			<div class="col-lg-3 col-6" style="width: 25%;">
-
-				<div class="small-box" style="height: 200px;background-color:#f0f0f0;">
-					<div class="inner">
-						<br>
-						<a href="<?php echo site_url(); ?>admin/applications/count_details/inprogress">
-							<h4 class="text-center"><b>In Progress Expungements</b></h4>
-							<br>
-							<!-- <a href="JavaScript:void(0);"> -->
-							<h2 class="text-center"><b><?php echo $inprogressCount; ?></b></h2>
-						</a>
-
-					</div>
-
-				</div>
-			</div>
-
-			<div class="col-lg-3 col-6" style="width: 25%;">
-
-				<div class="small-box " style="height: 200px;background-color:#f0f0f0;">
-					<div class="inner">
-
-						<br>
-						<a href="<?php echo site_url(); ?>admin/applications/count_details/closed">
-							<h4 class="text-center"><b>Closed Expungements</b></h4>
-							<br>
-							<!-- <a href="JavaScript:void(0);"> -->
-
-							<h2 class="text-center"><b><?php echo $closedCount; ?></b></h2>
-						</a>
-					</div>
-
-				</div>
-			</div>
-
-			<div class="col-lg-3 col-6" style="width: 25%;">
-
-				<div class="small-box" style="height: 200px;background-color:#f0f0f0;">
-					<div class="inner">
-
-						<br>
-						<a href="JavaScript:void(0);">
-							<h4 class="text-center"><b>Average Working Time</b></h4>
-							<br>
-
-							<h2 class="text-center"><b>30</b></h2>
-						</a>
-						<h4 class="text-center"><b>Days</b></h4>
-					</div>
-
-				</div>
-			</div>
-
-		</div>
-		<div class="row">
 			<div class="col-md-12 col-sm-12 col-xs-12" style="margin-top: 20px;">
 				<div class="x_panel">
-
+					
 					<div class="x_title">
 						<h2> Record Restriction Dashboard</h2>
 						<a href="<?php echo site_url(); ?>admin/applications/export" class='btn btn-xs' style="float: right; background:#FF7D3F;color:white"> Export to CSV</a>

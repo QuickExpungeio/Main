@@ -58,11 +58,22 @@ class Chat_model extends CI_Model
       return $data;
 
    }
-   public function getDocumentsUploadByUser($userId){
+   public function getDocumentsUploadByUser_Admin($userId,$expungement_id){
+      // ->where("is_admin",0)->where("sender",$userId)
+      // return $this->db->select("attachment ,time")->from("expungement_chat")->where("is_admin",0)->where("sender",$userId)->where("attachment !=",'')->get()->result();
+       $sender = $this->db->select("attachment ,time")->from("expungement_chat")->where("expungement_id",$expungement_id)->where("is_admin",0)->where("sender",$userId)->where("attachment !=",'')->get()->result();
+      //  echo $this->db->last_query();die;
 
-      return $this->db->select("attachment ,time")->from("expungement_chat")->where("is_admin",0)->where("sender",$userId)->where("attachment !=",'')->get()->result();
-   }
-   public function getDocumentsUploadByAdmin($userId){
-      return $this->db->select("attachment ,time")->from("expungement_chat")->where("is_admin",1)->where("receiver",$userId)->where("attachment !=",'')->get()->result();
+       $this->db->select("attachment ,time");
+       $this->db->from("expungement_chat");
+       $this->db->where("expungement_id",$expungement_id);
+       $this->db->where("is_admin",1);
+       $this->db->where("receiver",$userId);
+       $this->db->where("attachment !=",'');
+       $receiver =$this->db->get()->result();
+             
+       $senderreceiver = array_merge($sender,$receiver);
+       return $senderreceiver;
+      // echo $this->db->last_query();die;
    }
 }

@@ -36,6 +36,6 @@
     <script src="<?php echo base_url();?>assets/vendors/bootstrap/dist/js/bootstrap.min.js"></script>
 
 </head>
-<body class="nav-md">
+<body class="nav-sm">
     <div class="container body">
       <div class="main_container">

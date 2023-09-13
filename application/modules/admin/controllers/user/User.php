@@ -333,4 +333,11 @@ class User extends MY_Controller
       $this->session->sess_destroy();
       redirect('admin/login');
    }
+   public function jsonList_details()
+   {
+      $status = $_POST['selected_screen'];
+      $json_data_details = $this->User_model->get_list_table_details($status); // get the invoice list
+      //  echo '<pre>';print_r( $json_data_details);die;
+      echo json_encode($json_data_details);
+   }
 }

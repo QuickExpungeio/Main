@@ -15,100 +15,46 @@
 		margin-bottom: 50%;
 	}
 </style>
+
 <div class="right_col" role="main">
 	<div class="">
 		<div class="clearfix"></div>
 		<div class="row">
-			<div class="col-lg-6 col-6">
-				<h2><b> Performance Dashboard </b></h2><br>
-			</div>
-		</div>
-		<div class="row">
-
-			<div class="col-lg-3 col-6" style="width: 25%;">
-				<div class="small-box" style="height: 200px;background-color:#f0f0f0;">
-					<div class="inner">
-						<br>
-						<a href="<?php echo site_url('admin/applications/count_details/open'); ?>">
-							<h4 class="text-center"><b> Open Expungements</b></h4>
-							<br>
-							<!-- <a href="JavaScript:void(0);"> -->
-
-							<h2 class="text-center"><b><?php echo $openCount; ?></b></h2>
-						</a>
-					</div>
-
-				</div>
-			</div>
-
-			<div class="col-lg-3 col-6" style="width: 25%;">
-
-				<div class="small-box" style="height: 200px;background-color:#f0f0f0;">
-					<div class="inner">
-						<br>
-						<a href="<?php echo site_url(); ?>admin/applications/count_details/inprogress">
-							<h4 class="text-center"><b>In Progress Expungements</b></h4>
-							<br>
-							<!-- <a href="JavaScript:void(0);"> -->
-							<h2 class="text-center"><b><?php echo $inprogressCount; ?></b></h2>
-						</a>
-
-					</div>
-
-				</div>
-			</div>
-
-			<div class="col-lg-3 col-6" style="width: 25%;">
-
-				<div class="small-box " style="height: 200px;background-color:#f0f0f0;">
-					<div class="inner">
-
-						<br>
-						<a href="<?php echo site_url(); ?>admin/applications/count_details/closed">
-							<h4 class="text-center"><b>Closed Expungements</b></h4>
-							<br>
-							<!-- <a href="JavaScript:void(0);"> -->
-
-							<h2 class="text-center"><b><?php echo $closedCount; ?></b></h2>
-						</a>
-					</div>
-
-				</div>
-			</div>
-
-			<div class="col-lg-3 col-6" style="width: 25%;">
-
-				<div class="small-box" style="height: 200px;background-color:#f0f0f0;">
-					<div class="inner">
-
-						<br>
-						<a href="JavaScript:void(0);">
-							<h4 class="text-center"><b>Average Working Time</b></h4>
-							<br>
-
-							<h2 class="text-center"><b>30</b></h2>
-						</a>
-						<h4 class="text-center"><b>Days</b></h4>
-					</div>
-
-				</div>
-			</div>
-
-		</div>
-		<div class="row">
 			<div class="col-md-12 col-sm-12 col-xs-12" style="margin-top: 20px;">
 				<div class="x_panel">
-
-					<div class="x_title">
-						<h2> Record Restriction Dashboard</h2>
-						<a href="<?php echo site_url(); ?>admin/applications/export" class='btn btn-xs' style="float: right; background:#FF7D3F;color:white"> Export to CSV</a>
-						<div class="clearfix"></div>
-					</div>
+					<?php
+					// echo '<pre>';print_r($screen);die;
+					if ($screen == "open") { ?>
+						<div class="x_title">
+							<h2> Open Expungements </h2>
+							<a href="<?php echo site_url(); ?>admin/applications/export" class='btn btn-xs' style="float: right; background:#FF7D3F;color:white"> Export to CSV</a>
+							<div class="clearfix"></div>
+						</div>
+					<?php } else if ($screen == "inprogress") { ?>
+						<div class="x_title">
+							<h2> In Progress Expungements</h2>
+							<a href="<?php echo site_url(); ?>admin/applications/export" class='btn btn-xs' style="float: right; background:#FF7D3F;color:white"> Export to CSV</a>
+							<div class="clearfix"></div>
+						</div>
+					<?php } else if ($screen == "closed") { ?>
+						<div class="x_title">
+							<h2>Closed Expungements</h2>
+							<a href="<?php echo site_url(); ?>admin/applications/export" class='btn btn-xs' style="float: right; background:#FF7D3F;color:white"> Export to CSV</a>
+							<div class="clearfix"></div>
+						</div>
+					<?php } else if ($screen == "avg") { ?>
+						<div class="x_title">
+							<h2>Average Working Time</h2>
+							<a href="<?php echo site_url(); ?>admin/applications/export" class='btn btn-xs' style="float: right; background:#FF7D3F;color:white"> Export to CSV</a>
+							<div class="clearfix"></div>
+						</div>
+					<?php } ?>
 					<div class="x_content">
 						<table class="table table-striped table-bordered datatable datatableFilter">
 							<thead>
 								<tr>
 									<th><button onclick="multidelete()" class="btn btn-xs btn-danger" name="deletebutton"><i class="fa fa-trash"></i></button></th>
+
 									<th>Application No</th>
 									<th>Name</th>
 									<th>Email</th>
@@ -140,6 +86,9 @@
 	</div>
 </div>
 <script type="text/javascript" language="javascript">
+	var selected_screen = "<?php echo $screen; ?>";
+	// alert(selected_screen);
+
 	$(document).ready(function() {
 
 		$(".datatable").DataTable({
@@ -179,9 +128,11 @@
 
 
 			"ajax": {
-				"url": "<?php echo base_url('admin/user/user/jsonList'); ?>",
+				"url": "<?php echo base_url('admin/user/user/jsonList_details'); ?>",
 				"type": "POST",
-				"data": {},
+				"data": {
+					selected_screen: selected_screen
+				},
 			},
 
 			"fnInitComplete": function(oSettings, json) {

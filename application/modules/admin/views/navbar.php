@@ -1,8 +1,8 @@
-<div class="center" style="padding: 10px 0px;background-image:url(<?php echo base_url("assets/images/navImage.png"); ?>)">
+<div class="center" style="padding: 10px 0px;position: fixed;width: 100%;z-index: 1;background-color: #000000;">
    <img src="<?php echo base_url();?>assets/images/logowhite.png" alt="..." style="width:350px;" >
 </div>
 <div class="col-md-3 left_col">
-  <div class="left_col scroll-view">
+  <div class="left_col scroll-view" style="margin-top: -14.5px;">
    <!--  <div class="navbar nav_title" style="border: 0;">
       <a class="site_title"><span>Quick Expunge</span></a>
     </div> -->
@@ -40,17 +40,17 @@
     </div>
   </div>
   <div class="top_nav">
-    <div class="nav_menu">
+    <div class="nav_menu" style="margin-top: 8.5%;">
       <nav>
-        <div class="nav toggle">
+        <!-- <div class="nav toggle">
           <a id="menu_toggle"><i class="fa fa-bars"></i></a>
-        </div>
+        </div> -->
 
         <ul class="nav navbar-nav navbar-right">
           <li class="">
             <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
               Admin
-              <span class=" fa fa-angle-down"></span>
+              <i class="fa fa-angle-down" aria-hidden="true"></i>
             </a>
             <ul class="dropdown-menu dropdown-usermenu pull-right">
 

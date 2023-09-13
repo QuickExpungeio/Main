@@ -166,37 +166,37 @@ class User_model extends CI_Model
          $encodedLetter = json_encode($newLetter);
          $this->db->update("expungument", array('multi_restriction_letter' => $encodedLetter), array('exfid' => $id));
       }
-      if (!empty($OldImages->email)) {
+      // if (!empty($OldImages->email)) {
 
-         $mailContaint = $this->db->get_where('wiki', array('id' => 1))->row();
-         $logo = base_url('assets/images/logo.png');
-         $msg = "Admin Upload <b>Proof of Restriction</b>";
-         $replaceTo = array("__LOGO__", "__TITLE__", "__USERNAME__", "__EMAILTEXT__");
-         $replaceFrom = array($logo, "Proof of Restriction", $OldImages->firstname . " " . $OldImages->lastname, $msg);
+      //    $mailContaint = $this->db->get_where('wiki', array('id' => 1))->row();
+      //    $logo = base_url('assets/images/logo.png');
+      //    $msg = "Admin Upload <b>Proof of Restriction</b>";
+      //    $replaceTo = array("__LOGO__", "__TITLE__", "__USERNAME__", "__EMAILTEXT__");
+      //    $replaceFrom = array($logo, "Proof of Restriction", $OldImages->firstname . " " . $OldImages->lastname, $msg);
 
-         $newContaint = str_replace($replaceTo, $replaceFrom, $mailContaint->description);
-         $to = $OldImages->email;
-         $subject = "Quick Expunge - Proof of Restriction Uploaded";
-         $message = $newContaint;
+      //    $newContaint = str_replace($replaceTo, $replaceFrom, $mailContaint->description);
+      //    $to = $OldImages->email;
+      //    $subject = "Quick Expunge - Proof of Restriction Uploaded";
+      //    $message = $newContaint;
 
-         $config = array(
-            'protocol' => 'smtp',
-            'smtp_host' => 'ssl://smtp.dreamhost.com',
-            'smtp_port' => "465",
-            'smtp_user' => 'no_reply@quickexpunge.io', // change it to yours
-            'smtp_pass' => '1L0vefreedom', // change it to yours
-            'mailtype' => 'html',
-            'charset' => 'iso-8859-1',
-            'wordwrap' => TRUE
-         );
-         $this->load->library('email', $config);
-         $this->email->set_newline("\r\n");
-         $this->email->from('no_reply@quickexpunge.io'); // change it to yours
-         $this->email->to($to); // change it to yours
-         $this->email->subject($subject);
-         $this->email->message($message);
-         $this->email->send();
-      }
+      //    $config = array(
+      //       'protocol' => 'smtp',
+      //       'smtp_host' => 'ssl://smtp.dreamhost.com',
+      //       'smtp_port' => "465",
+      //       'smtp_user' => 'no_reply@quickexpunge.io', // change it to yours
+      //       'smtp_pass' => '1L0vefreedom', // change it to yours
+      //       'mailtype' => 'html',
+      //       'charset' => 'iso-8859-1',
+      //       'wordwrap' => TRUE
+      //    );
+      //    $this->load->library('email', $config);
+      //    $this->email->set_newline("\r\n");
+      //    $this->email->from('no_reply@quickexpunge.io'); // change it to yours
+      //    $this->email->to($to); // change it to yours
+      //    $this->email->subject($subject);
+      //    $this->email->message($message);
+      //    $this->email->send();
+      // }
 
       return true;
    }
@@ -327,6 +327,122 @@ class User_model extends CI_Model
                //,count(expchat.is_Reeded) as is_Reeded
                $notiBatch = '<span class="NotificationBadge">' . $val->is_Reeded . '</span>';
             }
+
+            $data[] = array(
+               'deleteid' => '<input type="checkbox" id="' . $val->exfid . '" class="multdelete" value="' . $val->exfid . '">',
+               'appno' => '<a href="javascript:frm_submit(' . $val->exfid . ',`Chat`,' . $val->uid . ');">' . $val->exfid . '</a>',
+               'name'        =>  $val->suffix . ' ' . $val->firstname . ' ' . $val->lastname,
+               'email'    => $val->email,
+               'agency'     => $val->arresting_agency,
+               'dateofarrest'   => $date_arrest,
+               'drivelicence'   => $val->license,
+               'caseno'   => $val->case_no,
+               'status'   => $val->status,
+               // 'chat' => '<a href="javascript:frm_submit(' . $val->exfid . ',`Chat`,' . $val->uid . ');" class="btn btn-xs" style="float: right; background:#FF7D3F;color:white" >Chat  <i class="fa fa-comment"></i></a>'.$batch,
+               'chat' => '<a href="javascript:frm_submit(' . $val->exfid . ',`Chat`,' . $val->uid . ');" ><i class="fa fa-comments" style="font-size:30px"></i>' . $notiBatch . '</a>',
+               'action'   => '<a href="javascript:frm_submit(' . $val->exfid . ',`View`);" class="btn btn-xs" style="float: right; background:#FF7D3F;color:white"> <i class="fa fa-edit"></i> View Detail</a>',
+
+            );
+         }
+      }
+
+      $json_data = array(
+         "draw"            => intval($params['draw']),
+         "recordsTotal"    => intval($totalRecords),
+         "recordsFiltered" => intval($totalRecords),
+         "data"            => $data   // total data array
+      );
+
+      return $json_data;
+   }
+   public function get_list_table_details($status)
+   {
+   //   echo '<pre>';print_r('hello');die;
+      $params = $totalRecords = $data = array();
+
+      $params = $_REQUEST;
+      $sort_nameKey = isset($params['columns'][$params['order'][0]['column']]['data']) ? $params['columns'][$params['order'][0]['column']]['data'] : "";
+      $sort_direction = $params['order'][0]['dir'];
+      $where = $sqlTot = $sqlRec = "";
+
+      switch ($sort_nameKey) {
+         case 'appno':
+            $sort_name = "expungument.exfid";
+            break;
+
+         case 'name':
+            $sort_name = "expungument.firstname";
+            break;
+
+         case 'email':
+            $sort_name = "um.email";
+            break;
+
+         case 'agency':
+            $sort_name = "expungument.arresting_agency";
+            break;
+
+         case 'dateofarrest':
+            $sort_name = "expungument.arrest_date";
+            break;
+
+         case 'status':
+            $sort_name = "expungument.status";
+            break;
+
+         default:
+            $sort_name = "expungument.exfid";
+            $sort_direction = "DESC";
+            break;
+      }
+
+
+
+      if (!empty($params['search']['value'])) {
+         $where .= " AND ";
+         $where .= " ( ";
+         $where .= " expungument.firstname LIKE '%" . $params['search']['value'] . "%' ";
+         $where .= " OR expungument.lastname LIKE '%" . $params['search']['value'] . "%' ";
+         $where .= " OR um.email LIKE '%" . $params['search']['value'] . "%' ";
+         $where .= " OR expungument.arresting_agency LIKE '%" . $params['search']['value'] . "%' ";
+         $where .= " OR expungument.license LIKE '%" . $params['search']['value'] . "%' ";
+         $where .= " OR expungument.case_no LIKE '%" . $params['search']['value'] . "%' ";
+         $where .= " OR expungument.status LIKE '%" . $params['search']['value'] . "%' ";
+         $where .= " OR expungument.suffix LIKE '%" . $params['search']['value'] . "%' ";
+         $where .= " OR expungument.firstname LIKE '%" . $params['search']['value'] . "%' ";
+         $where .= " OR expungument.lastname LIKE '%" . $params['search']['value'] . "%' ";
+         $where .= " )";
+      }
+      $mainWhere = '';
+      if($status == "open"){
+         $mainWhere = '(status="Received" or  status = "Need more Information")';
+      }else if($status == "inprogress"){
+         $mainWhere = '(status="Eligible For Restriction" or status = "Eligible for DA" or status = "In Progress" or  status = "Eligible for Further Steps")';
+      }else if($status == "closed"){
+         $mainWhere = '(status="Denial" or status = "Ineligible for Restriction" or  status = "Restriction Complete")';
+      }
+      $sql = "SELECT * FROM expungument
+				WHERE {$mainWhere} {$where}
+				ORDER BY " . $sort_name . " " . $sort_direction . " ";
+      //ORDER BY expungument.exfid DESC ";
+
+      $sqlTot .= $sql;
+      $sqlRec .= $sql;
+
+      $sqlRec .=  " LIMIT " . $params['start'] . " ," . $params['length'] . " ";
+      $queryTot = $this->db->query($sqlTot);
+      $totalRecords = $queryTot->num_rows();
+      $queryRecords = $this->db->query($sqlRec);
+      $results = $queryRecords->result();
+      if (!empty($results)) {
+         foreach ($results as $val) {
+
+            $date_arrest = $val->arrest_month . "-" . $val->arrest_date . "-" . $val->arrest_year;
+            $notiBatch = "";
+            // if ($val->is_Reeded != 0) {
+            //    //,count(expchat.is_Reeded) as is_Reeded
+            //    $notiBatch = '<span class="NotificationBadge">' . $val->is_Reeded . '</span>';
+            // }
 
             $data[] = array(
                'deleteid' => '<input type="checkbox" id="' . $val->exfid . '" class="multdelete" value="' . $val->exfid . '">',

@@ -52,7 +52,7 @@
     /* ::placeholder {
     color: grey !important;
     opacity: 1 !important; /* Firefox */
-    
+
 
     */:-ms-input-placeholder {
         /* Internet Explorer 10-11 */
@@ -107,25 +107,25 @@ $monthList = ['Jan' => 'January', 'Feb' => 'February', 'Mar' => 'March', 'Apr' =
                                 <div class="step1icon divForStep1Active">
                                     <i class="fa fa-file-text-o" style="padding: 34.4%"></i>
                                 </div>
-                                <span style="margin-right: 74%;font-size: smaller;">Form</span>
+                                <span style="margin-right: 66%;font-size: smaller;">Form</span>
                             </div>
                             <div class="stepwizard-step col-xs-3">
                                 <div class="step2icon divForStep">
-                                    <i class="step2iconfa fa fa-shopping-cart reviewClass"></i>
+                                    <i class="step2iconfa fa fa-bars reviewClass"></i>
                                 </div>
-                                <span style="margin-right: 74%;font-size: smaller;">Review</span>
+                                <span style="margin-right: 66%;font-size: smaller;">Review</span>
                             </div>
-                            <!-- <div class="stepwizard-step col-xs-3">
+                            <div class="stepwizard-step col-xs-3">
                                 <div class="step3icon divForStep">
                                     <i class="step3iconfa fa fa-usd paymentClass"></i>
                                 </div>
-                                <span style="margin-right: 74%;font-size: smaller;">Payment</span>
-                            </div> -->
+                                <span style="margin-right: 66%;font-size: smaller;">Payment</span>
+                            </div>
                             <div class="stepwizard-step col-xs-3">
-                                <div class="step4icon divForStep">
+                                <div class="step4icon divForStep" style="margin-right: 18px;">
                                     <i class="step4iconfa fa fa-check paymentClass"></i>
                                 </div>
-                                <span style="margin-right: 74%;font-size: smaller;">Confirmed</span>
+                                <span style="margin-right: 66%;font-size: smaller;">Confirmed</span>
                             </div>
                         </div>
                     </div><!--stepwizard-->
@@ -188,14 +188,7 @@ $monthList = ['Jan' => 'January', 'Feb' => 'February', 'Mar' => 'March', 'Apr' =
                             </div>
 
                             <div class="row">
-                                <div class="col">
-                                    <select name="Bdate" id="Bdate" class="form-select">
-                                        <option value="">Date</option>
-                                        <?php for ($d = 1; $d < 32; $d++) {
-                                            echo '<option value="' . $d . '">' . $d . '</option>';
-                                        } ?>
-                                    </select>
-                                </div>
+
                                 <div class="col">
                                     <select name="Bmonth" id="Bmonth" class="form-select">
                                         <option value="">Month</option>
@@ -203,6 +196,14 @@ $monthList = ['Jan' => 'January', 'Feb' => 'February', 'Mar' => 'March', 'Apr' =
                                             foreach ($monthList as $key => $val) {
                                                 echo '<option value="' . $key . '">' . $val . '</option>';
                                             }
+                                        } ?>
+                                    </select>
+                                </div>
+                                <div class="col">
+                                    <select name="Bdate" id="Bdate" class="form-select">
+                                        <option value="">Date</option>
+                                        <?php for ($d = 1; $d < 32; $d++) {
+                                            echo '<option value="' . $d . '">' . $d . '</option>';
                                         } ?>
                                     </select>
                                 </div>
@@ -240,7 +241,7 @@ $monthList = ['Jan' => 'January', 'Feb' => 'February', 'Mar' => 'March', 'Apr' =
                                 </span>
                             </div>
                             <div class="col">
-                                <select name="gender" class="dselect form-select">
+                                <select name="gender" id="gender" class="dselect form-select">
                                     <option value="">Gender</option>
                                     <option value="Male">Male</option>
                                     <option value="Female">Female</option>
@@ -267,7 +268,7 @@ $monthList = ['Jan' => 'January', 'Feb' => 'February', 'Mar' => 'March', 'Apr' =
                                 </span>
                             </div>
                             <div class="col">
-                                <input type="text" class="form-control impn" id="phone" maxlength="10" name="phone"  placeholder="(000)-000-0000">
+                                <input type="text" class="form-control impn" id="phone" maxlength="10" name="phone" placeholder="(000)-000-0000">
                             </div>
                             <div class="col mt-3">
                                 <span class="qxtheme">
@@ -281,10 +282,10 @@ $monthList = ['Jan' => 'January', 'Feb' => 'February', 'Mar' => 'March', 'Apr' =
                             </div>
                             <div class="row send-otp-n-verify d-none">
                                 <div class="col mt-2 divforotp">
-                                    <a href="javascript:void(0)" class="btn btns btn-md btn-block" id="sendbtnotp">Send OTP to verify your email</a>
+                                    <a href="javascript:void(0)" class="btn btns btn-md btn-block" id="sendbtnotp">Send Account Verification Code</a>
                                 </div>
                                 <div class="col mt-2 otpDiv">
-                                    <input type="text" class="form-control" id="otp" name="otp" placeholder="Enter OTP" autocomplete="off" maxlength="5">
+                                    <input type="text" class="form-control" id="otp" name="otp" placeholder="Enter account verification code" autocomplete="off" maxlength="5">
                                 </div>
                             </div>
                             <section for="for-password" class="password-section d-none">
@@ -415,14 +416,7 @@ $monthList = ['Jan' => 'January', 'Feb' => 'February', 'Mar' => 'March', 'Apr' =
                                 </span>
                             </div>
                             <div class="row">
-                                <div class="col">
-                                    <select name="arrest_date" id="arrest_date" class="form-select">
-                                        <option value="">Date</option>
-                                        <?php for ($d = 1; $d < 32; $d++) {
-                                            echo '<option value="' . $d . '">' . $d . '</option>';
-                                        } ?>
-                                    </select>
-                                </div>
+
                                 <div class="col">
                                     <select name="arrest_month" id="arrest_month" class="form-select">
                                         <option value="">Month</option>
@@ -430,6 +424,14 @@ $monthList = ['Jan' => 'January', 'Feb' => 'February', 'Mar' => 'March', 'Apr' =
                                             foreach ($monthList as $key => $val) {
                                                 echo '<option value="' . $key . '">' . $val . '</option>';
                                             }
+                                        } ?>
+                                    </select>
+                                </div>
+                                <div class="col">
+                                    <select name="arrest_date" id="arrest_date" class="form-select">
+                                        <option value="">Date</option>
+                                        <?php for ($d = 1; $d < 32; $d++) {
+                                            echo '<option value="' . $d . '">' . $d . '</option>';
                                         } ?>
                                     </select>
                                 </div>
@@ -475,7 +477,7 @@ $monthList = ['Jan' => 'January', 'Feb' => 'February', 'Mar' => 'March', 'Apr' =
                             </div>
                             <div class="col d-flax">
                                 <select name="issuing_state" id="issuing_state" class="form-select">
-                                    <option value="">State</option>
+                                    <option value="">Issuing State</option>
                                     <?php if (!empty($state)) {
                                         foreach ($state as $val) { ?>
                                             <option value="<?php echo $val->name ?>"><?php echo $val->name ?></option>
@@ -483,9 +485,6 @@ $monthList = ['Jan' => 'January', 'Feb' => 'February', 'Mar' => 'March', 'Apr' =
                                     } ?>
                                 </select>
                             </div>
-
-
-
                             <div class="col mt-3">
                                 <span class="qxtheme">
                                     <p class="lableTxt">
@@ -494,7 +493,7 @@ $monthList = ['Jan' => 'January', 'Feb' => 'February', 'Mar' => 'March', 'Apr' =
                                 </span>
                             </div>
                             <div class="col">
-                                <input type="text" class="form-control" id="case_no" name="case_no" placeholder="Case number">
+                                <input type="text" class="form-control" id="case_no" maxlength="15" name="case_no" placeholder="Case number">
                             </div>
                             <div class="col mt-3">
                                 <span class="qxtheme">
@@ -513,7 +512,7 @@ $monthList = ['Jan' => 'January', 'Feb' => 'February', 'Mar' => 'March', 'Apr' =
                                     } ?>
                                 </select>
                             </div>
-                            <div class="col mt-4" style="text-align:center">
+                            <div class="col mt-4 userIdImgValueDiv" style="text-align:center">
                                 <img src="<?php echo base_url('assets/form/new/placeholder1.png') ?>" id="userIdImg" style="width: 54%;" alt="">
                             </div>
                             <div class="col mt-4 form-group">
@@ -605,22 +604,30 @@ $monthList = ['Jan' => 'January', 'Feb' => 'February', 'Mar' => 'March', 'Apr' =
                                 <hr style="border: 1px solid #a3a1a1;width: 93%;">
                             </div>
 
+                            <!-- <div class="row">
+                                <div class="col mt-2 secTwoBack">
+                                    <a href="javascript:void(0)" class="btn btn-block btn-md bg-dark text-white">Previous</a>
+                                </div>
+                                <div class="col mt-2 secTwo">
+                                     <a href="javascript:void(0)" class="btn btn-block btn-md btns">Continue</a>
+                                    <input type="submit" class="btn btn-block btn-md btns submitForm" Value="Continue" />
+                                </div>
+                                 <div class="col mt-2 secThree" style="text-align:center">
+                                    <input type="submit" class="btn btn-block btn-md btns submitForm" Value="Continue" />
+                                </div> 
+                            </div> -->
                             <div class="row">
                                 <div class="col mt-2 secTwoBack">
                                     <a href="javascript:void(0)" class="btn btn-block btn-md bg-dark text-white">Previous</a>
                                 </div>
                                 <div class="col mt-2 secTwo">
-                                    <!-- <a href="javascript:void(0)" class="btn btn-block btn-md btns">Continue</a> -->
-                                    <input type="submit" class="btn btn-block btn-md btns submitForm" Value="Continue" />
+                                    <a href="javascript:void(0)" class="btn btn-block btn-md btns">Continue</a>
                                 </div>
-                                <!-- <div class="col mt-2 secThree" style="text-align:center">
-                                    <input type="submit" class="btn btn-block btn-md btns submitForm" Value="Continue" />
-                                </div> -->
                             </div>
 
                         </section>
 
-                        <!-- <section for="step 3" class="step3 d-none">
+                        <section for="step 3" class="step3 d-none">
                             <div class="col mt-2 qxtheme">
                                 <p style="font-weight:600;">Payment</p>
                             </div>
@@ -661,7 +668,7 @@ $monthList = ['Jan' => 'January', 'Feb' => 'February', 'Mar' => 'March', 'Apr' =
                                 </div>
                             </div>
 
-                        </section> -->
+                        </section>
 
                         <section for="step 4" class="step4 text-center <?php echo (isset($_SESSION['applicationID']) || !empty($_SESSION['applicationID'])) ? 'aaaa' : 'd-none' ?>">
                             <div class="col mt-2">
@@ -674,7 +681,7 @@ $monthList = ['Jan' => 'January', 'Feb' => 'February', 'Mar' => 'March', 'Apr' =
                                 <p>Your application has been successfully submitted</p>
                             </div>
                             <div class="col mt-2 qxtheme">
-                                <p>We wil now consider your ENTIRE record for possible restricton</p>
+                                <p>We will now consider your ENTIRE record for possible restricton</p>
                             </div>
 
                             <div class="col mt-2 qxtheme">
@@ -683,8 +690,11 @@ $monthList = ['Jan' => 'January', 'Feb' => 'February', 'Mar' => 'March', 'Apr' =
                             <div class="col mt-2 qxtheme">
                                 <p>Thank you in advance for your patience</p>
                             </div>
+                            <div class="col mt-2 qxtheme">
+                                <p>For further communication, <a href="<?php echo base_url('admin/login') ?>"> Click here </a></p>
+                            </div>
                             <div class="col mt-2 qxtheme" id="thanklast">
-                                <p>Please expact further communication in the method that you selected in the application form</p>
+                                <p>For log-in,please use your registered E-mail and password which you have generated</p>
                             </div>
                             <?php if (isset($_SESSION['applicationID'])) { ?>
                                 <div class="col mt-2 qxtheme">
@@ -693,7 +703,7 @@ $monthList = ['Jan' => 'January', 'Feb' => 'February', 'Mar' => 'March', 'Apr' =
                             <?php } ?>
 
                             <div class="col mt-2">
-                                <a href="<?php echo base_url('') ?>" class="btn btn-block btn-lg btns">Finish</a>
+                                <a href="<?php echo base_url() ?>" class="btn btn-block btn-lg btns">Finish</a>
                             </div>
 
                         </section>
@@ -721,7 +731,6 @@ $monthList = ['Jan' => 'January', 'Feb' => 'February', 'Mar' => 'March', 'Apr' =
     </section>
 
     <script type="text/javascript">
-       
         $(".toggle-password").click(function() {
 
             $(this).toggleClass("fa-eye fa-eye-slash");
@@ -739,8 +748,7 @@ $monthList = ['Jan' => 'January', 'Feb' => 'February', 'Mar' => 'March', 'Apr' =
             // $('.zipc').inputmask('99999');
 
             $(".secOne").click(function() {
-                debugger
-                $("#newpassworderror , #suffixerror ,#fnameerror,#lnameerror, #emailerror,#staterror,#issuing_staterror,#sendOtpVerifyEmailerror,#otpDiv,#cityerror,#raceerror,#agencyerror,#offrnceforerror").remove();
+                $(".errorcode").remove();
 
                 if ($("#suffix").val() == "") {
                     $("#suffix").parent().append('<span id="suffixerror" class="errorcode">Select Suffix</span>');
@@ -778,6 +786,15 @@ $monthList = ['Jan' => 'January', 'Feb' => 'February', 'Mar' => 'March', 'Apr' =
                     return false;
                 } else {
                     $("#raceerror").remove();
+                }
+                if ($("#gender").val() == "") {
+                    $("#gender").parent().append('<span id="gendererror" class="errorcode">Select Gender</span>');
+                    $("html,body").animate({
+                        scrollTop: 600
+                    }, 1000);
+                    return false;
+                } else {
+                    $("#gendererror").remove();
                 }
                 if ($("#email").val() == "") {
                     $("#email").parent().append('<span id="emailerror" class="errorcode">Enter email address</span>');
@@ -921,10 +938,10 @@ $monthList = ['Jan' => 'January', 'Feb' => 'February', 'Mar' => 'March', 'Apr' =
                 $(".step1icon").addClass("divForStep1");
 
                 var address = "";
-                if($("#addresstwo").val().length>0){
-                    address = $("#addressone").val()+","+$("#addresstwo").val();
-                }else{
-                    address = $("#addressone").val()+" "+$("#addresstwo").val();
+                if ($("#addresstwo").val().length > 0) {
+                    address = $("#addressone").val() + "," + $("#addresstwo").val();
+                } else {
+                    address = $("#addressone").val() + " " + $("#addresstwo").val();
                 }
 
                 var cityStateZipe = $("#city").val() + " / " + $("#state").val() + " / " + $("#postcode").val();
@@ -934,7 +951,7 @@ $monthList = ['Jan' => 'January', 'Feb' => 'February', 'Mar' => 'March', 'Apr' =
                 var arrestMonth = $("#arrest_month").val();
                 var arrestYear = $("#arrest_year").val();
 
-                let FullDate = arrestDate + ' / ' + arrestMonth + ' / ' + arrestYear;
+                let FullDate = arrestMonth + ' / ' + arrestDate + ' / ' + arrestYear;
                 $(".FirstNamePre").html($("#firstname").val());
                 $(".LastNamePre").html($("#lastname").val());
                 $(".AddressPre").html(address);
@@ -1013,14 +1030,47 @@ $monthList = ['Jan' => 'January', 'Feb' => 'February', 'Mar' => 'March', 'Apr' =
             });
 
             function readURL(input) {
+
+                var reader = new FileReader();
                 if (input.files && input.files[0]) {
-                    var reader = new FileReader();
 
-                    reader.onload = function(e) {
-                        $('#userIdImg').attr('src', e.target.result);
+
+                    var file_name = input.files[0].name;
+
+                    fileExtension = file_name.replace(/^.*\./, '');
+                    // console.log(fileExtension);die;
+
+                    if (input.files[0].type == "application/pdf") {
+
+                        let fileName = input.files[0].name;
+                        $(".userIdImgValueDiv").html('<i class="fa fa-file-pdf-o" style="font-size:35px" aria-hidden="true"> ' + fileName + ' </i>');
+
+                    } else if (input.files[0].type == "application/msword") {
+                        let fileName = input.files[0].name;
+                        $(".userIdImgValueDiv").html('<i class="fa fa-file-word-o" style="font-size:35px" aria-hidden="true"> ' + fileName + ' </i>');
+
+                    } else if (fileExtension == "docx") {
+                        let fileName = input.files[0].name;
+                        $(".userIdImgValueDiv").html('<i class="fa fa-file-word-o" style="font-size:35px" aria-hidden="true"> ' + fileName + ' </i>');
+
+                    } else if (!$('#userIdImg').length) {
+
+                        //$(".userIdImgValueDiv").html('<img src="" id="userIdImg" style="width: 54%;" alt="No Image">');
+                        //var reader = new FileReader();
+                        reader.onload = function(e) {
+                            // console.log("ddd");
+                            // console.log(e.target.result);
+                            $(".userIdImgValueDiv").html('<img src="' + e.target.result + '" id="userIdImg" style="width: 54%;" alt="No Image">');
+
+                        }
+                        reader.readAsDataURL(input.files[0]);
+                    } else {
+
+                        reader.onload = function(e) {
+                            $('#userIdImg').attr('src', e.target.result);
+                        }
+                        reader.readAsDataURL(input.files[0]);
                     }
-
-                    reader.readAsDataURL(input.files[0]);
                 }
             }
             $("#new-password").focusout(function() {
@@ -1195,7 +1245,7 @@ $monthList = ['Jan' => 'January', 'Feb' => 'February', 'Mar' => 'March', 'Apr' =
             var otp = $("#otp").val();
             var email = $("#email").val();
             if (otp == "" || otp == 'undefine') {
-                $(".otpDiv").append('<span id="otpDiv" class="errorcode">Enter OTP</span>');
+                $(".otpDiv").append('<span id="otpDiv" class="errorcode">Enter Code</span>');
                 return false;
             } else {
 
@@ -1224,7 +1274,7 @@ $monthList = ['Jan' => 'January', 'Feb' => 'February', 'Mar' => 'March', 'Apr' =
                             $(".addIsEmailValid").attr("isOtpVerify", "1");
                         } else {
                             $("#otpDiv ,#sendOtpVerifyEmailerror").remove();
-                            $(".otpDiv").append('<span id="otpDiv" class="errorcode">Invalid OTP</span>');
+                            $(".otpDiv").append('<span id="otpDiv" class="errorcode">Invalid Code</span>');
                             return false;
                         }
                     },
