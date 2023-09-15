@@ -19,36 +19,33 @@
 <div class="right_col" role="main">
 	<div class="">
 		<div class="clearfix"></div>
-		<div class="row">
-			<div class="col-md-12 col-sm-12 col-xs-12" style="margin-top: 20px;">
-				<div class="x_panel">
-					<?php
+		<button type="button" class="btn btn-xs" style="background:#FF7D3F;color:white" id="back">Back</button>
+		<?php
 					// echo '<pre>';print_r($screen);die;
 					if ($screen == "open") { ?>
-						<div class="x_title">
-							<h2> Open Expungements </h2>
-							<a href="<?php echo site_url(); ?>admin/applications/export" class='btn btn-xs' style="float: right; background:#FF7D3F;color:white"> Export to CSV</a>
+						<div>
+							<h2 style="margin-left: 40%;"> <b>OPEN </b></h2>
 							<div class="clearfix"></div>
 						</div>
 					<?php } else if ($screen == "inprogress") { ?>
-						<div class="x_title">
-							<h2> In Progress Expungements</h2>
-							<a href="<?php echo site_url(); ?>admin/applications/export" class='btn btn-xs' style="float: right; background:#FF7D3F;color:white"> Export to CSV</a>
+						<div>
+							<h2 style="margin-left: 40%;">IN PROGRESS</h2>
 							<div class="clearfix"></div>
 						</div>
 					<?php } else if ($screen == "closed") { ?>
-						<div class="x_title">
-							<h2>Closed Expungements</h2>
-							<a href="<?php echo site_url(); ?>admin/applications/export" class='btn btn-xs' style="float: right; background:#FF7D3F;color:white"> Export to CSV</a>
+						<div>
+							<h2 style="margin-left: 40%;"> CLOSED</h2>
 							<div class="clearfix"></div>
 						</div>
 					<?php } else if ($screen == "avg") { ?>
-						<div class="x_title">
-							<h2>Average Working Time</h2>
-							<a href="<?php echo site_url(); ?>admin/applications/export" class='btn btn-xs' style="float: right; background:#FF7D3F;color:white"> Export to CSV</a>
-							<div class="clearfix"></div>
+						<div>
+							<h2 style="margin-left: 40%;">Average Working Time</h2>
+								<div class="clearfix"></div>
 						</div>
 					<?php } ?>
+		<div class="row">
+			<div class="col-md-12 col-sm-12 col-xs-12" style="margin-top: 20px;">
+				<div class="x_panel">
 					<div class="x_content">
 						<table class="table table-striped table-bordered datatable datatableFilter">
 							<thead>
@@ -241,4 +238,11 @@
 			return false;
 		}
 	}
+	$(document).ready(function() {
+		$('#back').on('click', function() {
+			<?php $send = $_SERVER['HTTP_REFERER']; ?>
+			var redirect_to = "<?php echo $send; ?>";
+			window.location.href = redirect_to;
+		});
+	});
 </script>

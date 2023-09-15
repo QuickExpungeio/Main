@@ -238,9 +238,9 @@ html , body{
 .nav-sm ul.nav.child_menu li a {
     text-align: left !important
 }
-.nav-sm .profile {
+/* .nav-sm .profile {
     display: none
-}
+} */
 .menu_section {
     margin-bottom: 35px;
 /*    width: 150px;*/
@@ -911,7 +911,11 @@ a:focus {
 }
 .main_menu_side {
     padding: 0;
-    margin-top: 122px;
+    margin-top: 34px;
+}
+.main_menu_side_user{
+    padding: 0;
+    margin-top: 38.5px;
 }
 .bs-docs-sidebar .nav>li>a {
     display: block;

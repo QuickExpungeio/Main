@@ -75,6 +75,7 @@
 										<th>Lastname</th>
 										<th>Email Address</th>
 										<th>Case Number</th>
+										<th>Status</th>
 										<th>Direct Message</th>
 										<th>Details</th>
 									</tr>
@@ -93,6 +94,7 @@
 										<td><?php echo $val->lastname ?></td>
 										<td><?php echo $val->email ?></td>
 										<td><?php echo $val->case_no ?></td>
+										<td><?php echo $val->status ?></td>
 										<td><a href="javascript:frm_submit(<?php echo $val->exfid ?>,`Chat`,<?php echo $val->uid ?>);"><i class="fa fa-comments" style="font-size:30px"></i><?php echo $notiBatch?></a></td>
 										<td><a href="javascript:frm_submit(<?php echo $val->exfid ?>,`View`,<?php echo $val->uid ?>);" class="btn btn-warning themeOrangeColor btn-lg">VIEW DETAILS</a></td>
 

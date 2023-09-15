@@ -25,7 +25,7 @@
 		</div>
 		<div class="row">
 
-			<div class="col-lg-3 col-6" style="width: 25%;">
+			<div class="col-lg-3 col-6" style="width: 25%;padding-right:20px;padding-left:20px;">
 				<div class="small-box" style="height: 200px;background-color:#f0f0f0;">
 					<div class="inner">
 						<br>
@@ -37,11 +37,11 @@
 							<h2 class="text-center"><b><?php echo $openCount; ?></b></h2>
 						</a>
 					</div>
-
+	
 				</div>
 			</div>
 
-			<div class="col-lg-3 col-6" style="width: 25%;">
+			<div class="col-lg-3 col-6" style="width: 25%;padding-right:20px;padding-left:20px;">
 
 				<div class="small-box" style="height: 200px;background-color:#f0f0f0;">
 					<div class="inner">
@@ -58,7 +58,7 @@
 				</div>
 			</div>
 
-			<div class="col-lg-3 col-6" style="width: 25%;">
+			<div class="col-lg-3 col-6" style="width: 25%;padding-right:20px;padding-left:20px;">
 
 				<div class="small-box " style="height: 200px;background-color:#f0f0f0;">
 					<div class="inner">
@@ -76,7 +76,7 @@
 				</div>
 			</div>
 
-			<div class="col-lg-3 col-6" style="width: 25%;">
+			<div class="col-lg-3 col-6" style="width: 25%;padding-right:20px;padding-left:20px;">
 
 				<div class="small-box" style="height: 200px;background-color:#f0f0f0;">
 					<div class="inner">
@@ -100,8 +100,9 @@
 				<div class="x_panel">
 
 					<div class="x_title">
-						<h2> Record Restriction Dashboard</h2>
-						<a href="<?php echo site_url(); ?>admin/applications/export" class='btn btn-xs' style="float: right; background:#FF7D3F;color:white"> Export to CSV</a>
+						<a href="JavaScript:void(0);" class='btn btn-xs' style="float: left; height: 52px;padding: 15px;background:#FF7D3F;color:white">ADD NEW EXPUNGEMENT</a>
+						<!-- <h2> Record Restriction Dashboard</h2> -->
+						<!-- <a href="<?php echo site_url(); ?>admin/applications/export" class='btn btn-xs' style="float: right; background:#FF7D3F;color:white"> Export to CSV</a> -->
 						<div class="clearfix"></div>
 					</div>
 					<div class="x_content">
