@@ -28,7 +28,8 @@ class Form_model extends CI_Model
 	function getoffence()
 	{
 
-		return $this->db->select("id ,short_description ", FALSE)->from('offence')->where('status', 'ACTIVE')->order_by("id", "desc")->get()->result();
+		return $this->db->select("id ,short_description ", FALSE)->from('offence')->where('status', 'ACTIVE')->order_by("short_description", "asc")->get()->result();
+		// echo $this->db->last_query();die;
 	}
 	function getcharge()
 	{
@@ -45,19 +46,27 @@ class Form_model extends CI_Model
 
 	function expungedatastore($data, $password)
 	{
+
 		$result = array();
 
 		if (!empty($data)) {
 
 			$isUserExist = $this->db->select('uid,email')->from('user_master')->where('email', $data['email'])->get()->row();
-			$lastId = "";
-
+			$lastId = $newPassword = "";
+			// echo '<pre>'.$data['fill'];print_r($isUserExist);die;
 			if (empty($isUserExist)) {
-
+			
+				if($data['fill'] == 2){
+					$newPassword = $this->generatePassword();
+					// echo '<pre>';print_r($newPassword);die;
+				}else{
+					$newPassword = $password;
+				}
+			
 				$userData = array(
 					'user_role' => 'appuser',
 					'email' => $data['email'],
-					'password' => base64_encode($password),
+					'password' => base64_encode($newPassword),
 					'is_validate' => '1',
 					'username' => ucfirst($data['firstname']) . " " . ucfirst($data['lastname'])
 				);
@@ -73,8 +82,13 @@ class Form_model extends CI_Model
 				$this->db->insert('expungument', $data);
 				$lastId = $this->db->insert_id();
 			}
-			$this->sendEmail($lastId, $data['email'], $data['firstname'], $data['lastname'], 0);
-			$this->sendEmail($lastId, $data['email'], $data['firstname'], $data['lastname'], 1);
+			if ($data['fill'] == 1) {
+				$this->sendEmail($lastId, $data['email'], $data['firstname'],$data['lastname'],$newPassword, 0);
+				$this->sendEmail($lastId, $data['email'], $data['firstname'], $data['lastname'],$newPassword, 1);
+			} else {
+				$this->sendEmail($lastId, $data['email'], $data['firstname'],$data['lastname'],$newPassword, 2);
+			}
+
 			$result['data'] = $data['uid'];
 			$result['email'] = $data['email'];
 			$result['applicationID'] = $lastId;
@@ -110,23 +124,7 @@ class Form_model extends CI_Model
 		$subject = $mailContaint->subject;
 		$message = $newContaint;
 
-		$config = array(
-			'protocol' => 'smtp',
-			'smtp_host' => 'ssl://smtp.dreamhost.com',
-			'smtp_port' => "465",
-			'smtp_user' => 'no_reply@quickexpunge.io', // change it to yours
-			'smtp_pass' => '1L0vefreedom', // change it to yours
-			'mailtype' => 'html',
-			'charset' => 'iso-8859-1',
-			'wordwrap' => TRUE
-		);
-		$this->load->library('email', $config);
-		$this->email->set_newline("\r\n");
-		$this->email->from('no_reply@quickexpunge.io'); // change it to yours
-		$this->email->to($to); // change it to yours
-		$this->email->subject($subject);
-		$this->email->message($message);
-		$isMailSent = $this->email->send();
+		$isMailSent = email_send($to, "", $subject, $message);
 
 		if ($isMailSent) {
 
@@ -146,11 +144,10 @@ class Form_model extends CI_Model
 		$isEmailExist = $this->db->get_where("email_verification", array("email" => $email, "code" => $otp))->row();
 		if (!empty($isEmailExist)) {
 
-			$this->db->delete("email_verification",array("email" => $email));
-		
+			$this->db->delete("email_verification", array("email" => $email));
+
 			$response['message'] = "Email verification has been done successfully";
 			$response['code'] = 200;
-		
 		} else {
 			$response['message'] = "Invalid OTP";
 			$response['code'] = 400;
@@ -158,49 +155,111 @@ class Form_model extends CI_Model
 		return $response;
 	}
 
-	private function sendEmail($applicationID,$email,$fname,$lname,$forAdmin=0){
-
-	   if($forAdmin==1){
+	private function sendEmail($applicationID, $email, $fname, $lname,$newPassword,$forAdmin = 0)
+	{
+		
+		if ($forAdmin == 1) {
 
 			$mailContaint = $this->db->get_where('wiki', array('id' => 4))->row();
 			$logo = base_url('assets/images/logo.png');
-			$msg = " New application received from = " . ucfirst($fname) . " " . ucfirst($lname) . ",.<br>Thank you in advance for your patience<br>Your application id is <b>" . $applicationID . "</b>";
+			$msg = " New application received from " . ucfirst($fname) . " " . ucfirst($lname) . " ,.<br>Application id is <b> " . $applicationID . "</b>";
 			$replaceTo = array("__LOGO__", "__TITLE__", "__USERNAME__", "__EMAILTEXT__");
 			$replaceFrom = array($logo, "New Application Received", $fname . " " . $lname, $msg);
 			$newContaint = str_replace($replaceTo, $replaceFrom, $mailContaint->description);
 			$to = "no_reply@quickexpunge.io";
 			$subject = $mailContaint->subject;
 			$message = $newContaint;
-		} else {
-			$mailContaint = $this->db->get_where('wiki', array('id' => 1))->row();
+		} else if ($forAdmin == 0) {                                                                                                                                                                                                                                                                                                                     
+			$mailContaint = $this->db->get_where('wiki', array('id' => 9))->row();
 			$logo = base_url('assets/images/logo.png');
 			$url = "<a href=" . base_url('admin/login') . ">Click here</a>";
-			$msg ="Your application has been successfully submitted, We wil now consider your ENTIRE record for possible restricton , You do not need to resubmit the application if you have additional charges.<br>For further communication, please Log in to the ".$url.",<br>Your application id is <b>".$applicationID."</b>";
+			$msg = "Your application has been successfully submitted, We wil now consider your ENTIRE record for possible restricton , You do not need to resubmit the application if you have additional charges.<br>For further communication, please Log in to the " . $url . ",<br>Your application id is <b>" . $applicationID . "</b>";
 			$replaceTo = array("__LOGO__", "__TITLE__", "__USERNAME__", "__EMAILTEXT__", "__Clickhere__");
 			$replaceFrom = array($logo, "Application Submited", $fname . " " . $lname, $msg, $url);
 
-			$newContaint = str_replace($replaceTo,$replaceFrom,$mailContaint->description);
+			$newContaint = str_replace($replaceTo, $replaceFrom, $mailContaint->description);
 			$to = $email;
 			$subject = $mailContaint->subject;
 			$message = $newContaint;
-	   }
-	   $config = array(
-	      'protocol' => 'smtp',
-	      'smtp_host' => 'ssl://smtp.dreamhost.com',
-	      'smtp_port' => "465",
-	      'smtp_user' => 'no_reply@quickexpunge.io', // change it to yours
-	      'smtp_pass' => '1L0vefreedom', // change it to yours
-	      'mailtype' => 'html',
-	      'charset' => 'iso-8859-1',
-	      'wordwrap' => TRUE
-	   );
-	   $this->load->library('email', $config);
-	   $this->email->set_newline("\r\n");
-	   $this->email->from('no_reply@quickexpunge.io'); // change it to yours
-	   $this->email->to($to);// change it to yours
-	   $this->email->subject($subject);
-	   $this->email->message($message);
-	   $this->email->send();
+		} else {
+			$mailContaint = $this->db->get_where('wiki', array('id' => 7))->row();
+			// Generate a random password
+			// $newPassword = $this->generatePassword();
+			$logo = base_url('assets/images/logo.png');
+			$url = "<a href=" . base_url('admin/login') . ">Click here</a>";
+			$msg = "Your application has been successfully submitted, We wil now consider your ENTIRE record for possible restricton , You do not need to resubmit the application if you have additional charges.<br>For further communication, please Log in to the " . $url . ",<br>Your application id is <b>" . $applicationID . "</b>,<br>Your Email Address is <b>" . $email . "</b>,";
+			if(!empty($newPassword)){
+			$msg .="<br>Your Password is <b>" . $newPassword . "</b>";
+			}
+			$replaceTo = array("__LOGO__", "__TITLE__", "__USERNAME__", "__EMAILTEXT__", "__Clickhere__");
+			$replaceFrom = array($logo, "Application Submited", $fname . " " . $lname, $msg, $url);
+
+			$newContaint = str_replace($replaceTo, $replaceFrom, $mailContaint->description);
+			$to = $email;
+			$subject = $mailContaint->subject;
+			$message = $newContaint;
+		}
+		//  echo '<pre>';print_r($message);die;
+		$emailResponse = email_send($to, "", $subject, $message);
+		if ($emailResponse['code'] = 200) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+	public function generatePassword($length = 12)
+	{
+		// Generate a random password using letters, digits, and special characters
+		// $characters = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()_+';
+		// $password = '';
+		// $charLength = strlen($characters);
+		// for ($i = 0; $i < $length; $i++) {
+		// 	$password .= $characters[rand(0, $charLength - 1)];
+		// }
+		// return $password;
+
+		$capitalLetters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+		$smallLetters = "abcdefghijklmnopqrstuvwxyz";
+		$numbersLetters = date("Y");
+		$spacialLetters = "@";
+
+			$capitalRendom  = $this->getRandomString($capitalLetters,1);
+			$smallRendom  = $this->getRandomString($smallLetters,6);
+			$spacialRendom  = $this->getRandomString($spacialLetters,1);
+			$numberRendom  = $numbersLetters;//$this->getRandomString($numbersLetters,4);
+
+			$pass = $capitalRendom.$smallRendom.$spacialRendom.$numberRendom;
+			// echo"<pre>";print_r($pass);die;
+			return $pass;
+
+	}
+	private function getRandomString($characters,$length){
+		$password = "";
+		$charLength = strlen($characters);
+		for ($i = 0; $i < $length; $i++) {
+			$password .= $characters[rand(0, $charLength - 1)];
+		}
+		return $password;
 	}
 
+	public function insert_contact_us($data)
+	{
+		$this->db->insert('contact_us', $data);
+
+		$mailContaint = $this->db->get_where('wiki', array('id' => 6))->row();
+		$logo = base_url('assets/images/logo.png');
+		$replaceTo = array("__LOGO__", "__TITLE__", "__USEREMAIL__", "__CONTACTUSTEXT__");
+		$replaceFrom = array($logo, "Contact Us", $data['email'], $data['comment']);
+		$newContaint = str_replace($replaceTo, $replaceFrom, $mailContaint->description);
+		$to = "info@quickexpunge.io";
+		$subject = $mailContaint->subject;
+		$message = $newContaint;
+
+		$emailResponse = email_send($to, "", $subject, $message);
+		if ($emailResponse['code'] = 200) {
+			return true;
+		} else {
+			return false;
+		}
+	}
 }

@@ -123,24 +123,13 @@ class Expunge_model extends CI_Model
          $to = $userData->email;
          $subject = $mailContaint->subject;
          $message = $newContaint;
-
-         $config = array(
-            'protocol' => 'smtp',
-            'smtp_host' => 'ssl://smtp.dreamhost.com',
-            'smtp_port' => "465",
-            'smtp_user' => 'no_reply@quickexpunge.io', // change it to yours
-            'smtp_pass' => '1L0vefreedom', // change it to yours
-            'mailtype' => 'html',
-            'charset' => 'iso-8859-1',
-            'wordwrap' => TRUE
-         );
-         $this->load->library('email', $config);
-         $this->email->set_newline("\r\n");
-         $this->email->from('no_reply@quickexpunge.io'); // change it to yours
-         $this->email->to($to); // change it to yours
-         $this->email->subject($subject);
-         $this->email->message($message);
-         $this->email->send();
+         // echo '<pre>';print_r($message);die;
+         $emailResponse = email_send($to, "", $subject, $message);
+         if ($emailResponse['code'] = 200) {
+            return true;
+         } else {
+            return false;
+         }
       }
       return true;
    }
@@ -177,23 +166,12 @@ class Expunge_model extends CI_Model
          $subject = "Quick Expunge - Proof of Restriction Uploaded";
          $message = $newContaint;
 
-         $config = array(
-            'protocol' => 'smtp',
-            'smtp_host' => 'ssl://smtp.dreamhost.com',
-            'smtp_port' => "465",
-            'smtp_user' => 'no_reply@quickexpunge.io', // change it to yours
-            'smtp_pass' => '1L0vefreedom', // change it to yours
-            'mailtype' => 'html',
-            'charset' => 'iso-8859-1',
-            'wordwrap' => TRUE
-         );
-         $this->load->library('email', $config);
-         $this->email->set_newline("\r\n");
-         $this->email->from('no_reply@quickexpunge.io'); // change it to yours
-         $this->email->to($to); // change it to yours
-         $this->email->subject($subject);
-         $this->email->message($message);
-         $this->email->send();
+         $emailResponse = email_send($to, "", $subject, $message);
+         if ($emailResponse['code'] = 200) {
+            return true;
+         } else {
+            return false;
+         }
       }
 
       return true;
@@ -357,41 +335,41 @@ class Expunge_model extends CI_Model
    {
       $this->db->select('count(exfid) as exfid');
       $this->db->from('expungument');
-      if($status == "open"){
-         $this->db->where('status','Received');
-         $this->db->or_where('status','Need more Information');
-      }else if($status == "inprogress"){
-         $this->db->where('status','Eligible For Restriction');
-         $this->db->or_where('status','Eligible for DA');
-         $this->db->or_where('status','In Progress');
-         $this->db->or_where('status','Eligible for Further Steps');
-      }else if($status == "closed"){
-         $this->db->where('status','Denial');
-         $this->db->or_where('status','Ineligible for Restriction');
-         $this->db->or_where('status','Restriction Complete');
-      } 
+      if ($status == "open") {
+         $this->db->where('status', 'Received');
+         $this->db->or_where('status', 'Need More Information');
+      } else if ($status == "inprogress") {
+         $this->db->where('status', 'Eligible for Restriction');
+         $this->db->or_where('status', 'Eligible for DA');
+         $this->db->or_where('status', 'In Progress');
+         $this->db->or_where('status', 'Eligible Further Steps');
+      } else if ($status == "closed") {
+         $this->db->where('status', 'Denial');
+         $this->db->or_where('status', 'Ineligible for Restriction');
+         $this->db->or_where('status', 'Restriction Completed');
+      }
       return $this->db->get()->row('exfid');
-      
+
       // echo '<pre>';print_r($sql);
-      // // echo $this->db->last_query();
+      // echo $this->db->last_query();
       // die;
    }
    public function getExpungumentBasedOnStatusDetails($status)
    {
       // $this->db->select('um.uid,expungument.status,expungument.exfid,expungument.arresting_agency,expungument.date_arrest,expungument.offense_attested,um.username,expungument.case_no,um.email,um.address,expungument.suffix,expungument.firstname,expungument.lastname,expungument.license,expungument.arrest_date,expungument.arrest_month,expungument.arrest_year');
       $this->db->from('expungument');
-      if($status == "open"){
-         $this->db->where('status','Received');
-         $this->db->or_where('status','Need more Information');
-      }else if($status == "inprogress"){
-         $this->db->where('status','Eligible For Restriction');
-         $this->db->or_where('status','Eligible for DA');
-         $this->db->or_where('status','In Progress');
-         $this->db->or_where('status','Eligible for Further Steps');
-      }else if($status == "closed"){
-         $this->db->where('status','Denial');
-         $this->db->or_where('status','Ineligible for Restriction');
-         $this->db->or_where('status','Restriction Complete');
+      if ($status == "open") {
+         $this->db->where('status', 'Received');
+         $this->db->or_where('status', 'Need More Information');
+      } else if ($status == "inprogress") {
+         $this->db->where('status', 'Eligible for Restriction');
+         $this->db->or_where('status', 'Eligible for DA');
+         $this->db->or_where('status', 'In Progress');
+         $this->db->or_where('status', 'Eligible Further Steps');
+      } else if ($status == "closed") {
+         $this->db->where('status', 'Denial');
+         $this->db->or_where('status', 'Ineligible for Restriction');
+         $this->db->or_where('status', 'Restriction Completed');
       }
       // $this->db->join('user_master as um', 'um.uid = expungument.uid', 'left');
       // $this->db->where('um.`email !=', '');
@@ -400,6 +378,5 @@ class Expunge_model extends CI_Model
 
       $this->db->order_by('expungument.exfid', 'DESC');
       return $this->db->get()->result();
-
    }
 }

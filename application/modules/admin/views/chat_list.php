@@ -21,7 +21,9 @@
    }
 </style>
 <div id="gif" class="gif"></div>
+<div id="gif_chat" class="gif_chat"></div>
 <div class="right_col" role="main">
+<button type="button" class="btn btn-xs" style="background:#FF7D3F;color:white" id="back">Back</button>
    <div class="clearfix"></div>
    <div class="row">
       <div class="col-md-12 col-sm-12 col-xs-12">
@@ -55,14 +57,14 @@
                   </form>
 
 
-                  <input type="file" id="upload" name="upload" hidden style="display: none" />
+                  <input type="file" id="upload" name="upload" class="uploadFileClass" hidden style="display: none" />
                   <a href="javascript:void(0)" class="btn btn-default themeOrangeColor uKey" title="Select File" style="height:90px">
                      <i class="glyphicon glyphicon-cloud-upload" style="padding-top:18px;font-size:33px"></i>
                   </a>
                   <a href="javascript:void(0)" class="btn btn-default themeOrangeColor spr d-none" title="Please Wait" style="height:90px">
                      <i class="fa fa-refresh fa-spin" style="margin-top:73%;font-size:33px"></i>
                   </a>
-                  <a href="javascript:void(0)" class="btn btn-default themeOrangeColor uploadFile d-none" title=" Click to upload file" style="height:90px">
+                  <a href="javascript:void(0)" class="btn btn-default themeOrangeColor uploadFile d-none"  title=" Click to upload file" style="height:90px">
                      <i class="glyphicon glyphicon glyphicon-saved" style="padding-top:18px;font-size:33px"></i>
                   </a>
                   <a href="javascript:void(0)" class="btn btn-default themeOrangeColor sendtoUser " style="height:90px">
@@ -140,23 +142,40 @@
    setTimeout(hideLoader,1000000);
 
    $('.uKey').click(function(e) {
-      $('#upload').trigger('click');
+      $('.uploadFileClass').trigger('click');
    });
    $("#upload").change(function() {
       $(".uKey").addClass('d-none');
       $(".uploadFile").removeClass('d-none');
    });
+   var fileNameForValidate = "";
+   $(document).ready(function(){
+        $('input[type="file"]').change(function(e){
+             fileNameForValidate = e.target.files[0].name;
+        });
+    });
 
    $(".uploadFile").click(function() {
 
       $(".uKey ,.uploadFile").addClass('d-none');
       $(".spr").removeClass('d-none');
 
+      var format = /[`!@#$%^&*+\=\[\]{};':"\\|,<>\/?~]/;
+      if (format.test(fileNameForValidate)) {
+         alert('SUSPICIOUS FILE NAME. PLEASE RENAME THE FILE AND UPLOAD AGAIN.');
+         $(".spr").addClass('d-none');
+         $(".uKey").removeClass('d-none');
+         location.reload();
+         return false;
+ 
+      }
+      $(".uKey ,.uploadFile").addClass('d-none');
+      $(".spr").removeClass('d-none');
 
       var form = $("#uploadForm");
       var formData = new FormData(form[0]);
       formData.append('file', $('input[type=file]')[0].files[0]);
-
+      $('#gif_chat').show();
       $.ajax({
          beforeSend: function() {},
          type: "POST",
@@ -169,12 +188,15 @@
          success: function(result) {
 
             if (result.code == 200) {
-
                $('#ChatMessages').append(result.message);
+               $('#gif_chat').hide();
                $("#sendMessage").val('');
                $(".direct-chat-text-img").last()[0].scrollIntoView({
                   behavior: 'smooth'
                });
+            }else if(result.code == 400){
+               alert(result.message);
+               $('#gif_chat').hide();
             }
 
             $(".uploadFile ,.spr").addClass('d-none');
@@ -285,4 +307,11 @@
          })
       }
    });
+   $(document).ready(function() {
+		$('#back').on('click', function() {
+			<?php $send = $_SERVER['HTTP_REFERER']; ?>
+			var redirect_to = "<?php echo $send; ?>";
+			window.location.href = redirect_to;
+		});
+	});
 </script>

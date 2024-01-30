@@ -10,7 +10,7 @@ class Login extends MY_Controller
      
       if(isset($_SESSION['role'])){
          if($_SESSION['role']=='superadmin'){
-            redirect('admin/user/user');
+            redirect('admin/applications');
             exit;
          }elseif($_SESSION['role']=='appuser'){
             redirect('user/application');
@@ -23,7 +23,7 @@ class Login extends MY_Controller
 
    public function index()
    {
-
+    
       $this->load->library('form_validation');
       $this->load->view('header');
       $this->load->model("Login_model", "Login");

@@ -7,15 +7,15 @@ class Form extends MY_Controller
    {
       parent::__construct();
 
-      // if (isset($_SESSION['role'])) {
-      //    if ($_SESSION['role'] == 'superadmin') {
-      //       redirect('admin/user/user');
-      //       exit;
-      //    } elseif ($_SESSION['role'] == 'appuser') {
-      //       redirect('user/user');
-      //       exit;
-      //    }
-      // }
+      if (isset($_SESSION['role'])) {
+         if ($_SESSION['role'] == 'superadmin') {
+            redirect('admin/application');
+            exit;
+         } elseif ($_SESSION['role'] == 'appuser') {
+            redirect('user/user');
+            exit;
+         }
+      }
 
       $this->load->model('Form_model');
       $this->load->library('myuploadlibrary');
@@ -25,7 +25,7 @@ class Form extends MY_Controller
 
    public function index()
    {
-
+      // $this->Form_model->generatePassword(12);
       $this->load->view('landingPage');
    }
 
@@ -42,6 +42,7 @@ class Form extends MY_Controller
 
    public function process()
    {
+      // echo "<pre>";
       // print_r($_POST);die;
       if (!empty($_POST)) {
          $suffix = $this->input->post('suffix');
@@ -75,6 +76,8 @@ class Form extends MY_Controller
          $case_no = $this->input->post('case_no');
          $optradio = $this->input->post('optradio');
          $cpassword = $this->input->post('cpassword');
+         $fill_by = $this->input->post('fill_by');
+         $fill = $this->input->post('fill');
          if ($optradio == "sendmail") {
             $communication_method = 1;
          } else {
@@ -110,14 +113,14 @@ class Form extends MY_Controller
          }
 
          // if($this->form_validation->run()==TRUE){
-
+         //   echo '<pre>';print_r($communication_method);die;
          $data = array(
             'suffix' => $suffix,
             'firstname' => $firstname,
             'middlename' => $middlename,
             'lastname' => $lastname,
             'alias' => $any_other_name,
-            'birthdate' => $bmonth . " " . $bdate . ", " . $byear,
+            'birthdate' => $bmonth . " " . $bdate . " " . $byear,
             'license' => $license,
             'state_id_no' => $state_id_no,
             'race' => $race,
@@ -138,8 +141,11 @@ class Form extends MY_Controller
             'communication_method' => $communication_method,
             'verification_id' => $verification_id,
             'case_no' => $case_no,
-
+            'fill_by' => !empty($fill_by) ? $fill_by : 'User',
+            'fill' =>(!empty($fill))?2:1,
          );
+
+        
          // echo '<pre>';print_r($data);die;
 
          if (!isset($verificationimage['error'])) {

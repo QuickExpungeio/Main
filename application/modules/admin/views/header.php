@@ -34,6 +34,7 @@
     <link href="<?php echo base_url();?>assets/build/css/custom_1.css" rel="stylesheet">
     <script src="<?php echo base_url();?>assets/vendors/jquery/dist/jquery.min.js"></script>
     <script src="<?php echo base_url();?>assets/vendors/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="<?php echo base_url("assets/build/gtag.js"); ?>"></script>
 
 </head>
 <body class="nav-sm">

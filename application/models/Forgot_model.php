@@ -51,30 +51,12 @@ class Forgot_model extends CI_Model
       $to = $emailOfUser;
       $subject = $mailContaint->subject;
       $message = $newContaint;
-
-      $config = array(
-         'protocol' => 'smtp',
-         'smtp_host' => 'ssl://smtp.dreamhost.com',
-         'smtp_port' => "465",
-         'smtp_user' => 'no_reply@quickexpunge.io', // change it to yours
-         'smtp_pass' => '1L0vefreedom', // change it to yours
-         'mailtype' => 'html',
-         'charset' => 'iso-8859-1',
-         'wordwrap' => TRUE
-      );
-      $this->load->library('email', $config);
-      $this->email->set_newline("\r\n");
-      $this->email->from('no_reply@quickexpunge.io'); // change it to yours
-      $this->email->to($to); // change it to yours
-      $this->email->subject($subject);
-      $this->email->message($message);
-      $isSend = $this->email->send();
-      if ($isSend) {
-         $this->db->update("user_master", array("base64code" => $base64code), array("email" => $emailOfUser));
-         return true;
-      } else {
-         return false;
-      }
+      $emailResponse = email_send($to, "", $subject, $message);
+         if ($emailResponse['code'] = 200) {
+            return true;
+         } else {
+            return false;
+         }
    }
 
    public function checkuservalidornot($code, $email)

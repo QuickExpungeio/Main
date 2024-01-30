@@ -10,6 +10,7 @@
 	<link rel="shortcut icon" href="<?php echo base_url()?>assets/images/fav.png">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	<link href="<?php echo base_url();?>assets/form/form.css" rel="stylesheet">
+    <script src="<?php echo base_url("assets/build/gtag.js"); ?>"></script>
 
 </head>
 

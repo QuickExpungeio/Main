@@ -24,7 +24,7 @@
 					
 					<div class="x_title">
 						<h2> Record Restriction Dashboard</h2>
-						<a href="<?php echo site_url(); ?>admin/applications/export" class='btn btn-xs' style="float: right; background:#FF7D3F;color:white"> Export to CSV</a>
+						<a href="<?php echo site_url(); ?>admin/applications_old/export" class='btn btn-xs' style="float: right; background:#002d53;color:white"> Export to CSV</a>
 						<div class="clearfix"></div>
 					</div>
 					<div class="x_content">
@@ -40,7 +40,7 @@
 									<th>Driving License Number</th>
 									<th>Case Number</th>
 									<th>Status</th>
-									<th>Chat</th>
+									<!-- <th>Chat</th> -->
 									<th>Actions</th>
 								</tr>
 							</thead>
@@ -88,21 +88,12 @@
 				{
 					"targets": 9,
 					"orderable": false
-				},
-				{
-					"targets": 10,
-					"orderable": false
 				}
 			],
 
-			//  "scroller": true,
-			//  "scrollCollapse": true,
-			//  "scrollY": 700,
-			//  "colReorder": true,
-
-
+			
 			"ajax": {
-				"url": "<?php echo base_url('admin/user/user/jsonList'); ?>",
+				"url": "<?php echo base_url('admin/user/user/jsonList_old'); ?>",
 				"type": "POST",
 				"data": {},
 			},
@@ -110,12 +101,6 @@
 			"fnInitComplete": function(oSettings, json) {
 				$(".sorting_asc").removeClass("sorting_asc");
 			},
-
-			// scrollY: 200,
-			// deferRender: true,
-			// scroller: {
-			//     loadingIndicator: true
-			// },
 
 			"columns": [{
 					"data": "deleteid"
@@ -145,15 +130,11 @@
 					"data": "status"
 				},
 				{
-					"data": "chat"
-				},
-				{
 					"data": "action"
 				},
 			],
 		});
 	});
-	// https://coderexample.com/datatable-scroller-server-side/
 
 	function frm_submit(list_id, actval, uid = 0) {
 		document.frm.user_id.value = list_id;
@@ -162,7 +143,7 @@
 		document.frm.mode.value = actval;
 
 		if (actval == 'View') {
-			document.frm.action = "<?php echo site_url('admin/applications/details'); ?>";
+			document.frm.action = "<?php echo site_url('admin/applications_old/details'); ?>";
 			document.frm.submit();
 			return
 		}
@@ -201,7 +182,7 @@
 					data: {
 						ids: ids
 					},
-					url: "<?php echo site_url('admin/applications/removemultidetail'); ?>",
+					url: "<?php echo site_url('admin/applications_old/removemultidetail'); ?>",
 					success: function(msg) {
 						$('.datatable').DataTable().ajax.reload();
 					}

@@ -114,36 +114,28 @@ class User_model extends CI_Model
 
       $this->db->update("expungument", array('status' => $status), array('exfid' => $id));
       $userData = $this->db->select('uid,email,firstname,lastname')->from('expungument')->where('exfid', $id)->get()->row();
-      // if (!empty($userData)) {
-      //    $mailContaint = $this->db->get_where('wiki', array('id' => 1))->row();
-      //    $logo = base_url('assets/images/logo.png');
-      //    $msg = "Your application status is updated with <b>" . $status . "</b>";
-      //    $replaceTo = array("__LOGO__", "__TITLE__", "__USERNAME__", "__EMAILTEXT__");
-      //    $replaceFrom = array($logo, "Update Status", $userData->firstname . " " . $userData->lastname, $msg);
+      if (!empty($userData)) {
+         $mailContaint = $this->db->get_where('wiki', array('id' => 1))->row();
+         $logo = base_url('assets/images/logo.png');
+         $msg = "Your application status is updated with <b>" . $status . "</b>";
+         $replaceTo = array("__LOGO__", "__TITLE__", "__USERNAME__", "__EMAILTEXT__");
+         $replaceFrom = array($logo, "Update Status", $userData->firstname . " " . $userData->lastname, $msg);
 
-      //    $newContaint = str_replace($replaceTo, $replaceFrom, $mailContaint->description);
-      //    $to = $userData->email;
-      //    $subject = $mailContaint->subject;
-      //    $message = $newContaint;
+         $newContaint = str_replace($replaceTo, $replaceFrom, $mailContaint->description);
+         $to = $userData->email;
+         $subject = $mailContaint->subject;
+         $message = $newContaint;
 
-      //    $config = array(
-      //       'protocol' => 'smtp',
-      //       'smtp_host' => 'ssl://smtp.dreamhost.com',
-      //       'smtp_port' => "465",
-      //       'smtp_user' => 'no_reply@quickexpunge.io', // change it to yours
-      //       'smtp_pass' => '1L0vefreedom', // change it to yours
-      //       'mailtype' => 'html',
-      //       'charset' => 'iso-8859-1',
-      //       'wordwrap' => TRUE
-      //    );
-      //    $this->load->library('email', $config);
-      //    $this->email->set_newline("\r\n");
-      //    $this->email->from('no_reply@quickexpunge.io'); // change it to yours
-      //    $this->email->to($to); // change it to yours
-      //    $this->email->subject($subject);
-      //    $this->email->message($message);
-      //    $this->email->send();
-      // }
+         $emailResponse = email_send($to, "", $subject, $message);
+         echo '<pre>';
+         print_r($emailResponse);
+         die;
+         if ($emailResponse['code'] = 200) {
+            return true;
+         } else {
+            return false;
+         }
+      }
       return true;
    }
    public function updatecomment($textcomment, $id)
@@ -183,7 +175,7 @@ class User_model extends CI_Model
       //       'protocol' => 'smtp',
       //       'smtp_host' => 'ssl://smtp.dreamhost.com',
       //       'smtp_port' => "465",
-      //       'smtp_user' => 'no_reply@quickexpunge.io', // change it to yours
+      //       'smtp_user' => 'info@quickexpunge.io', // change it to yours
       //       'smtp_pass' => '1L0vefreedom', // change it to yours
       //       'mailtype' => 'html',
       //       'charset' => 'iso-8859-1',
@@ -191,7 +183,7 @@ class User_model extends CI_Model
       //    );
       //    $this->load->library('email', $config);
       //    $this->email->set_newline("\r\n");
-      //    $this->email->from('no_reply@quickexpunge.io'); // change it to yours
+      //    $this->email->from('info@quickexpunge.io'); // change it to yours
       //    $this->email->to($to); // change it to yours
       //    $this->email->subject($subject);
       //    $this->email->message($message);
@@ -271,6 +263,10 @@ class User_model extends CI_Model
             $sort_name = "expungument.arresting_agency";
             break;
 
+         case 'fill_by':
+            $sort_name = "expungument.fill_by";
+            break;
+
          case 'dateofarrest':
             $sort_name = "expungument.arrest_date";
             break;
@@ -294,6 +290,7 @@ class User_model extends CI_Model
          $where .= " OR expungument.lastname LIKE '%" . $params['search']['value'] . "%' ";
          $where .= " OR um.email LIKE '%" . $params['search']['value'] . "%' ";
          $where .= " OR expungument.arresting_agency LIKE '%" . $params['search']['value'] . "%' ";
+         $where .= " OR expungument.fill_by LIKE '%" . $params['search']['value'] . "%' ";
          $where .= " OR expungument.license LIKE '%" . $params['search']['value'] . "%' ";
          $where .= " OR expungument.case_no LIKE '%" . $params['search']['value'] . "%' ";
          $where .= " OR expungument.status LIKE '%" . $params['search']['value'] . "%' ";
@@ -303,7 +300,7 @@ class User_model extends CI_Model
          $where .= " )";
       }
 
-      $sql = "SELECT um.uid,expungument.status,expungument.exfid,expungument.arresting_agency,expungument.date_arrest,expungument.offense_attested,um.username,expungument.case_no,um.email,um.address,expungument.suffix,expungument.firstname,expungument.lastname,expungument.license,expungument.arrest_date,expungument.arrest_month,expungument.arrest_year,(select COUNT(id) FROM expungement_chat where expungement_id = expungument.exfid and is_Reeded=0 and is_admin=0 ) as is_Reeded
+      $sql = "SELECT um.uid,expungument.status,expungument.exfid,expungument.fill,expungument.fill_by,expungument.arresting_agency,expungument.date_arrest,expungument.offense_attested,um.username,expungument.case_no,um.email,um.address,expungument.suffix,expungument.firstname,expungument.lastname,expungument.license,expungument.arrest_date,expungument.arrest_month,expungument.arrest_year,(select COUNT(id) FROM expungement_chat where expungement_id = expungument.exfid and is_Reeded=0 and is_admin=0 ) as is_Reeded
 		        FROM expungument
 				LEFT JOIN user_master um ON um.uid = expungument.uid
 				WHERE 1=1 {$where} AND um.email != ''
@@ -318,29 +315,44 @@ class User_model extends CI_Model
       $totalRecords = $queryTot->num_rows();
       $queryRecords = $this->db->query($sqlRec);
       $results = $queryRecords->result();
+      // echo '<pre>';
+      // print_r($results);
+      // die;
       if (!empty($results)) {
          foreach ($results as $val) {
+            // echo '<pre>';print_r($_SESSION['role']);die;
 
             $date_arrest = $val->arrest_month . "-" . $val->arrest_date . "-" . $val->arrest_year;
+            $fill = $val->fill;
+            $filled_by = ($fill == 2) ? "Admin" : "User";
+            // echo '<pre>';print_r($filled_by);die;
             $notiBatch = "";
+
             if ($val->is_Reeded != 0) {
                //,count(expchat.is_Reeded) as is_Reeded
                $notiBatch = '<span class="NotificationBadge">' . $val->is_Reeded . '</span>';
             }
-
+            $exfid = $val->exfid;
+            $uid = $val->uid;
+            $base_url = base_url();
+            $string = $exfid.','.$uid;
+            $base64code = base64_encode($string);
+            $url = $base_url . 'admin/chat/index/'.$base64code;
+            // echo '<pre>';print_r($string);die;
             $data[] = array(
                'deleteid' => '<input type="checkbox" id="' . $val->exfid . '" class="multdelete" value="' . $val->exfid . '">',
                'appno' => '<a href="javascript:frm_submit(' . $val->exfid . ',`Chat`,' . $val->uid . ');">' . $val->exfid . '</a>',
                'name'        =>  $val->suffix . ' ' . $val->firstname . ' ' . $val->lastname,
                'email'    => $val->email,
                'agency'     => $val->arresting_agency,
+               'fill_by'     =>  $filled_by,
                'dateofarrest'   => $date_arrest,
                'drivelicence'   => $val->license,
                'caseno'   => $val->case_no,
                'status'   => $val->status,
                // 'chat' => '<a href="javascript:frm_submit(' . $val->exfid . ',`Chat`,' . $val->uid . ');" class="btn btn-xs" style="float: right; background:#FF7D3F;color:white" >Chat  <i class="fa fa-comment"></i></a>'.$batch,
-               'chat' => '<a href="javascript:frm_submit(' . $val->exfid . ',`Chat`,' . $val->uid . ');" ><i class="fa fa-comments" style="font-size:30px"></i>' . $notiBatch . '</a>',
-               'action'   => '<a href="javascript:frm_submit(' . $val->exfid . ',`View`);" class="btn btn-xs" style="float: right; background:#FF7D3F;color:white"> <i class="fa fa-edit"></i> View Detail</a>',
+               'chat' => '<a href='.$url.'><i class="fa fa-comments" style="font-size:30px"></i>' . $notiBatch . '</a>',
+               'action'   => '<a href="javascript:frm_submit(' . $val->exfid . ',`View`,' . $val->uid . ');" class="btn btn-xs" style="float: right; background:#FF7D3F;color:white"> <i class="fa fa-edit"></i> View Detail</a>',
 
             );
          }
@@ -352,12 +364,12 @@ class User_model extends CI_Model
          "recordsFiltered" => intval($totalRecords),
          "data"            => $data   // total data array
       );
-
+      // echo '<pre>';print_r($json_data);die;
       return $json_data;
    }
    public function get_list_table_details($status)
    {
-   //   echo '<pre>';print_r('hello');die;
+      //   echo '<pre>';print_r('hello');die;
       $params = $totalRecords = $data = array();
 
       $params = $_REQUEST;
@@ -382,6 +394,10 @@ class User_model extends CI_Model
             $sort_name = "expungument.arresting_agency";
             break;
 
+         case 'fill_by':
+            $sort_name = "expungument.fill_by";
+            break;
+
          case 'dateofarrest':
             $sort_name = "expungument.arrest_date";
             break;
@@ -405,6 +421,7 @@ class User_model extends CI_Model
          $where .= " OR expungument.lastname LIKE '%" . $params['search']['value'] . "%' ";
          $where .= " OR um.email LIKE '%" . $params['search']['value'] . "%' ";
          $where .= " OR expungument.arresting_agency LIKE '%" . $params['search']['value'] . "%' ";
+         $where .= " OR expungument.fill_by LIKE '%" . $params['search']['value'] . "%' ";
          $where .= " OR expungument.license LIKE '%" . $params['search']['value'] . "%' ";
          $where .= " OR expungument.case_no LIKE '%" . $params['search']['value'] . "%' ";
          $where .= " OR expungument.status LIKE '%" . $params['search']['value'] . "%' ";
@@ -414,12 +431,12 @@ class User_model extends CI_Model
          $where .= " )";
       }
       $mainWhere = '';
-      if($status == "open"){
-         $mainWhere = '(status="Received" or  status = "Need more Information")';
-      }else if($status == "inprogress"){
-         $mainWhere = '(status="Eligible For Restriction" or status = "Eligible for DA" or status = "In Progress" or  status = "Eligible for Further Steps")';
-      }else if($status == "closed"){
-         $mainWhere = '(status="Denial" or status = "Ineligible for Restriction" or  status = "Restriction Complete")';
+      if ($status == "open") {
+         $mainWhere = '(status="Received" or  status = "Need More Information")';
+      } else if ($status == "inprogress") {
+         $mainWhere = '(status="Eligible for Restriction" or status = "Eligible for DA" or status = "In Progress" or  status = "Eligible Further Steps")';
+      } else if ($status == "closed") {
+         $mainWhere = '(status="Denial" or status = "Ineligible for Restriction" or  status = "Restriction Completed")';
       }
       $sql = "SELECT * FROM expungument
 				WHERE {$mainWhere} {$where}
@@ -438,6 +455,8 @@ class User_model extends CI_Model
          foreach ($results as $val) {
 
             $date_arrest = $val->arrest_month . "-" . $val->arrest_date . "-" . $val->arrest_year;
+            $fill = $val->fill;
+            $filled_by = ($fill == 2) ? "Admin" : "User";
             $notiBatch = "";
             // if ($val->is_Reeded != 0) {
             //    //,count(expchat.is_Reeded) as is_Reeded
@@ -450,6 +469,7 @@ class User_model extends CI_Model
                'name'        =>  $val->suffix . ' ' . $val->firstname . ' ' . $val->lastname,
                'email'    => $val->email,
                'agency'     => $val->arresting_agency,
+               'fill_by'     =>  $filled_by,
                'dateofarrest'   => $date_arrest,
                'drivelicence'   => $val->license,
                'caseno'   => $val->case_no,

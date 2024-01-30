@@ -18,12 +18,7 @@
 <div class="right_col" role="main">
 	<div class="">
 		<div class="clearfix"></div>
-		<div class="row">
-			<div class="col-lg-6 col-6">
-				<h2><b> Performance Dashboard </b></h2><br>
-			</div>
-		</div>
-		<div class="row">
+		<div class="row" style="margin-top: 1%;">
 
 			<div class="col-lg-3 col-6" style="width: 25%;padding-right:20px;padding-left:20px;">
 				<div class="small-box" style="height: 200px;background-color:#f0f0f0;">
@@ -37,7 +32,7 @@
 							<h2 class="text-center"><b><?php echo $openCount; ?></b></h2>
 						</a>
 					</div>
-	
+
 				</div>
 			</div>
 
@@ -96,15 +91,22 @@
 
 		</div>
 		<div class="row">
+			<div class="col-lg-6 col-6">
+				<h2> <b>Record Restriction Dashboard</b></h2>
+			</div>
+		</div>
+		<div class="row">
 			<div class="col-md-12 col-sm-12 col-xs-12" style="margin-top: 20px;">
 				<div class="x_panel">
 
 					<div class="x_title">
-						<a href="JavaScript:void(0);" class='btn btn-xs' style="float: left; height: 52px;padding: 15px;background:#FF7D3F;color:white">ADD NEW EXPUNGEMENT</a>
-						<!-- <h2> Record Restriction Dashboard</h2> -->
-						<!-- <a href="<?php echo site_url(); ?>admin/applications/export" class='btn btn-xs' style="float: right; background:#FF7D3F;color:white"> Export to CSV</a> -->
+						<a href="<?php echo base_url('form/form_new/page') ?>" class='btn btn-xs' style="float: left; height: 52px;padding: 15px;background:#FF7D3F;color:white">ADD NEW EXPUNGEMENT</a>
+						<br>
+						<!-- <h2> Record Restriction Dashboard</h2>
+						<a href="<?php echo site_url(); ?>admin/applications/export" class='btn btn-xs' style="float: right; background:#002d53;color:white"> Export to CSV</a> -->
 						<div class="clearfix"></div>
 					</div>
+
 					<div class="x_content">
 						<table class="table table-striped table-bordered datatable datatableFilter">
 							<thead>
@@ -118,6 +120,7 @@
 									<th>Driving License Number</th>
 									<th>Case Number</th>
 									<th>Status</th>
+									<th>Filled By</th>
 									<th>Chat</th>
 									<th>Actions</th>
 								</tr>
@@ -137,8 +140,10 @@
 				</div>
 			</div>
 		</div>
-		<!-- </form> -->
 	</div>
+
+	<!-- </form> -->
+</div>
 </div>
 <script type="text/javascript" language="javascript">
 	$(document).ready(function() {
@@ -221,6 +226,9 @@
 				},
 				{
 					"data": "status"
+				},
+				{
+					"data": "fill_by"
 				},
 				{
 					"data": "chat"

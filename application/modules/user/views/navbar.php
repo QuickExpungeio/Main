@@ -10,30 +10,46 @@
       <a class="site_title"><span>Quick Expunge</span></a>
     </div> -->
 
+    <div class="clearfix"></div>
+      <div class="profile clearfix" style="margin-top: 33px;">
+			<div class="profile_pic">
+				<img src="<?php echo base_url(); ?>assets/images/pic-1.png" alt="..." class="img-circle profile_img">
+			</div>
+			<div class="profile_info" style="margin-top: 5px;">
+				<h2><?php echo isset($userName)?$userName:'User';?></h2>
+			</div>
+		</div>
+
       <div class="clearfix"></div>
       <!-- menu profile quick info -->
-      <div class="profile clearfix"style="margin-top: 33px;">
+      <!-- <div class="profile clearfix" style="display:none;">
          <div class="profile_pic">
             <img src="<?php echo base_url(); ?>assets/images/pic-1.png" alt="..." class="img-circle profile_img">
          </div>
-         <div class="profile_info" style="margin-top: 5px;">
-            <h2>  <?php echo isset($userName)?$userName:'User';?></h2>
+         <div class="profile_info">
+            <span>Welcome,</span>
+            <h2>User</h2>
          </div>
-      </div>
+      </div> -->
       <!-- /menu profile quick info -->
 
       <!-- <br> -->
 
       <!-- sidebar menu -->
-      <div id="sidebar-menu" class="main_menu_side_user hidden-print main_menu">
+      <?php
+	$hover_applications = $this->uri->segment(2) == "applications";
+	$hover_chat = $this->uri->segment(2) == "chat";
+	$hover_details = $this->uri->segment(2) == "details";
+	?>
+      <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
          <div class="menu_section active">
             <!-- <h3>General</h3> -->
             <ul class="nav side-menu" style="margin-top: 0px;">
                <!-- <li class=""><a href="<?php echo base_url(); ?>admin/user/user"><i class="fa fa-home"></i> Home </li> -->
 
-               <li class="" style="text-align: center; background: #FF7D3F;"><a href="<?php echo base_url("user/application"); ?>" style="padding: 30px 0px;">
+               <li <?php if($hover_applications == "applications" || $hover_chat == "chat" || $hover_details == "details"){echo 'class="activeClass"'; }?> class="" style="text-align: center; background: #FF7D3F;"><a href="<?php echo base_url("user/application"); ?>" style="padding: 30px 0px;">
                      <i class="fa fa-home" style="font-size:52px; width: 50px; padding: 0px; margin-bottom: 0px; color: #ffffff;"></i> <br> Home </a></li>
-               <li class="" style="text-align: center; background: #000000;"><a href="<?php echo base_url("user/settings"); ?>" style="margin-bottom: 0px; padding: 30px 0px;"> <i class="fa fa-cog" style="font-size:52px; width: 50px; padding: 0px; margin-bottom: 0px;"></i> <br>Settings </a></li>
+               <li <?php echo ($this->uri->segment(2) == "settings") ? 'class="activeClass"' : 'class=""' ?> class="" style="text-align: center; background: #000000;"><a href="javascript:void(0)" style="margin-bottom: 0px; padding: 30px 0px;"> <i class="fa fa-cog" style="font-size:52px; width: 50px; padding: 0px; margin-bottom: 0px;"></i> <br>Settings </a></li>
             </ul>
          </div>
       </div>
@@ -42,7 +58,7 @@
    </div>
 </div>
 <div class="top_nav">
-   <div class="nav_menu" style="margin-top: 8.5%;">
+   <div class="nav_menu" style="margin-top: 6.5%;">
       <!-- <nav>
          <div class="nav toggle">
             <a id="menu_toggle"><i class="fa fa-bars"></i></a>
@@ -53,8 +69,7 @@
                <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
 
                <?php echo isset($userName)?$userName:'User';?>
-                  <i class="fa fa-angle-down" aria-hidden="true"></i> 
-               </a>
+               <i class="fa fa-angle-down" aria-hidden="true"></i>               </a>
                <ul class="dropdown-menu dropdown-usermenu pull-right">
 
                   <li><a href="<?php echo site_url(); ?>user/application/logout"><i class="fa fa-sign-out pull-right"></i> Log Out</a></li>

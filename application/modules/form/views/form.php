@@ -14,6 +14,10 @@
     <script src="<?php echo base_url('assets/form/js/jquery-3.5.1.min.js'); ?>"></script>
     <!-- <script src="<?php echo base_url('assets/form/js/bootstrap-3.4.1.min.js'); ?>"></script> -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/3.3.4/jquery.inputmask.bundle.min.js"></script>
+    <script src="<?php echo base_url("assets/build/gtag.js"); ?>"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
+
 
 </head>
 <style>
@@ -63,6 +67,15 @@
         /* Microsoft Edge */
         color: grey !important;
     }
+
+    .select2-container .select2-selection--single {
+        height: 34px !important;
+    }
+
+    .select2-container--default .select2-selection--single {
+        border: 1px solid #ccc !important;
+        border-radius: 0px !important;
+    }
 </style>
 <?php
 $monthList = ['Jan' => 'January', 'Feb' => 'February', 'Mar' => 'March', 'Apr' => 'April', 'May' => 'May', 'Jun' => 'June', 'Jul' => 'July', 'Aug' => 'August', 'Sep' => 'September', 'Oct' => 'October', 'Nov' => 'November', 'Dec' => 'December'];
@@ -85,9 +98,9 @@ $monthList = ['Jan' => 'January', 'Feb' => 'February', 'Mar' => 'March', 'Apr' =
                         <div style="text-align: center;margin: 1% 0 12px 0;">
                             <span class="erfont">Record Restricton Form</span>
                         </div>
-                        <div style="text-align: center;margin: 1% 0 12px 0;">
+                        <!-- <div style="text-align: center;margin: 1% 0 12px 0;">
                             <span class="yourOrder">Your Order</span>
-                        </div>
+                        </div> -->
                     </div>
                     <div class="col-3">
                     </div>
@@ -188,7 +201,6 @@ $monthList = ['Jan' => 'January', 'Feb' => 'February', 'Mar' => 'March', 'Apr' =
                             </div>
 
                             <div class="row">
-
                                 <div class="col">
                                     <select name="Bmonth" id="Bmonth" class="form-select">
                                         <option value="">Month</option>
@@ -257,8 +269,8 @@ $monthList = ['Jan' => 'January', 'Feb' => 'February', 'Mar' => 'March', 'Apr' =
                                 </span>
                             </div>
                             <div class="col">
-                                <input type="password" maxlength="9" class="form-control" id="ssn" placeholder="* * * - * * - * * * *" name="ssn">
-                                <span toggle="#ssn" class="fa fa-fw fa-eye-slash field-icon toggle-password"></span>
+                                <input type="text" maxlength="15" class="form-control impn" id="ssn" minlength="12" maxlength="12" placeholder="* * *_* * *_* * * *" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" name="ssn">
+                                <!-- <span toggle="#ssn" class="fa fa-fw fa-eye-slash field-icon toggle-password"></span> -->
                             </div>
                             <div class="col mt-3">
                                 <span class="qxtheme">
@@ -268,7 +280,7 @@ $monthList = ['Jan' => 'January', 'Feb' => 'February', 'Mar' => 'March', 'Apr' =
                                 </span>
                             </div>
                             <div class="col">
-                                <input type="text" class="form-control impn" id="phone" maxlength="10" name="phone" placeholder="(000)-000-0000">
+                                <input type="text" class="form-control impn" id="phone" maxlength="12" name="phone" placeholder="(000)-000-0000">
                             </div>
                             <div class="col mt-3">
                                 <span class="qxtheme">
@@ -278,7 +290,7 @@ $monthList = ['Jan' => 'January', 'Feb' => 'February', 'Mar' => 'March', 'Apr' =
                                 </span>
                             </div>
                             <div class="col">
-                                <input type="email" class="form-control" id="email" name="email" placeholder="Email" autocomplete="off">
+                                <input type="email" class="form-control" id="email" name="email" data-bs-toggle="tooltip" data-bs-placement="top" title="Enter proper Email Address" placeholder="Email" autocomplete="off">
                             </div>
                             <div class="row send-otp-n-verify d-none">
                                 <div class="col mt-2 divforotp">
@@ -416,7 +428,6 @@ $monthList = ['Jan' => 'January', 'Feb' => 'February', 'Mar' => 'March', 'Apr' =
                                 </span>
                             </div>
                             <div class="row">
-
                                 <div class="col">
                                     <select name="arrest_month" id="arrest_month" class="form-select">
                                         <option value="">Month</option>
@@ -507,8 +518,8 @@ $monthList = ['Jan' => 'January', 'Feb' => 'February', 'Mar' => 'March', 'Apr' =
                                     <option value="">Offense Arrested For</option>
                                     <?php if (!empty($offence)) {
                                         foreach ($offence as $val) { ?>
-                                            <option value="<?php echo $val->short_description ?>"><?php echo $val->short_description ?></option>
-                                    <?php }
+                                            <option value=" <?php echo $val->short_description ?>"><?php echo $val->short_description ?></option>
+                            <?php }
                                     } ?>
                                 </select>
                             </div>
@@ -703,7 +714,7 @@ $monthList = ['Jan' => 'January', 'Feb' => 'February', 'Mar' => 'March', 'Apr' =
                             <?php } ?>
 
                             <div class="col mt-2">
-                                <a href="<?php echo base_url() ?>" class="btn btn-block btn-lg btns">Finish</a>
+                                <a href="<?php echo base_url("admin/applications") ?>" class="btn btn-block btn-lg btns">Finish</a>
                             </div>
 
                         </section>
@@ -1053,6 +1064,15 @@ $monthList = ['Jan' => 'January', 'Feb' => 'February', 'Mar' => 'March', 'Apr' =
                         let fileName = input.files[0].name;
                         $(".userIdImgValueDiv").html('<i class="fa fa-file-word-o" style="font-size:35px" aria-hidden="true"> ' + fileName + ' </i>');
 
+                    } else if (fileExtension == "xlsx") {
+                        let fileName = input.files[0].name;
+                        $(".userIdImgValueDiv").html('<i class="fa fa-file-excel-o" style="font-size:35px" aria-hidden="true"> ' + fileName + ' </i>');
+                    } else if (fileExtension == "xls") {
+                        let fileName = input.files[0].name;
+                        $(".userIdImgValueDiv").html('<i class="fa fa-file-excel-o" style="font-size:35px" aria-hidden="true"> ' + fileName + ' </i>');
+                    } else if (fileExtension == "txt") {
+                        let fileName = input.files[0].name;
+                        $(".userIdImgValueDiv").html('<i class="fa fa-file-text-o" style="font-size:35px" aria-hidden="true"> ' + fileName + ' </i>');
                     } else if (!$('#userIdImg').length) {
 
                         //$(".userIdImgValueDiv").html('<img src="" id="userIdImg" style="width: 54%;" alt="No Image">');
@@ -1322,6 +1342,28 @@ $monthList = ['Jan' => 'January', 'Feb' => 'February', 'Mar' => 'March', 'Apr' =
                 }, 1000);
             }
         });
+        $(document).ready(function() {
+            $('.impn').inputmask('999-999-9999');
+            $('.imcn').inputmask('999-999-9999');
+            $('.zipc').inputmask('99999');
+        });
+
+        //-----------File Validation-----------------
+        document.getElementById('upload').addEventListener('change', function() {
+            var allowedExtensions = [".png", ".jpg", ".jpeg", ".gif", ".pdf", ".docx", ".doc", ".xlsx", ".xls", ".txt"];
+            var maxFileSizeMB = 15; // Maximum file size in megabytes
+            var fileName = this.value;
+            var fileExtension = fileName.substring(fileName.lastIndexOf('.')).toLowerCase();
+
+            if (allowedExtensions.indexOf(fileExtension) === -1) {
+                alert('Invalid file type. Please select a file with one of the following extensions: ' + allowedExtensions.join(', '));
+                this.value = ""; // Clear the input field
+            } else if (this.files[0].size > maxFileSizeMB * 1024 * 1024) {
+                alert('Allow Only ' + maxFileSizeMB + 'MB File..');
+                this.value = ""; // Clear the input field
+            }
+        });
+        //-------End File Validation-----------------
     </script>
 
 </body>

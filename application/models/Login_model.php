@@ -99,7 +99,7 @@ class Login_model extends CI_Model {
                         'protocol' => 'smtp',
                         'smtp_host' => 'ssl://smtp.dreamhost.com',
                         'smtp_port' => "465",
-                        'smtp_user' => 'no_reply@quickexpunge.io', // change it to yours
+                        'smtp_user' => 'info@quickexpunge.io', // change it to yours
                         'smtp_pass' => '1L0vefreedom', // change it to yours
                         'mailtype' => 'html',
                         'charset' => 'iso-8859-1',
@@ -107,7 +107,7 @@ class Login_model extends CI_Model {
                     );
                  $this->load->library('email', $config);
                  $this->email->set_newline("\r\n");
-                 $this->email->from('no_reply@quickexpunge.io'); // change it to yours
+                 $this->email->from('info@quickexpunge.io'); // change it to yours
                  $this->email->to($email);// change it to yours
                  $this->email->subject('Quick Expunge Email Authentication');
                  $this->email->message($message);
@@ -182,7 +182,7 @@ class Login_model extends CI_Model {
             'protocol' => 'smtp',
             'smtp_host' => 'ssl://smtp.dreamhost.com',
             'smtp_port' => "465",
-            'smtp_user' => 'no_reply@quickexpunge.io', // change it to yours
+            'smtp_user' => 'info@quickexpunge.io', // change it to yours
             'smtp_pass' => '1L0vefreedom', // change it to yours
             'mailtype' => 'html',
             'charset' => 'iso-8859-1',
@@ -190,7 +190,7 @@ class Login_model extends CI_Model {
         );
              $this->load->library('email', $config);
              $this->email->set_newline("\r\n");
-             $this->email->from('no_reply@quickexpunge.io'); // change it to yours
+             $this->email->from('info@quickexpunge.io'); // change it to yours
              $this->email->to($email);// change it to yours
              $this->email->subject('Quick Expunge Email Authentication');
              $this->email->message($message);//$lastUid
@@ -226,7 +226,7 @@ class Login_model extends CI_Model {
                 'protocol' => 'smtp',
                 'smtp_host' => 'ssl://smtp.dreamhost.com',
                 'smtp_port' => "465",
-                'smtp_user' => 'no_reply@quickexpunge.io', // change it to yours
+                'smtp_user' => 'info@quickexpunge.io', // change it to yours
                 'smtp_pass' => '1L0vefreedom', // change it to yours
                 'mailtype' => 'html',
                 'charset' => 'iso-8859-1',
@@ -236,7 +236,7 @@ class Login_model extends CI_Model {
             $message = '';
             $this->load->library('email', $config);
             $this->email->set_newline("\r\n");
-            $this->email->from('no_reply@quickexpunge.io'); // change it to yours
+            $this->email->from('info@quickexpunge.io'); // change it to yours
             $this->email->to($email);// change it to yours
             $this->email->subject('Quick Expunge Email Authentication');
             $this->email->message('<html>

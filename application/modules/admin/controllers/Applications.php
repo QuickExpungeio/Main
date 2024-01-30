@@ -3,9 +3,8 @@
 class Applications extends MY_Controller
 {
    function __construct()
-   {
+   {  
       parent::__construct();
-
       if (isset($_SESSION['role'])) {
          if ($_SESSION['role'] != 'superadmin') {
             redirect('admin/login');
@@ -13,20 +12,22 @@ class Applications extends MY_Controller
          }
       } else {
          redirect('admin/login');
-         exit;
+                   exit;
       }
       $this->load->model('Expunge_model');
       $this->load->model('User_model');
+      $this->load->model('Chat_model');
    }
 
    public function index()
    {
+      // echo '<pre>';print_r($_SESSION);die;
       $params["results"] = $this->Expunge_model->get_expungelist();
       $params["openCount"] =  $this->Expunge_model->getExpungumentBasedOnStatus('open');
       $params["inprogressCount"] =  $this->Expunge_model->getExpungumentBasedOnStatus('inprogress');
       $params["closedCount"] =  $this->Expunge_model->getExpungumentBasedOnStatus('closed');
       $params["averageCount"] =  $this->Expunge_model->getExpungumentBasedOnStatus('avg');
-
+// echo '<pre>';print_r($params["results"]);die;
       $this->load->view('header');
       $this->load->view('navbar', $params);
       $this->load->view('applications', $params);
@@ -54,14 +55,20 @@ class Applications extends MY_Controller
 
    function details($id = 0)
    {
-
+      //  echo '<pre>';print_r($this->input->post());die;
       $user_id = ($id == 0) ? $this->input->post('user_id') : $id;
+      $userID = $this->input->post('uid');
+      $expungement_id = $this->input->post('list_id');
       $params["results"] = $this->User_model->getuserdetails($user_id);
+      $params['attachments'] = $this->Chat_model->getDocumentsUploadByUser_Admin($userID, $expungement_id);
+      // echo '<pre>';print_r($params["attachments"]);die;
+// echo $this->db->last_query();die;
       $this->load->view('header');
       $this->load->view('navbar');
       $this->load->view("view_userdetail", $params);
       $this->load->view('footer');
    }
+   
 
    function removedetails()
    {
@@ -178,3 +185,4 @@ class Applications extends MY_Controller
       redirect(base_url("admin/applications/details/") . $id);
    }
 }
+   

@@ -1,6 +1,7 @@
 <div class="right_col" role="main">
    <div id="gif" class="gif" style="display:block"></div>
    <div class="">
+   <button type="button" class="btn btn-xs" style="background:#FF7D3F;color:white;margin-top: 5px" id="back">Back</button>
       <div class="clearfix"></div>
       <div class="row">
          <div class="col-md-12 col-sm-12 col-xs-12">
@@ -14,8 +15,6 @@
                         <h2><b>Record Detail</b>
                            <a href="javascript:frm_submit(<?php echo '`' . $user->exfid . '`,`Chat`,`' . $user->uid . '`'  ?>);" class="btn btn-warning themeOrangeColor" style="float:right">Chat</a>
                         </h2>
-
-
                         <h5><b>Date Received: <?php print date('m-d-Y', strtotime($user->create_date)); ?></b></h5>
                         <h5><b>No. <?php print $user->exfid; ?></b></h5>
                         <table id="datatable" class="table table-striped table-bordered">
@@ -36,10 +35,6 @@
                               <tr>
                                  <td style="width: 30%"><b>Last Name</b></td>
                                  <td><?php print $user->lastname; ?></td>
-                              </tr>
-                              <tr>
-                                 <td style="width: 30%"><b>Email Address</b></td>
-                                 <td><?php print $user->email; ?></td>
                               </tr>
                               <tr>
                                  <td style="width: 30%"><b>Case Number</b></td>
@@ -64,7 +59,16 @@
                               </tr> -->
                               <tr>
                                  <td><b>Date of Birth</b></td>
-                                 <td><?php print date('m-d-Y', strtotime($user->birthdate)); ?></td>
+                                 <?php
+                                 $birthdate = trim($user->birthdate);
+                                 // echo '<pre>';print_r($user);die;
+                                 if ($birthdate == "") {
+                                    $bd = "-";
+                                 } else {
+                                    $bd = date('m-d-Y', strtotime($user->birthdate));
+                                 }
+                                 ?>
+                                 <td><?php print  $bd; ?></td>
                               </tr>
                               <tr>
                                  <td><b>Race</b></td>
@@ -138,6 +142,49 @@
          </div>
 
       </div>
+      <div class="row">
+         <div class="col-md-12 col-lg-12 col-sm-12">
+            <div class="x_panel">
+               <div class="x_title">
+                  <h5><b>All documents related to this application</b></h5>
+                  <div class="clearfix"></div>
+               </div>
+
+               <div class="x_content">
+                  <div class="col-md-12">
+                     <div class="direct-chat-messages">
+                        <table class="table table-striped table-border table-responsive">
+                           <thead>
+                              <tr>
+                                 <th>Document Name</th>
+                                 <th>Document Received</th>
+                                 <th></th>
+                              </tr>
+                           </thead>
+                           <tbody>
+                              <?php if (!empty($attachments)) {
+                                 foreach ($attachments as $val) {
+                                    $name = explode("/", $val->attachment);
+                                    $imageName = end($name);
+                              ?>
+                                    <tr>
+                                       <td><a href="<?php echo $val->attachment; ?>" target="_blank"><?php echo $imageName; ?></a></td>
+                                       <td><?php echo $val->time; ?></td>
+                                       <td><a href="<?php echo $val->attachment; ?>" class="btn btn-lg btn-warning themeOrangeColor" style="font-size:smaller" download>Download</a></td>
+                                    </tr>
+                                 <?php }
+                              } else { ?>
+                              <?php } ?>
+                           </tbody>
+                        </table>
+                     </div>
+                  </div>
+               </div>
+
+            </div>
+
+         </div>
+      </div>
    </div>
 </div>
 
@@ -169,8 +216,12 @@
          document.frm.submit();
          return false;
       }
-
-
-
    }
+   $(document).ready(function() {
+		$('#back').on('click', function() {
+			<?php $send = $_SERVER['HTTP_REFERER']; ?>
+			var redirect_to = "<?php echo $send; ?>";
+			window.location.href = redirect_to;
+		});
+	});
 </script>

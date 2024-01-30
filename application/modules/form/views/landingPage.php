@@ -4,6 +4,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<script src="<?php echo base_url("assets/build/gtag.js"); ?>"></script>
 
 <style>
    /*set border to the form*/
@@ -166,12 +167,19 @@
                 </div> -->
             <div class="col-md-offset-2 col-md-8">
                <div class="imgcontainer">
-               <a href="<?php echo base_url();?>"><img src="<?php echo base_url('assets/images/logowhite.png') ?>" alt="Avatar" class="avatar"></a>
+                  <a href="<?php echo base_url(); ?>"><img src="<?php echo base_url('assets/images/logowhite.png') ?>" alt="Avatar" class="avatar"></a>
                </div>
             </div>
-            <div class="col-md-2">
+            <div class="col-md-1">
                <div class="text-right" style="z-index:1000; margin-top:30px;">
-                  <a href="<?php echo base_url('admin/login') ?>" class="btn btn-white btn-lg" title="Login" style="padding-right: 40px;padding-left: 40px;">
+                  <a href="<?php echo base_url('form/contact_us') ?>" class="btn btn-white btn-lg" title="Login" style="padding-right: 5px;padding-left: 5px;">
+                     CONTACT US
+                  </a>
+               </div>
+            </div>
+            <div class="col-md-1">
+               <div class="text-right" style="z-index:1000; margin-top:30px;">
+                  <a href="<?php echo base_url('admin/login') ?>" class="btn btn-white btn-lg" title="Login" style="padding-right: 20px;padding-left: 20px;">
                      LOGIN
                   </a>
                   <!-- <a href="<?php echo base_url('form/form/page') ?>" title="Go to Form">
@@ -179,6 +187,8 @@
                         </a> -->
                </div>
             </div>
+            
+           
          </div>
          <div class="row">
             <div class="col-md-4 col-md-offset-4 text-center">
@@ -193,7 +203,9 @@
             </div>
          </div>
       </div>
+      
    </div>
+   
    <div class="container">
       <div class="row">
          <div style="margin-top:50px;">
@@ -302,6 +314,7 @@
          </div>
       </div>
    </div>
+   
 </body>
 
 </html>

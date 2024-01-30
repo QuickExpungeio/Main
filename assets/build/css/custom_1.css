@@ -317,7 +317,7 @@ html , body{
 .active a span.fa {
     text-align: right !important;
     margin-right: 4px
-}
+}                                                      
 .nav-sm .menu_section {
     margin: 0
 }
@@ -331,7 +331,7 @@ html , body{
 .nav_menu {
     float: left;
     background: #EDEDED;
-    border-bottom: 1px solid #D9DEE4;
+    /* border-bottom: 1px solid #D9DEE4; */
     margin-bottom: 10px;
     width: 100%;
     position: relative
@@ -793,7 +793,7 @@ a:focus {
     padding: 13px 15px 12px
 }
 .nav.side-menu>li.current-page,
-.nav.side-menu>li.active {
+.nav.side-menu>li.active {d
 /*    border-right: 5px solid #1ABB9C*/
 
 }
@@ -915,7 +915,7 @@ a:focus {
 }
 .main_menu_side_user{
     padding: 0;
-    margin-top: 38.5px;
+    margin-top: 13.5px;
 }
 .bs-docs-sidebar .nav>li>a {
     display: block;

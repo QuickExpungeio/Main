@@ -1,6 +1,14 @@
+<style>
+   .btn-warning {
+      background: #FF7D3F !important;
+
+   }
+</style>
 <div class="right_col" role="main">
    <div id="gif" class="gif" style="display:block"></div>
    <div class="">
+      <button type="button" class="btn btn-xs" style="background:#FF7D3F;color:white" id="back">Back</button>
+      <!-- <a href="javascript:frm_submit(<?php echo '`' . $results[0]->exfid . '`,`Chat`,`' . $results[0]->uid . '`'  ?>);">back</a> -->
       <div class="clearfix"></div>
       <div class="row">
          <div class="col-md-12 col-sm-12 col-xs-12">
@@ -9,9 +17,18 @@
                   <?php
                   if (!empty($results)) {
                      foreach ($results as $user) {
+                        // echo '<pre>';print_r($user);die;
+                        $exfid = $user->exfid;
+                        $uid = $user->uid;
+                        $base_url = base_url();
+                        $string = $exfid . ',' . $uid;
+                        $base64code = base64_encode($string);
+                        $url = $base_url . 'admin/chat/index/' . $base64code;
+                        // echo '<pre>';print_r($url);die;
                   ?>
-                        <h2><b>Record Status</b>
-                           <a href="javascript:frm_submit(<?php echo '`' . $user->exfid . '`,`Chat`,`' . $user->uid . '`'  ?>);" class="btn btn-warning themeOrangeColor" style="float:right">Chat</a>
+                        <h2><b>Record
+                           </b>
+                           <a href="<?php echo $url; ?>" class="btn btn-warning themeOrangeColor" style="float:right">Chat</a>
                         </h2>
                         <!-- <?php if ($this->session->flashdata('success')) { ?>
               <div class="alert alert-success alert-dismissible">
@@ -46,18 +63,18 @@
                                     <td>Proof of Restriction</td>
                                     <td>
                                        <!-- <div style="height: 50px;width: 6%;background-color: white;border: 1px solid lightgray;border-radius: 30%;padding: 1% 1.0%;">
-                        <span>Letter</span>
-                      </div> -->
+                                          <span>Letter</span>
+                                       </div> -->
                                        <!-- <img src="<?php print site_url() . "uploads/restriction_letters/" . $user->restriction_letter; ?>" width="350" title ="Letter"> -->
                                        <?php $letterArray = json_decode($user->multi_restriction_letter);
                                        if (!empty($letterArray)) {
                                           foreach ($letterArray as $arrayVal) {  ?>
 
                                              <span class="img-thumbnail" title="<?php echo $arrayVal; ?>" style="margin-right: 1%;">
-                                                <i class="fa fa-file-pdf-o" style="font-size:35px"></i>
+                                                <i class="fa fa-file-pdf-o" style="font-size:50px;padding: 5px;"></i>
                                                 <div class="btn-group">
-                                                   <a class="downloadLetter" identifier="<?php echo $user->exfid ?>" letterId="<?php echo $arrayVal; ?>" class="btn btn-primary btn-xs"><i class="fa fa-download" aria-hidden="true"></i></a>
-                                                   <a class="removeLetter" data-toggle="modal" data-target="#myModal" letterId="<?php echo $arrayVal; ?>" identifier="<?php echo $user->exfid ?>" class="btn btn-danger btn-xs"><i class="fa fa-trash" aria-hidden="true"></i></a>
+                                                   <a class="downloadLetter" style="font-size:15px;padding: 2px;" identifier="<?php echo $user->exfid ?>" letterId="<?php echo $arrayVal; ?>" class="btn btn-primary btn-xs"><i class="fa fa-download" aria-hidden="true"></i></a>
+                                                   <a class="removeLetter" style="font-size:15px;padding: 2px;" data-toggle="modal" data-target="#myModal" letterId="<?php echo $arrayVal; ?>" identifier="<?php echo $user->exfid ?>" class="btn btn-danger btn-xs"><i class="fa fa-trash" aria-hidden="true"></i></a>
                                                 </div>
                                              </span>
                                           <?php }
@@ -79,15 +96,6 @@
                                                 <label for="profileimage" class="btn btn-warning btn-xs themeOrangeColor">
                                                    <span style="font-size:smaller">Upload</span>
                                                 </label>
-                                                <script>
-                                                   $(document).ready(function() {
-
-                                                      $("#profileimage").change(function() {
-                                                         $("#uploadFormdoc").submit();
-                                                      })
-                                                   });
-                                                </script>
-
                                                 <!--
                                 <input type="file" class="custom-file-input" name="reportDocument" id="profileimage">
 
@@ -143,8 +151,17 @@
                            <td><?php print $user->lastname; ?></td>
                         </tr>
                         <tr>
-                           <td style="width: 30%"><b>Email Address</b></td>
-                           <td><?php print $user->email; ?></td>
+                           <td style="width: 30%"><b>Filled By</b></td>
+                           <?php
+                           $fill = trim($user->fill);
+                           // echo '<pre>';print_r($user);die;
+                           if ($fill == 2) {
+                              $name = "Admin";
+                           } else {
+                              $name = "User";
+                           }
+                           ?>
+                           <td><?php echo $name; ?></td>
                         </tr>
                         <tr>
                            <td style="width: 30%"><b>Case Number</b></td>
@@ -169,7 +186,17 @@
                         </tr> -->
                         <tr>
                            <td><b>Date of Birth</b></td>
-                           <td><?php print date('m-d-Y', strtotime($user->birthdate)); ?></td>
+                           <?php
+                           $birthdate = trim($user->birthdate);
+                           // echo '<pre>';print_r($user);die;
+                           if ($birthdate == "") {
+                              $bd = "-";
+                           } else {
+                              $bd = date('m-d-Y', strtotime($user->birthdate));
+                           }
+                           ?>
+                           <td><?php echo $bd; ?></td>
+
                         </tr>
                         <tr>
                            <td><b>Race</b></td>
@@ -229,7 +256,7 @@
                         <tr>
                            <td></td>
                            <td>
-                              <a href="javascript:frm_submit(<?php echo '`' . $user->exfid . '`,`Chat`,`' . $user->uid . '`'  ?>);" class="btn btn-warning themeOrangeColor">Chat</a></h2>
+                              <a href="<?php echo $url; ?>" class="btn btn-warning themeOrangeColor">Chat</a></h2>
                            </td>
                         </tr>
                      </tbody>
@@ -241,6 +268,47 @@
             </div>
          </div>
 
+      </div>
+      <div class="row">
+         <div class="col-md-12 col-lg-12 col-sm-12">
+            <div class="x_panel">
+               <div class="x_title">
+                  <h5><b>All documents related to this application</b></h5>
+                  <div class="clearfix"></div>
+               </div>
+
+               <div class="x_content">
+                  <div class="col-md-12">
+                     <div class="direct-chat-messages">
+                        <table class="table table-striped table-border table-responsive">
+                           <thead>
+                              <tr>
+                                 <th>Document Name</th>
+                                 <th>Document Received</th>
+                                 <th>Download</th>
+                              </tr>
+                           </thead>
+                           <tbody>
+                              <?php if (!empty($attachments)) {
+                                 foreach ($attachments as $val) {
+                                    $name = explode("/", $val->attachment);
+                                    $imageName = end($name);
+                              ?>
+                                    <tr>
+                                       <td><a href="<?php echo $val->attachment; ?>" target="_blank"><?php echo $imageName; ?></a></td>
+                                       <td><?php echo $val->time; ?></td>
+                                       <td><a href="<?php echo $val->attachment; ?>" class="btn btn-lg btn-warning" style="font-size: smaller;" download>Download</a></td>
+                                    </tr>
+                                 <?php }
+                              } else { ?>
+                              <?php } ?>
+                           </tbody>
+                        </table>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
       </div>
    </div>
 </div>
@@ -327,7 +395,6 @@
    });
 
    function gerstatus() {
-
       var status = $("#appStatus").val();
       var id = $("#resultid").val();
       $(".gif").show();
@@ -382,4 +449,29 @@
          return
       }
    }
-</script>
+   $(document).ready(function() {
+      $("#profileimage").change(function() {
+         var allowedFormats = ['png', 'jpg', 'jpeg', 'gif', 'pdf', 'docx', 'doc', 'xlsx', 'xls', 'txt'];
+         var maxFileSizeMB = 15;
+         var fileName = $(this).val().toLowerCase();
+         var fileExtension = fileName.substring(fileName.lastIndexOf('.') + 1);
+
+         if (allowedFormats.indexOf(fileExtension) === -1) {
+            alert('Invalid file format. Please select a file with one of the following extensions: ' + allowedFormats.join(', '));
+            this.value = ""; // Clear the file input
+         } else if (this.files[0].size > maxFileSizeMB * 1024 * 1024) {
+            alert('Allow Only ' + maxFileSizeMB + 'MB File..');
+            this.value = ""; // Clear the input field
+         } else {
+            $("#uploadFormdoc").submit();
+         }
+      });
+   });
+   $(document).ready(function() {
+      $('#back').on('click', function() {
+         <?php $send = $_SERVER['HTTP_REFERER']; ?>
+         var redirect_to = "<?php echo $send; ?>";
+         window.location.href = redirect_to;
+      });
+   });
+</script>c

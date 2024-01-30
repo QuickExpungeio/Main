@@ -34,7 +34,7 @@ class Myuploadlibrary {
 
 			if(in_array($file_extension, $allowed_image_extension)){
 
-				if($_FILES['file']['size'] < 50000000){
+				if ($_FILES['file']['size'] < 15728640) {
 
 					/*$tmp_name = $_FILES["file"]["tmp_name"];
 					$name = time() . str_replace(array(' ','-'),'_',basename($_FILES["file"]["name"]));
@@ -60,9 +60,8 @@ class Myuploadlibrary {
 
 						$uploadData[$i] = $uploadPath. $new_name;
 					}
-
-				}else{
-					$uploadData['error'] = "Allow Only 50MB File.";
+				} else {
+					$uploadData['error'] = "Allow Only 15MB File.";
 				}
 			}else{
 				$uploadData['error'] = "Allow Only jpg,png,jpeg and gif file type.";
@@ -82,7 +81,7 @@ class Myuploadlibrary {
 		$_FILES['file']['tmp_name'] = $files[$inputname]['tmp_name'];
 		$_FILES['file']['error']     = $files[$inputname]['error'];
 		$_FILES['file']['size']     = $files[$inputname]['size'];
-		$uploadData="";
+		$uploadData=array();
 		//echo"<pre>";print_r($_FILES['file']);die;
 		if (!is_dir($uploadPath)) {
 
@@ -100,6 +99,7 @@ class Myuploadlibrary {
 			"pdf",
 			"PDF",
 			"docx",
+			"DOCX",
 			"doc",
 			"xlsx",
 			"xls",
@@ -107,15 +107,25 @@ class Myuploadlibrary {
 		);
 		$file_extension = pathinfo($_FILES["file"]["name"], PATHINFO_EXTENSION);
 
-		if(in_array($file_extension, $allowed_image_extension)){
-
-			if($_FILES['file']['size'] < 50000000){
+		if (in_array($file_extension, $allowed_image_extension)) {
+			if ($_FILES['file']['size'] < 15728640) {
 
 				$config['upload_path'] = $uploadPath;
-				$config['allowed_types'] = 'png|jpg|jpeg|gif|PNG|pdf|PDF|docx|xlsx|xls|txt';
-				$new_name = time().".".$file_extension;
-				$config['file_name'] = $new_name;
-
+				$config['allowed_types'] = 'png|jpg|jpeg|gif|PNG|pdf|PDF|docx|DOCX|xlsx|xls|txt|';
+				//$config['allowed_types'] = '*';
+				// $new_name = time() . "." . $file_extension;
+				
+				$new_name = $_FILES['file']['name'];
+				$new_name = str_replace(' ', '_', $new_name);
+				$extentiona = explode(".", $new_name);
+				$last_extentiona = end($extentiona);
+				array_pop($extentiona);
+				$extentiona_implode = implode("_", $extentiona);
+				$mergedString = $extentiona_implode .'.'. $last_extentiona;
+				// echo '<pre>';print_r($mergedString);die;
+				// echo '<pre>';print_r($new_name);die;
+				$config['file_name'] = $mergedString;
+				
 				// Load and initialize upload library
 				$this->_CI->load->library('upload', $config);
 				$this->_CI->upload->initialize($config);
@@ -127,19 +137,20 @@ class Myuploadlibrary {
 					/*$uploadData[$i]['file_name'] = $fileData['file_name'];
 					$uploadData[$i]['uploaded_on'] = date("Y-m-d H:i:s");*/
 
-					$uploadData = $uploadPath."/".$new_name;
-					//print_r($uploadData);die;
+					$uploadData = $uploadPath."/".$mergedString;
+					
 				}
 
 			}else{
-				$uploadData['error'] = "Allow Only 50MB File.";
-			}
-		}else{
-			$uploadData['error'] = "Allow Only jpg,png,jpeg,gif and pdf file type.";
+				$uploadData['error'] = "Allow Only 15MB File.";
+			}	
+		} else {
+			
+			$uploadData['error'] = "Invalid file type. Please select a file with one of the following extensions: PNG,JPG,JPEG,PDF,DOCX,doc,xlsx,xls,txt";
 		}
 
 		return $uploadData;
-    }
+	}
 	/*Upload Single Image Files*/
 
 	/*Upload Multiple Video Files*/
@@ -170,7 +181,7 @@ class Myuploadlibrary {
 
 			if(in_array($file_extension,$allowed_video_extension)){
 
-				if($_FILES['file']['size'] < 50000000){
+				if ($_FILES['file']['size'] < 15728640) {
 
 					$config['upload_path'] = $uploadPath;
 					$config['allowed_types'] = 'mov|MOV|mp4|webm|mkv';
@@ -192,9 +203,9 @@ class Myuploadlibrary {
 					}
 
 				}else{
-					$uploadData['error'] = "Allow Only 50MB File.";
+					$uploadData['error'] = "Allow Only 15MB File.";
 				}
-
+ 
 			}else{
 				$uploadData['error'] = "Allow Only mov,MOV,mp4,webm,mkv file type.";
 			}
@@ -230,7 +241,7 @@ class Myuploadlibrary {
 
 			if(in_array($file_extension,$allowed_video_extension)){
 
-				if($_FILES['file']['size'] < 50000000){
+			if ($_FILES['file']['size'] < 15728640) {
 
 					$config['upload_path'] = $uploadPath;
 					$config['allowed_types'] = 'mov|MOV|mp4|webm|mkv';
@@ -254,7 +265,7 @@ class Myuploadlibrary {
 					}
 
 				}else{
-					$uploadData['error'] = "Allow Only 50MB File.";
+					$uploadData['error'] = "Allow Only 15MB File.";
 				}
 
 			}else{

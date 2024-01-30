@@ -33,9 +33,12 @@ class Application extends MY_Controller
 	public function details(){
 
 		$user_id = $this->input->post('user_id');
+		$expungement_id = $this->input->post('appid');
+		$params["userId"] = $_SESSION['uid'];
 		if(!empty($user_id)){
 			$params["results"] = $this->User_model->getuserdetails($user_id);
          $params['userName'] = $_SESSION['username'];
+		 $params['attachments'] = $this->Chat_model->getDocumentsUploadByUser_Admin($params["userId"], $expungement_id);
 			$this->load->view('header');
 			$this->load->view('navbar',$params);
 			$this->load->view("view_userdetail", $params);

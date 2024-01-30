@@ -1,0 +1,12 @@
+Task - Media file notification in Cron(03-11-2023)
+
+	-C:\laragon\www\henrycountyda\application\modules\admin\controllers\Chat.php
+	-C:\laragon\www\henrycountyda\application\modules\user\controllers\Chat.php
+	-C:\Users\LENOVO\AppData\Local\Temp\fz3temp-2\NotificationEmailsCron.php
+ 
+ 	And Add New feild in Cron Taable
+ 	-ALTER TABLE `cron` ADD `attachment` TEXT NOT NULL AFTER `message`;
+ 
+Task - Status Update Mail to User(03-11-2023)
+
+	-C:\laragon\www\quickexpunge\application\models\User_model.php

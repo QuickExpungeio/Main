@@ -18,31 +18,31 @@
 
 <div class="right_col" role="main">
 	<div class="">
-		<div class="clearfix"></div>
-		<button type="button" class="btn btn-xs" style="background:#FF7D3F;color:white" id="back">Back</button>
+	<a href="<?php echo site_url(); ?>admin/applications" style="background:#FF7D3F;color:white;border-radius: 3px;padding: 0 3px 0 3px;"> 
+		Back</a>`
 		<?php
-					// echo '<pre>';print_r($screen);die;
-					if ($screen == "open") { ?>
-						<div>
-							<h2 style="margin-left: 40%;"> <b>OPEN </b></h2>
-							<div class="clearfix"></div>
-						</div>
-					<?php } else if ($screen == "inprogress") { ?>
-						<div>
-							<h2 style="margin-left: 40%;">IN PROGRESS</h2>
-							<div class="clearfix"></div>
-						</div>
-					<?php } else if ($screen == "closed") { ?>
-						<div>
-							<h2 style="margin-left: 40%;"> CLOSED</h2>
-							<div class="clearfix"></div>
-						</div>
-					<?php } else if ($screen == "avg") { ?>
-						<div>
-							<h2 style="margin-left: 40%;">Average Working Time</h2>
-								<div class="clearfix"></div>
-						</div>
-					<?php } ?>
+		// echo '<pre>';print_r($screen);die;
+		if ($screen == "open") { ?>
+			<div>
+				<h2 style="margin-left: 40%;"> <b>OPEN </b></h2>
+				<div class="clearfix"></div>
+			</div>
+		<?php } else if ($screen == "inprogress") { ?>
+			<div>
+				<h2 style="margin-left: 40%;">IN PROGRESS</h2>
+				<div class="clearfix"></div>
+			</div>
+		<?php } else if ($screen == "closed") { ?>
+			<div>
+				<h2 style="margin-left: 40%;"> CLOSED</h2>
+				<div class="clearfix"></div>
+			</div>
+		<?php } else if ($screen == "avg") { ?>
+			<div>
+				<h2 style="margin-left: 40%;">Average Working Time</h2>
+				<div class="clearfix"></div>
+			</div>
+		<?php } ?>
 		<div class="row">
 			<div class="col-md-12 col-sm-12 col-xs-12" style="margin-top: 20px;">
 				<div class="x_panel">
@@ -60,6 +60,7 @@
 									<th>Driving License Number</th>
 									<th>Case Number</th>
 									<th>Status</th>
+									<th>Filled By</th>
 									<th>Chat</th>
 									<th>Actions</th>
 								</tr>
@@ -168,6 +169,9 @@
 				},
 				{
 					"data": "status"
+				},
+				{
+					"data": "fill_by"
 				},
 				{
 					"data": "chat"
