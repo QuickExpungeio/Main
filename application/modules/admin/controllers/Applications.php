@@ -56,8 +56,11 @@ class Applications extends MY_Controller
    function details($id = 0)
    {
       //  echo '<pre>';print_r($this->input->post());die;
-      $user_id = ($id == 0) ? $this->input->post('user_id') : $id;
-      $userID = $this->input->post('uid');
+      $segment = $this->uri->segment(5);
+      $base64decode = base64_decode($segment);
+      $parts = explode(",", $base64decode);
+      $user_id = $parts[0];
+      $userID = $parts[1];
       $expungement_id = $this->input->post('list_id');
       $params["results"] = $this->User_model->getuserdetails($user_id);
       $params['attachments'] = $this->Chat_model->getDocumentsUploadByUser_Admin($userID, $expungement_id);

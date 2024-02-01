@@ -321,7 +321,7 @@ class User_model extends CI_Model
       if (!empty($results)) {
          foreach ($results as $val) {
             // echo '<pre>';print_r($_SESSION['role']);die;
-
+            $role = $_SESSION['role'];
             $date_arrest = $val->arrest_month . "-" . $val->arrest_date . "-" . $val->arrest_year;
             $fill = $val->fill;
             $filled_by = ($fill == 2) ? "Admin" : "User";
@@ -335,9 +335,15 @@ class User_model extends CI_Model
             $exfid = $val->exfid;
             $uid = $val->uid;
             $base_url = base_url();
-            $string = $exfid.','.$uid;
+            $string = $exfid . ',' . $uid;
             $base64code = base64_encode($string);
-            $url = $base_url . 'admin/chat/index/'.$base64code;
+            if ($role == 'superadmin') {
+               $chaturl = $base_url . 'admin/chat/index/' . $base64code;
+               $viewurl = $base_url . 'admin/applications/details/index/' . $base64code;
+            } else if ($role == 'appuser') {
+               $chaturl = $base_url . 'user/chat/index/' . $base64code;
+               $viewurl = $base_url . 'user/application/details/index/' . $base64code;
+            }
             // echo '<pre>';print_r($string);die;
             $data[] = array(
                'deleteid' => '<input type="checkbox" id="' . $val->exfid . '" class="multdelete" value="' . $val->exfid . '">',
@@ -351,8 +357,8 @@ class User_model extends CI_Model
                'caseno'   => $val->case_no,
                'status'   => $val->status,
                // 'chat' => '<a href="javascript:frm_submit(' . $val->exfid . ',`Chat`,' . $val->uid . ');" class="btn btn-xs" style="float: right; background:#FF7D3F;color:white" >Chat  <i class="fa fa-comment"></i></a>'.$batch,
-               'chat' => '<a href='.$url.'><i class="fa fa-comments" style="font-size:30px"></i>' . $notiBatch . '</a>',
-               'action'   => '<a href="javascript:frm_submit(' . $val->exfid . ',`View`,' . $val->uid . ');" class="btn btn-xs" style="float: right; background:#FF7D3F;color:white"> <i class="fa fa-edit"></i> View Detail</a>',
+               'chat' => '<a href=' . $chaturl . '><i class="fa fa-comments" style="font-size:30px"></i>' . $notiBatch . '</a>',
+               'action'   => '<a href="' . $viewurl . '" class="btn btn-xs" style="float: right; background:#FF7D3F;color:white"> <i class="fa fa-edit"></i> View Detail</a>',
 
             );
          }
@@ -453,7 +459,7 @@ class User_model extends CI_Model
       $results = $queryRecords->result();
       if (!empty($results)) {
          foreach ($results as $val) {
-
+            $role = $_SESSION['role'];
             $date_arrest = $val->arrest_month . "-" . $val->arrest_date . "-" . $val->arrest_year;
             $fill = $val->fill;
             $filled_by = ($fill == 2) ? "Admin" : "User";
@@ -462,6 +468,18 @@ class User_model extends CI_Model
             //    //,count(expchat.is_Reeded) as is_Reeded
             //    $notiBatch = '<span class="NotificationBadge">' . $val->is_Reeded . '</span>';
             // }
+            $exfid = $val->exfid;
+            $uid = $val->uid;
+            $base_url = base_url();
+            $string = $exfid . ',' . $uid;
+            $base64code = base64_encode($string);
+            if ($role == 'superadmin') {
+               $chaturl = $base_url . 'admin/chat/index/' . $base64code;
+               $viewurl = $base_url . 'admin/applications/details/index/' . $base64code;
+            } else if ($role == 'appuser') {
+               $chaturl = $base_url . 'user/chat/index/' . $base64code;
+               $viewurl = $base_url . 'user/application/details/index/' . $base64code;
+            }
 
             $data[] = array(
                'deleteid' => '<input type="checkbox" id="' . $val->exfid . '" class="multdelete" value="' . $val->exfid . '">',
@@ -475,8 +493,8 @@ class User_model extends CI_Model
                'caseno'   => $val->case_no,
                'status'   => $val->status,
                // 'chat' => '<a href="javascript:frm_submit(' . $val->exfid . ',`Chat`,' . $val->uid . ');" class="btn btn-xs" style="float: right; background:#FF7D3F;color:white" >Chat  <i class="fa fa-comment"></i></a>'.$batch,
-               'chat' => '<a href="javascript:frm_submit(' . $val->exfid . ',`Chat`,' . $val->uid . ');" ><i class="fa fa-comments" style="font-size:30px"></i>' . $notiBatch . '</a>',
-               'action'   => '<a href="javascript:frm_submit(' . $val->exfid . ',`View`);" class="btn btn-xs" style="float: right; background:#FF7D3F;color:white"> <i class="fa fa-edit"></i> View Detail</a>',
+               'chat' => '<a href=' . $chaturl . ' ><i class="fa fa-comments" style="font-size:30px"></i>' . $notiBatch . '</a>',
+               'action'   => '<a href="' . $viewurl . '/'.$status.'" class="btn btn-xs" style="float: right; background:#FF7D3F;color:white"> <i class="fa fa-edit"></i> View Detail</a>',
 
             );
          }

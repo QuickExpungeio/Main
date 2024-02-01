@@ -18,16 +18,28 @@ class Chat extends MY_Controller
    public function index()
    {
       // echo '<pre>';print_r($_POST);
-      //  echo '<pre>';print_r($_SESSION);die;
-      $applicationID = $this->input->post('appid');
-      $expungement_id = $this->input->post('appid');
+      $segment = $this->uri->segment(4);
+      //  echo '<pre>';print_r($segment);die;
+      $base64decode = base64_decode($segment);
+      $parts = explode(",", $base64decode);
+      $applicationID = $parts[0];
+      $userID = $parts[1];
+      $expungement_id = $parts[0];
       $_SESSION['applicationidforchat'] = (isset($applicationID) && !empty($applicationID)) ? $applicationID : $_SESSION['applicationidforchat'];
       $params["chatData"] = $this->Chat_model->getwhere('expungement_chat', array('expungement_id' => $_SESSION['applicationidforchat']));
       $params["adminID"] = $this->Chat_model->getadmin($_SESSION['applicationidforchat']);
       $params["applicationId"] = $_SESSION['applicationidforchat'];
       $params["userId"] = $_SESSION['uid'];
       $params['userName'] = isset($_SESSION['username']) ? $_SESSION['username'] : "You";
-      $params['attachments'] = $this->Chat_model->getDocumentsUploadByUser_Admin($params["userId"], $expungement_id);
+      $params['attachments'] = $this->Chat_model->getDocumentsUploadByUser_Admin($userID, $expungement_id);
+
+      
+      // echo '<pre>applicationID = ';print_r($applicationID);
+      // echo '<pre>userID = ';print_r($userID);
+      // echo '<pre> params:-applicationId  = ';print_r($params["applicationId"] );
+      // echo '<pre> params:-userId  = ';print_r($params["userId"] );
+      // echo '<pre>';print_r($_POST);die;
+
       // echo '<pre>';
       $this->Chat_model->update('expungement_chat', array("is_Reeded" => 1), array('expungement_id' => $applicationID));
       $this->db->select('email');

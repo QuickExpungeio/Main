@@ -32,7 +32,11 @@ class Application extends MY_Controller
 	}
 	public function details(){
 
-		$user_id = $this->input->post('user_id');
+		$segment = $this->uri->segment(5);
+      $base64decode = base64_decode($segment);
+      $parts = explode(",", $base64decode);
+      $user_id = $parts[0];
+      $userID = $parts[1];
 		$expungement_id = $this->input->post('appid');
 		$params["userId"] = $_SESSION['uid'];
 		if(!empty($user_id)){

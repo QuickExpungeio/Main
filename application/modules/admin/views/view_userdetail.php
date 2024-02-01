@@ -7,8 +7,17 @@
 <div class="right_col" role="main">
    <div id="gif" class="gif" style="display:block"></div>
    <div class="">
-      <button type="button" class="btn btn-xs" style="background:#FF7D3F;color:white" id="back">Back</button>
-      <!-- <a href="javascript:frm_submit(<?php echo '`' . $results[0]->exfid . '`,`Chat`,`' . $results[0]->uid . '`'  ?>);">back</a> -->
+      <!-- <button type="button" class="btn btn-xs" style="background:#FF7D3F;color:white" id="back">Back</button> -->
+      <?php if ($this->uri->segment(6) == 'open') { ?>
+         <a href="<?php echo base_url(); ?>admin/applications/count_details/open" class="btn btn-xs" style="background:#FF7D3F;color:white">back</a>
+      <?php   } else if ($this->uri->segment(6) == 'inprogress') { ?>
+         <a href="<?php echo base_url(); ?>admin/applications/count_details/inprogress" class="btn btn-xs" style="background:#FF7D3F;color:white">back</a>
+      <?php } else if ($this->uri->segment(6) == 'closed') { ?>
+         <a href="<?php echo base_url(); ?>admin/applications/count_details/closed" class="btn btn-xs" style="background:#FF7D3F;color:white">back</a>
+      <?php } else { ?>
+         <a href="<?php echo base_url(); ?>user/application" class="btn btn-xs" style="background:#FF7D3F;color:white">back</a>
+      <?php } ?>
+
       <div class="clearfix"></div>
       <div class="row">
          <div class="col-md-12 col-sm-12 col-xs-12">
@@ -23,12 +32,12 @@
                         $base_url = base_url();
                         $string = $exfid . ',' . $uid;
                         $base64code = base64_encode($string);
-                        $url = $base_url . 'admin/chat/index/' . $base64code;
-                        // echo '<pre>';print_r($url);die;
+                        $chaturl = $base_url . 'admin/chat/index/' . $base64code;
+                        // echo '<pre>';print_r($chaturl);die;
                   ?>
                         <h2><b>Record
                            </b>
-                           <a href="<?php echo $url; ?>" class="btn btn-warning themeOrangeColor" style="float:right">Chat</a>
+                           <a href="<?php echo $chaturl; ?>" class="btn btn-warning themeOrangeColor" style="float:right">Chat</a>
                         </h2>
                         <!-- <?php if ($this->session->flashdata('success')) { ?>
               <div class="alert alert-success alert-dismissible">
@@ -256,18 +265,16 @@
                         <tr>
                            <td></td>
                            <td>
-                              <a href="<?php echo $url; ?>" class="btn btn-warning themeOrangeColor">Chat</a></h2>
+                              <a href="<?php echo $chaturl; ?>" class="btn btn-warning themeOrangeColor">Chat</a></h2>
                            </td>
                         </tr>
                      </tbody>
                   </table>
             <?php }
                   } ?>
-
                </div>
             </div>
          </div>
-
       </div>
       <div class="row">
          <div class="col-md-12 col-lg-12 col-sm-12">
@@ -469,9 +476,13 @@
    });
    $(document).ready(function() {
       $('#back').on('click', function() {
-         <?php $send = $_SERVER['HTTP_REFERER']; ?>
-         var redirect_to = "<?php echo $send; ?>";
-         window.location.href = redirect_to;
+         // <?php //$send = $_SERVER['HTTP_REFERER']; 
+            ?>
+         // var redirect_to = "<?php //echo $send; 
+                                 ?>";
+         // window.location.href = redirect_to;
+         event.preventDefault();
+         history.back(1);
       });
    });
 </script>c

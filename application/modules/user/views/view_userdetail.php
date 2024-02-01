@@ -1,7 +1,8 @@
 <div class="right_col" role="main">
    <div id="gif" class="gif" style="display:block"></div>
    <div class="">
-   <button type="button" class="btn btn-xs" style="background:#FF7D3F;color:white;margin-top: 5px" id="back">Back</button>
+   <!--<button type="button" class="btn btn-xs" style="background:#FF7D3F;color:white;margin-top: 5px" id="back">Back</button>-->
+   <a href="<?php echo base_url();?>user/application" class="btn btn-xs" style="background:#FF7D3F;color:white;margin-top: 5px">Back</a>
       <div class="clearfix"></div>
       <div class="row">
          <div class="col-md-12 col-sm-12 col-xs-12">
@@ -10,10 +11,16 @@
                   <?php
                   if (!empty($results)) {
                      foreach ($results as $user) {
+                        $exfid = $user->exfid;
+                        $uid = $user->uid;
+                        $base_url = base_url();
+                        $string = $exfid . ',' . $uid;
+                        $base64code = base64_encode($string);
+                        $chaturl = $base_url . 'user/chat/index/' . $base64code;
                   ?>
 
                         <h2><b>Record Detail</b>
-                           <a href="javascript:frm_submit(<?php echo '`' . $user->exfid . '`,`Chat`,`' . $user->uid . '`'  ?>);" class="btn btn-warning themeOrangeColor" style="float:right">Chat</a>
+                           <a href="<?php echo $chaturl; ?>" class="btn btn-warning themeOrangeColor" style="float:right">Chat</a>
                         </h2>
                         <h5><b>Date Received: <?php print date('m-d-Y', strtotime($user->create_date)); ?></b></h5>
                         <h5><b>No. <?php print $user->exfid; ?></b></h5>
@@ -129,7 +136,7 @@
                               <tr>
                                  <td></td>
                                  <td>
-                                    <a href="javascript:frm_submit(<?php echo '`' . $user->exfid . '`,`Chat`,`' . $user->uid . '`'  ?>);" class="btn btn-warning themeOrangeColor">Chat</a></h2>
+                                    <a href="<?php echo $chaturl; ?>" class="btn btn-warning themeOrangeColor">Chat</a></h2>
                                  </td>
                               </tr>
                            </tbody>
@@ -219,9 +226,11 @@
    }
    $(document).ready(function() {
 		$('#back').on('click', function() {
-			<?php $send = $_SERVER['HTTP_REFERER']; ?>
-			var redirect_to = "<?php echo $send; ?>";
-			window.location.href = redirect_to;
+			// <?php //$send = $_SERVER['HTTP_REFERER']; ?>
+			// var redirect_to = "<?php //echo $send; ?>";
+			// window.location.href = redirect_to;
+         event.preventDefault();
+         history.back(1);
 		});
 	});
 </script>

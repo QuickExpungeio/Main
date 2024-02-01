@@ -1,22 +1,21 @@
 <style>
+	.NotificationBadge {
+		display: inline;
+		min-width: 10px;
+		padding: 2px 6px;
+		font-size: 8px;
+		font-weight: 700;
+		line-height: 1;
+		color: #fff;
+		text-align: center;
+		white-space: nowrap;
+		vertical-align: top;
+		background-color: #ef6726;
+		border-radius: 10px;
+		margin-bottom: 50%;
+	}
 
-.NotificationBadge {
-    display: inline;
-    min-width: 10px;
-    padding: 2px 6px;
-    font-size: 8px;
-    font-weight: 700;
-    line-height: 1;
-    color: #fff;
-    text-align: center;
-    white-space: nowrap;
-    vertical-align: top;
-    background-color: #ef6726;
-    border-radius: 10px;
-    margin-bottom:50%;
-}
-
-.small-box {
+	.small-box {
 		padding: 7%;
 	}
 
@@ -24,6 +23,7 @@
 		background-color: #ff7d3f;
 		color: white;
 	}
+
 	.btn-warning {
 		font-size: smaller;
 	}
@@ -68,45 +68,53 @@
 
 							<div class="col-md-12 col-sm-12 col-xs-12">
 								<table class="table table-striped table-bordered table-responsive datatable ">
-								<thead>
-									<tr>
-										<th>App Number</th>
-										<th>First Name</th>
-										<th>Lastname</th>
-										<th>Email Address</th>
-										<th>Case Number</th>
-										<th>Status</th>
-										<th>Direct Message</th>
-										<th>Details</th>
-									</tr>
-								</thead>
-								<tbody>
-									<?php if(!empty($applications)){
-										foreach ($applications as $val) {
-											$notiBatch='';
-											if($val->is_Reeded!=0){
-												$notiBatch='<span class="NotificationBadge">'.$val->is_Reeded.'</span>';
-											}
+									<thead>
+										<tr>
+											<th>App Number</th>
+											<th>First Name</th>
+											<th>Lastname</th>
+											<th>Email Address</th>
+											<th>Case Number</th>
+											<th>Status</th>
+											<th>Direct Message</th>
+											<th>Details</th>
+										</tr>
+									</thead>
+									<tbody>
+										<?php if (!empty($applications)) {
+											foreach ($applications as $val) {
+												$notiBatch = '';
+												if ($val->is_Reeded != 0) {
+													$notiBatch = '<span class="NotificationBadge">' . $val->is_Reeded . '</span>';
+												}
+												$exfid = $val->exfid;
+												$uid = $val->uid;
+												$base_url = base_url();
+												$string = $exfid . ',' . $uid;
+												$base64code = base64_encode($string);
+													$chaturl = $base_url . 'user/chat/index/' . $base64code;
+													$viewurl = $base_url . 'user/application/details/index/' . $base64code;
 										?>
-									<tr>
-										<td><?php echo $val->exfid ?></td>
-										<td><?php echo $val->firstname ?></td>
-										<td><?php echo $val->lastname ?></td>
-										<td><?php echo $val->email ?></td>
-										<td><?php echo $val->case_no ?></td>
-										<td><?php echo $val->status ?></td>
-										<td><a href="javascript:frm_submit(<?php echo $val->exfid ?>,`Chat`,<?php echo $val->uid ?>);"><i class="fa fa-comments" style="font-size:30px"></i><?php echo $notiBatch?></a></td>
-										<td><a href="javascript:frm_submit(<?php echo $val->exfid ?>,`View`,<?php echo $val->uid ?>);" class="btn btn-warning themeOrangeColor btn-lg">VIEW DETAILS</a></td>
+												<tr>
+													<td><?php echo $val->exfid ?></td>
+													<td><?php echo $val->firstname ?></td>
+													<td><?php echo $val->lastname ?></td>
+													<td><?php echo $val->email ?></td>
+													<td><?php echo $val->case_no ?></td>
+													<td><?php echo $val->status ?></td>
+													<td><a href="<?php echo $chaturl; ?>"><i class="fa fa-comments" style="font-size:30px"></i><?php echo $notiBatch ?></a></td>
+													<td><a href="<?php echo $viewurl; ?>" class="btn btn-warning themeOrangeColor btn-lg">VIEW DETAILS</a></td>
 
-									</tr>
-									<?php }}?>
-								</tbody>
+												</tr>
+										<?php }
+										} ?>
+									</tbody>
 								</table>
 
 							</div>
 							<!-- <?php if (!empty($applications)) {
-								foreach ($applications as $val) {
-							?>
+										foreach ($applications as $val) {
+									?>
 									<div class="col-lg-3 col-xs-6" style="margin-top:1%">
 										<div class="small-box bg-aqua">
 											<div class="inner">
@@ -122,7 +130,7 @@
 										</div>
 									</div>
 								<?php }
-							} else { ?>
+									} else { ?>
 								<div style="text-align: center;">No Application Available</div>
 							<?php } ?> -->
 						</div>
@@ -138,17 +146,16 @@ echo form_open('user/chat', $attributes); ?>
 <input name="appid" type="hidden" value="" />
 <input name="user_id" type="hidden" value="" />
 <script type="text/javascript" language="javascript">
-	function frm_submit(appID,flag,uid=0) {
+	function frm_submit(appID, flag, uid = 0) {
 		document.frm.appid.value = appID;
 		document.frm.user_id.value = appID;
-		if(flag=="View"){
+		if (flag == "View") {
 			document.frm.action = "<?php echo site_url('user/application/details'); ?>";
 		}
-		if(flag=="Chat"){
+		if (flag == "Chat") {
 			document.frm.action = "<?php echo site_url('user/chat'); ?>";
 		}
 		document.frm.submit();
 
 	}
-
 </script>
